@@ -12,3 +12,4 @@ C:\Users\Bogdan\Desktop\Projects\cpp-app\cs-windowsforms-app\obj\Debug\netcoreap
 C:\Users\Bogdan\Desktop\Projects\cpp-app\cs-windowsforms-app\obj\Debug\netcoreapp3.1\cs-windowsforms-app.dll
 C:\Users\Bogdan\Desktop\Projects\cpp-app\cs-windowsforms-app\obj\Debug\netcoreapp3.1\cs-windowsforms-app.pdb
 C:\Users\Bogdan\Desktop\Projects\cpp-app\cs-windowsforms-app\obj\Debug\netcoreapp3.1\cs-windowsforms-app.genruntimeconfig.cache
+C:\Users\Bogdan\Desktop\Projects\cpp-app\cs-windowsforms-app\obj\Debug\netcoreapp3.1\cs-windowsforms-app.csprojAssemblyReference.cache
