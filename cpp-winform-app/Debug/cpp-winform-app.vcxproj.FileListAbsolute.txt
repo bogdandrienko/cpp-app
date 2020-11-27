@@ -1,0 +1,2 @@
+C:\Users\Bogdan\Desktop\Projects\cpp-app\cpp-winform-app\Debug\cpp_winform_app.main.resources
+C:\Users\Bogdan\Desktop\Projects\cpp-app\cpp-winform-app\Debug\cpp-winform-app.vcxproj.GenerateResource.cache
