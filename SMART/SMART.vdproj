@@ -37,6 +37,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -47,7 +55,7 @@
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
-        "Compression" = "3:2"
+        "Compression" = "3:3"
         "SignOutput" = "11:FALSE"
         "CertificateFile" = "8:"
         "PrivateKeyFile" = "8:"
@@ -165,7 +173,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SMART"
         "ProductCode" = "8:{1C8EAB5B-9E37-41F9-B5D4-DF3A104E40ED}"
-        "PackageCode" = "8:{6FA24378-B314-45B6-910C-2A1BFBD97E26}"
+        "PackageCode" = "8:{E0333856-934D-4EED-998E-7523BF1D3951}"
         "UpgradeCode" = "8:{4B80A28F-9E9A-4E99-842C-43AAD1DBC6D7}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -439,8 +447,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:ВНИМАНИЕ! Эта компьютерная программа защищена законом об авторских правах и международными соглашениями. Несанкционированное копирование или распространение этой программы или любой ее части может привести к серьезным гражданским или уголовным санкциям и будет преследоваться по закону в максимально возможной степени."
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -643,8 +651,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:ВНИМАНИЕ! Эта компьютерная программа защищена законом об авторских правах и международными соглашениями. Несанкционированное копирование или распространение этой программы или любой ее части может привести к серьезным гражданским или уголовным санкциям и будет преследоваться по закону в максимально возможной степени."
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }

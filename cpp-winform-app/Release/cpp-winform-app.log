@@ -1,1 +1,6 @@
-﻿  cpp-winform-app.vcxproj -> C:\Users\Bogdan\Desktop\Projects\cpp-app\Release\PROJECT.exe
+﻿  pch.cpp
+  AssemblyInfo.cpp
+  main.cpp
+  Создание кода...
+  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
+  cpp-winform-app.vcxproj -> C:\Users\Bogdan\Desktop\Projects\cpp-app\Release\PROJECT.exe

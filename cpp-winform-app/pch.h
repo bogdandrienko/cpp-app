@@ -1,12 +1,15 @@
-// pch.h: Dies ist eine vorkompilierte Headerdatei.
-// Die unten aufgeführten Dateien werden nur einmal kompiliert, um die Buildleistung für zukünftige Builds zu verbessern.
-// Dies wirkt sich auch auf die IntelliSense-Leistung aus, Codevervollständigung und viele Features zum Durchsuchen von Code eingeschlossen.
-// Die hier aufgeführten Dateien werden jedoch ALLE neu kompiliert, wenn mindestens eine davon zwischen den Builds aktualisiert wird.
-// Fügen Sie hier keine Dateien hinzu, die häufig aktualisiert werden sollen, da sich so der Leistungsvorteil ins Gegenteil verkehrt.
+#pragma once //  конструкция, применяемая для избежания проблем с «двойным подключением»
 
-#ifndef PCH_H
+// pch.h: это предварительно скомпилированный заголовочный файл.
+// Файлы, перечисленные ниже, компилируются только один раз, чтобы улучшить производительность сборки для будущих сборок.
+// Это также влияет на производительность IntelliSense, включая автозавершение кода и многие функции просмотра кода.
+// Однако перечисленные здесь файлы ВСЕ будут перекомпилированы, если хотя бы один из них будет обновлен между сборками.
+// Не добавляйте сюда файлы, которые вы хотите часто обновлять, так как это снизит производительность.
+
+#ifndef PCH_H // Ниже находятся заголовки для предварительной компиляции.
 #define PCH_H
+// Тут находятся заголовки для предварительной компиляции.
 
-// Fügen Sie hier Header hinzu, die vorkompiliert werden sollen.
+#endif // Конец ввода заголовков для предварительной копиляции.
 
-#endif //PCH_H
+

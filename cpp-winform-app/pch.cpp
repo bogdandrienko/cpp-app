@@ -1,5 +1,5 @@
-// pch.cpp: Quelldatei, die dem vorkompilierten Header entspricht
+//pch.cpp: исходный файл, соответствующий предварительно скомпилированному заголовку
 
 #include "pch.h"
 
-// Bei der Verwendung vorkompilierter Header ist diese Quelldatei für eine erfolgreiche Kompilierung erforderlich.
+// При использовании предварительно скомпилированных заголовков этот исходный файл необходим для успешной компиляции.
