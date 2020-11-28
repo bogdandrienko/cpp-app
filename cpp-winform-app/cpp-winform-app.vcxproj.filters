@@ -1,58 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Quelldateien">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Headerdateien">
+    <Filter Include="Файлы заголовков">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Ressourcendateien">
+    <Filter Include="Файлы заголовков\System">
+      <UniqueIdentifier>{d12848db-6a73-444b-9ea3-9ca17fdea286}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Quelldateien\System">
-      <UniqueIdentifier>{44139ac2-08ee-4c55-a1f1-9d67eea9be16}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headerdateien\System">
-      <UniqueIdentifier>{d12848db-6a73-444b-9ea3-9ca17fdea286}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Ressourcendateien\System">
+    <Filter Include="Файлы ресурсов\System">
       <UniqueIdentifier>{488c8e72-35d7-4f10-9c0d-05404a426e91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Исходные файлы\System">
+      <UniqueIdentifier>{44139ac2-08ee-4c55-a1f1-9d67eea9be16}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
-      <Filter>Headerdateien\System</Filter>
+      <Filter>Файлы заголовков\System</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>Headerdateien\System</Filter>
+      <Filter>Файлы заголовков\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="AssemblyInfo.cpp">
-      <Filter>Quelldateien\System</Filter>
+      <Filter>Исходные файлы\System</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>Quelldateien\System</Filter>
+      <Filter>Исходные файлы\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico">
-      <Filter>Ressourcendateien</Filter>
+      <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc">
-      <Filter>Ressourcendateien\System</Filter>
+      <Filter>Файлы ресурсов\System</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Расширения.json">
+      <Filter>Файлы ресурсов\System</Filter>
+    </None>
   </ItemGroup>
 </Project>
