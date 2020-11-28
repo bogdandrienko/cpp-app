@@ -1,3 +1,0 @@
-C:\Users\Bogdan\Desktop\Projects\cpp-app\cpp-winform-app\Release\cpp_winform_app.main.resources
-C:\Users\Bogdan\Desktop\Projects\cpp-app\cpp-winform-app\Release\cpp-winform-app.vcxproj.GenerateResource.cache
-C:\Users\Bogdan\Desktop\Projects\cpp-app\cpp-winform-app\Release\cpp-winform-app.vcxprojAssemblyReference.cache

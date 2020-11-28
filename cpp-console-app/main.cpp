@@ -1,27 +1,57 @@
 ﻿// cpp-console-app.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 
 #include <iostream>
-#include <windows.h> // для работы с функциями типа "Sleep"
 
 void doNotCloseConsole(bool Close)
 {
-	if (Close) {
+	if (Close) 
+	{
 		std::cout << "Нажмите ENTER для закрытия приложения: " << std::endl;;
 		std::cin.ignore();
 		std::cin.get();
 	}
 }
 
+int mathematick(int firstValue, char argument, int secondValue)
+{
+	switch (argument)
+	{
+	case '*':
+		return firstValue * secondValue;
+	case '/':
+		return firstValue / secondValue;
+	case '+':
+		return firstValue + secondValue;
+	case '-':
+		return firstValue - secondValue;
+	case '%':
+		return firstValue % secondValue;
+	default:
+		std::cout << "Ошибка расчёта!\n";
+	}
+	return 0;
+}
+
 int main()
 {	
-	setlocale(LC_ALL, "ru");
-	std::cout << "Введите число: "; // просим пользователя ввести любое число
+	//setlocale(LC_ALL, "ru");
+	setlocale(0, "");
+
+	std::cout << "Введите первое число: "; // просим пользователя ввести первое число
 	int a = 0;
 	std::cin >> a; // получаем пользовательское число и сохраняем его в переменную a
-	std::cout << "Вы ввели " << a << "\n";
+
+	std::cout << "Введите действие: "; // просим пользователя ввести действие
+	char b = '0';
+	std::cin >> b; // получаем действие и сохраняем его в переменную b
+	
+	std::cout << "Введите второе число: "; // просим пользователя ввести второе число
+	int c = 0;
+	std::cin >> c; // получаем пользовательское число и сохраняем его в переменную с
+
+	std::cout << "Ответ: " << mathematick(a, b, c) << "\n";
 
 	doNotCloseConsole(true);
-
 	return 0;
 }
 
