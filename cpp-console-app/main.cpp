@@ -2,12 +2,14 @@
 
 #include <iostream>
 #include "main.h"
+#include <string>
+#include <Windows.h>
 
 int closeConsole(bool Close)
 {
 	if (!Close) 
 	{
-		std::cout << "Нажмите ENTER для закрытия приложения: " << std::endl;;
+		std::cout << std::endl << "Нажмите ENTER для закрытия приложения: " << std::endl;
 		std::cin.ignore();
 		std::cin.get();
 	}
@@ -62,8 +64,16 @@ int mathematick()
 int main()
 {	
 	setlocale(0, "");
+	SetConsoleCP(1251);
 
-	std::cout << "Ответ: " << mathematick() << "\n";
+	//std::cout << "Ответ: " << mathematick() << "\n";
+	
+	std::string Text = "Пусто";
+
+	std::cin >> Text;
+
+	std::cout << "Вы написали: " << Text;
+
 	
 	closeConsole(false);
 }
