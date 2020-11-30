@@ -4,9 +4,9 @@
 /.vs
 
 # testing
-/Debug
+#/Debug
 
 # production
-/Release
+#/Release
 
 # misc
