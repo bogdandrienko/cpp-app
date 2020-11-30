@@ -1,81 +1,42 @@
 ﻿// cpp-console-app.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 
+// Заголовочные файлы:
 #include <iostream>
-#include "main.h"
 #include <string>
 #include <Windows.h>
+#include <cmath>
 
-int closeConsole(bool Close)
-{
-	if (!Close) 
-	{
-		std::cout << std::endl << "Нажмите ENTER для закрытия приложения: " << std::endl;
-		std::cin.ignore();
-		std::cin.get();
-	}
-
-	return 0;
-}
-
-int inputValue(std::string numberValue)
-{
-	std::cout << "Введите " << numberValue << " число: "; // просим пользователя ввести число
-	int inputValue = 0;
-	std::cin >> inputValue; // получаем пользовательское число и сохраняем его в переменную
-
-	return inputValue;
-}
-
-char inputChar()
-{
-	std::cout << "Введите действие: "; // просим пользователя ввести действие
-	char inputChar = '0';
-	std::cin >> inputChar; // получаем действие и сохраняем его в переменную b
-
-	return inputChar;
-}
-
-int mathematick()
-{
-	int firstValue = inputValue("первое");
-	char argument = inputChar();
-	int secondValue = inputValue("второе");
-
-	switch (argument)
-	{
-	case '*':
-		return firstValue * secondValue;
-	case '/':
-		return firstValue / secondValue;
-	case '+':
-		return firstValue + secondValue;
-	case '-':
-		return firstValue - secondValue;
-	case '%':
-		return firstValue % secondValue;
-	default:
-		std::cout << "Ошибка расчёта!\n";
-	}
-	return 0;
-}
+#include "main.h"
 
 
-
+// Главная функция:
 int main()
 {	
 	setlocale(0, "");
 	SetConsoleCP(1251);
 
-	std::cout << "Ответ: " << mathematick() << "\n";
+	//std::cout << "Ответ: " << mathematick() << "\n";
 	
+
+	std::cout << "Ответ: " << pow(2, 3) << "\n";
+
+	std::cout << "Ответ: " << abs(-23) << "\n";
+
+	std::cout << "Ответ: " << sqrt(ceil(15.8)) << "\n";
+
+	std::cout << "Ответ: " << ceil(23.5) << "\n";
+
+	std::cout << "Ответ: " << floor(23.5) << "\n";
 
 	//std::string Text = "Пусто";
 	//std::cin >> Text;
 	//std::cout << "Вы написали: " << Text;
 
+
 	
 	closeConsole(false);
 }
+
 
 
  //Далее будут подсказки по работе в С++:
@@ -92,6 +53,15 @@ int main()
 		предварительные объявления (как бы "заголовки" функций) программисты выносят вообще 
 		в отдельный файл с расширением *.h, который так и называется "заголовочный файл". 
 		Это позволяет размещать функции в файле *.cpp не переживая об их порядке следования.
+
+		По мере увеличения размера программ весь код уже не помещается в нескольких файлах, 
+		записывать каждый раз предварительные объявления для функций, которые мы хотим использовать, 
+		но которые находятся в других файлах, становится всё утомительнее и утомительнее. 
+		Хорошо было бы, если бы все предварительные объявления находились в одном месте, не так ли?
+
+Файлы .cpp не являются единственными файлами в проектах. Есть еще один тип файлов — заголовочные 
+файлы (или «заголовки»), которые имеют расширение .h. Целью заголовочных файлов является удобное 
+хранение набора объявлений объектов для их последующего использования в других программах.
 */
 
 // main.cpp
