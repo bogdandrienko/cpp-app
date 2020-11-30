@@ -66,20 +66,19 @@ int main()
 	setlocale(0, "");
 	SetConsoleCP(1251);
 
-	//std::cout << "Ответ: " << mathematick() << "\n";
+	std::cout << "Ответ: " << mathematick() << "\n";
 	
-	std::string Text = "Пусто";
 
-	std::cin >> Text;
-
-	std::cout << "Вы написали: " << Text;
+	//std::string Text = "Пусто";
+	//std::cin >> Text;
+	//std::cout << "Вы написали: " << Text;
 
 	
 	closeConsole(false);
 }
 
 
-// Далее будут подсказки по работе в С++:
+ //Далее будут подсказки по работе в С++:
 // **************************************
 
 
