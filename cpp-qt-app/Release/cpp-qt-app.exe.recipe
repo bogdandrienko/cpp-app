@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\Bogdan\Desktop\Projects\cpp-app\Release\cpp-qt-app.exe</FullPath>
+      <FullPath>C:\Projects\cpp-app\Release\cpp-qt-app.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
