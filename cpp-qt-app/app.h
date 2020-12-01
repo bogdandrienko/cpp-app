@@ -1,10 +1,6 @@
 #pragma once
-
-#include <QtWidgets/QMainWindow>
-#include "ui_app.h"
-#include <qmessagebox.h>
-#include <memory>
 #include "stdafx.h"
+
 
 class app : public QMainWindow
 {

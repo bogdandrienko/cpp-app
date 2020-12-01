@@ -1,5 +1,6 @@
-#include "app.h"
-#include <QtWidgets/QApplication>
+// main.cpp: определяет точку входа для приложения.
+
+#include "stdafx.h"
 
 int main(int argc, char *argv[])
 {

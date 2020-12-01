@@ -15,8 +15,8 @@ int closeConsole(bool Close)
 {
 	if (!Close)
 	{
-		std::cout << std::endl << "Нажмите ENTER для закрытия приложения: " << std::endl;
-		std::cin.ignore();
+		std::cout << std::endl << "\n" << "Нажмите ENTER для закрытия приложения: " << std::endl;
+		//std::cin.ignore();
 		std::cin.get();
 	}
 
