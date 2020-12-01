@@ -88,7 +88,7 @@
 		*/
 		},
 
-		// "ПЕРЕМЕННЫЕ" - ...
+		// "ПЕРЕМЕННЫЕ" - типы, свойства и взаимодействие с переменными.
 		"ПЕРЕМЕННЫЕ": {
 
 			//Типы, свойства, объявление, присвоение и инициализация переменных. 'VALUE' - абстрактное имя переменной для примера.
@@ -318,51 +318,51 @@
 
 						// Массив целочисленных значений
 						/*
-				Описание:
-					int arrVALUE - Массив целочисленных значений.
+							Описание:
+								int arrVALUE - Массив целочисленных значений.
 
-				Примеры:
-					10(15) // значение типа int
-					int arrVALUE[3]; // объявление массива переменных типа int
-					arrVALUE = { 5, -12, -12 }; // присвоение массиву переменных значений типа int
-					int arrVALUE[3] = { 5, -12, -12 }; // инициализация массива переменных типа int
-				*/
+							Примеры:
+								10(15) // значение типа int
+								int arrVALUE[3]; // объявление массива переменных типа int
+								arrVALUE = { 5, -12, -12 }; // присвоение массиву переменных значений типа int
+								int arrVALUE[3] = { 5, -12, -12 }; // инициализация массива переменных типа int
+						*/
 
 						// Массив не целочисленных значений
 						/*
-				Описание:
-					float arrVALUE - Массив не целочисленных значений.
+							Описание:
+								float arrVALUE - Массив не целочисленных значений.
 
-				Примеры:
-					5.2(12.7) // значение типа float
-					float arrVALUE[3]; // объявление массива переменных типа float
-					arrVALUE = { 5.2, -12.3, 12.7 }; // присвоение массиву переменных значений типа float
-					float arrVALUE[3] = { 5.2, -12.3, 12.7 }; // инициализация массива переменных типа float
-				*/
+							Примеры:
+								5.2(12.7) // значение типа float
+								float arrVALUE[3]; // объявление массива переменных типа float
+								arrVALUE = { 5.2, -12.3, 12.7 }; // присвоение массиву переменных значений типа float
+								float arrVALUE[3] = { 5.2, -12.3, 12.7 }; // инициализация массива переменных типа float
+						*/
 
 						// Массив символьных значений
 						/*
-				Описание:
-					char arrVALUE - Массив символьных значений.
+							Описание:
+								char arrVALUE - Массив символьных значений.
 
-				Примеры:
-					'A'('B') // значение типа char
-					char arrVALUE[4]; // объявление массива переменных типа char
-					arrVALUE = {'a', 'b', 'c', '\0'}; // присвоение массиву переменных значений типа char
-					char arrVALUE[4] = {'a', 'b', 'c', '\0'}; // инициализация массива переменных типа char
-				*/
+							Примеры:
+								'A'('B') // значение типа char
+								char arrVALUE[4]; // объявление массива переменных типа char
+								arrVALUE = {'a', 'b', 'c', '\0'}; // присвоение массиву переменных значений типа char
+								char arrVALUE[4] = {'a', 'b', 'c', '\0'}; // инициализация массива переменных типа char
+						*/
 
 						// Массив булевых значений
 						/*
-				Описание:
-					bool arrVALUE - Массив булевых значений.
+							Описание:
+								bool arrVALUE - Массив булевых значений.
 
-				Примеры:
-					true(false) // значение типа bool
-					bool arrVALUE[4]; // объявление массива переменных типа bool
-					arrVALUE = {true, false, true, false}; // присвоение массиву переменных значений типа bool
-					bool arrVALUE[4] = {true, false, true, false}; // инициализация массива переменных типа bool
-				*/
+							Примеры:
+								true(false) // значение типа bool
+								bool arrVALUE[4]; // объявление массива переменных типа bool
+								arrVALUE = {true, false, true, false}; // присвоение массиву переменных значений типа bool
+								bool arrVALUE[4] = {true, false, true, false}; // инициализация массива переменных типа bool
+						*/
 
 					},
 
@@ -380,7 +380,17 @@
 					ptarrVALUE = { 5, -12, -12 }; // присвоение массиву переменных значений типа int
 					int *ptarrVALUE = new int[VALUE]({ 5, -12, -12 }); // инициализация динамического массива
 					delete [] ptarrVALUE; // очистка памяти
-				*/
+
+					//Динамические массивы
+					int VALUE = 5; // инициализация целочисленной переменной, с будущим размером динамического массива.
+					int *ptarrVALUE = new int[VALUE]; // Объявление массива и динамическое выделение памяти для массива.
+					for (int count = 0; count < 10; count++) {
+						ptarrVALUE[count] = count;
+						cout << ptarrVALUE[count] << " ";
+					}
+					delete[] ptarrVALUE; // очистка памяти
+		
+						*/
 
 						// Массив не целочисленных значений
 						/*
@@ -409,8 +419,22 @@
 					...
 			*/
 
-					}
+					},
 
+					//ДВУМЕРНЫЙ МАССИВ - массив, состоящий из одномерных массивов.
+					"ДВУМЕРНЫЙ МАССИВ": {
+						// ДВУМЕРНЫЙ МАССИВ - массив, состоящий из одномерных массивов.
+						/*
+							Описание:
+								int arrARRVALUE - массив, состоящий из одномерных массивов.
+
+							Примеры:
+								10(15) // значение типа int
+								int arrARRVALUE[2][3]; // объявление двумерного массива переменных типа int
+								arrARRVALUE[2][3] = 10; // присвоение двумерному массиву переменных значений типа int
+								int arrARRVALUE[2][3] = { {1, 2}, {3, 4}, {5, 6} }; // инициализация двумерного массива переменных типа int
+						*/
+					}
 
 
 
@@ -456,9 +480,24 @@
 				Примеры:
 					string VALUE; // объявление переменной типа string
 					VALUE = "anything"; // присвоение переменной значения типа string
-					string VALUE = "anything";	// инициализация переменной типа string			
+					string VALUE = "anything";	// инициализация переменной типа string
+
+					char arrcharHello[6] = { 'H', 'e', 'l', 'l', 'o', '\0' }; // представление строки как массив символов
+					for (int i = 0; i < 5; i++) {
+						cout << arrcharHello[i];
+					}
+					cout << endl;
+					string hello = "Hello"; // представление строки с помощью типа данных string
+					cout << hello << endl;
 			*/
 
+					//Вектора - векторный тип данных.
+					/*
+						vector <int> vect(10);
+						int arr[3] = { 23, 34, 56 };
+						vect.insert(vect.begin(), arr, arr + 2);
+						cout << vect.at(1) << endl;
+					*/
 				}
 
 			},
@@ -494,31 +533,28 @@
 
 				},
 
-				"конвертирование": {
+				"Приведение к типу": {
 
-					// 'anything' - ...
-					/*	
-				Описание:
-					'anything' - ...
+					//Приведение к типу
+					/*
+						charValue = 'A';
+						intValue = 9;
+						floatValue = 5.7;
 
-				Примеры:
-					'anything' - ...
+							cout << static_cast<char>(charValue) << endl;
+							cout << static_cast<int>(charValue) << endl;
+							cout << static_cast<float>(charValue) << endl;
 
-				Вариации: 
-					'anything' - ...
-			*/
+							cout << static_cast<char>(intValue) << endl;
+							cout << static_cast<int>(intValue) << endl;
+							cout << static_cast<float>(intValue) << endl;
+							cout << (float)intValue
 
-					// 'anything' - ...
-					/*	
-				Описание:
-					'anything' - ...
-
-				Примеры:
-					'anything' - ...
-
-				Вариации: 
-					'anything' - ...
-			*/
+							cout << static_cast<char>(floatValue) << endl;
+							cout << static_cast<int>(floatValue) << endl;
+							cout << static_cast<float>(floatValue) << endl;
+							cout << (int)floatValue
+					*/
 
 				},
 
@@ -550,83 +586,205 @@
 
 				}
 
+			},
+
+			//УКАЗАТЕЛИ И ССЫЛКИ - динамические массивы и данные.
+			"УКАЗАТЕЛИ И ССЫЛКИ": {
+				//Указатели и ссылки - указатель - динамические массивы и данные.
+				/*
+					int value = 9; // Инициализация изначальной переменной.
+					cout << "Значение переменной: '" << value << "'. Адрес переменной: '" << &value << "'." << endl;
+
+					int *ptrvalue = &value; // Создание указателя на переменную.
+					cout << "Значение указателя: '" << *ptrvalue << "'. Адрес указателя: '" << ptrvalue << "'." << endl;
+
+					int **ptr_ptrvalue = &ptrvalue; // Создание указателя на указатель.
+					cout << "Значение указателя указателя: '" << **ptr_ptrvalue << "'. Адрес указателя указателя: '" << ptr_ptrvalue << "'." << endl;
+
+					int &ref = value; // Создание ссылки на переменную.
+					cout << "Значение ссылки: '" << ref << "'. Адрес ссылки: '" << &ref << "'." << endl;
+				*/
 			}
 
 		},
 
-		// "АЛГЕБРАИЧЕСКИЕ ОПЕРАЦИИ" -
+		// "АЛГЕБРАИЧЕСКИЕ ОПЕРАЦИИ" - простейшие действия со значениями и переменными.
 		"АЛГЕБРАИЧЕСКИЕ ОПЕРАЦИИ": {
 
-			// 'anything' - ...
-			/*	
-				Описание:
-					'anything' - ...
+			// Увеличиение на значение
+			/*
+				Value = 0;
+				Value = Value + 2;
+				cout << Value << endl;
+			*/
 
-				Примеры:
-					'anything' - ...
+			// Увеличиение на единицу
+			/*
+				Value = 0;
+				Value += 1;
+				cout << Value << endl;
+			*/
 
-				Вариации: 
-					'anything' - ...
-		*/
+			// Уменьшение на значение
+			/*
+				Value = -2;
+				Value = Value - 2;
+				cout << Value << endl;
+			*/
 
-			// 'anything' - ...
-			/*	
-				Описание:
-					'anything' - ...
+			// Уменьшение на единицу
+			/*
+				Value = 0;
+				Value--;
+				cout << Value << endl;
+			*/
 
-				Примеры:
-					'anything' - ...
+			// Умножение на значение
+			/*
+				Value = 0;
+				Value *= 1;
+				cout << Value << endl;
+			*/
 
-				Вариации: 
-					'anything' - ...
-		*/
+			// Деление на значение
+			/*
+				Value = 0;
+				Value /= 1;
+				cout << Value << endl;
+			*/
+
+			// Остаток от деления на значение
+			/*
+				Value = 0;
+				Value %= 1;
+				cout << Value << endl;
+			*/
 
 		},
 
 		// "ЛОГИЧЕСКИЕ ОПЕРАЦИИ / УСЛОВИЯ" -
 		"ЛОГИЧЕСКИЕ ОПЕРАЦИИ / УСЛОВИЯ": {
 
-			// 'anything' - ...
-			/*	
-				Описание:
-					'anything' - ...
+			// IF - логический разделитель на 2 ветки.
+			"IF": {
+				// Сравнение с несколькими вариантами
+				/*
+					int Value = 18;
+					cin >> Value;
+					if (Value > 17) {
+						cout << "Вы взрослый" << endl;
+					}
+					else if (Value == 17) {
+						cout << "Вы почти взрослый" << endl;
+					}
+					else if (Value >= 14) {
+						cout << "Вы подросток" << endl;
+					}
+					else {
+						cout << "Вы ребёнок" << endl;
+					}
+				*/
 
-				Примеры:
-					'anything' - ...
+				// Сравнение, Не, больше, меньше, больше или равно, меньше или равно
+				/*
+					int x = 0, y = 0;
+					cin >> x;
+					cin >> y;
+					if (x == y) {
+						std::cout << x << " equals " << y << "\n";
+					}
+					if (x != y) {
+						std::cout << x << " does not equal " << y << "\n";
+					}
+					if (x > y) {
+						std::cout << x << " is greater than " << y << "\n";
+					}
+					if (x < y) {
+						std::cout << x << " is less than " << y << "\n";
+					}
+					if (x >= y) {
+						std::cout << x << " is greater than or equal to " << y << "\n";
+					}
+					if (x <= y) {
+						std::cout << x << " is less than or equal to " << y << "\n";
+					}
+				*/
 
-				Вариации: 
-					'anything' - ...
-		*/
+				// Упрощённая запись сравнения(intValue == 1 ? 10 : 20)
+				/*
+					int intValue = 0;
+					cout << "Введите значение 1" << endl;
+					cin >> intValue;
+					intValue = intValue == 1 ? 10 : 20;
+					if (intValue == 10) {
+						cout << "Спасибо за введённую единицу!" << endl;
+					}
+					if (intValue == 20) {
+						cout << "Вы не выполнили просьбу!" << endl;
+				*/
 
-			// 'anything' - ...
-			/*	
-				Описание:
-					'anything' - ...
+				// ИЛИ
+				/*
+					int intValue = 0;
+					cin >> intValue;
+					if (intValue == 0 || intValue == 1) {
+						std::cout << "You picked 0 or 1" << std::endl;
+					}
+					else {
+						std::cout << "You did not pick 0 or 1" << std::endl;
+					}
+				*/
 
-				Примеры:
-					'anything' - ...
+				// И
+				/*
+					int intValue = 0;
+					cin >> intValue;
+					if (intValue >= 10 && intValue <= 20) {
+						std::cout << "Your value is between 10 and 20" << std::endl;
+					}
+					else {
+						std::cout << "Your value is not between 10 and 20" << std::endl;;
+					}
+				*/
 
-				Вариации: 
-					'anything' - ...
-		*/
+			},
 
+			// SWITCH - логический разделитель по веткам соответствия.
+			"SWITCH": {
+				// "SWITCH"
+				/*
+					char charValue = '*';
+					cin >> charValue;
+					switch (charValue) {
+						case '+':
+							cout << "Сложение" << endl;
+							break;
+						case '-':
+							cout << "Вычитание" << endl;
+							break;
+						case '*':
+							cout << "Умножение" << endl;
+							break;
+						case '/':
+							cout << "Деление" << endl;
+							break;
+						case '%':
+							cout << "Остаток после деления" << endl;
+							break;
+						default:
+							cout << "Неизвестное выражение" << endl;
+							break;
+					}
+				*/
 
-			// If/switch - булевая логика или case переключения
-			/* if()
-{
-	
-} else if()
-{
-		
-}
-else 
-{
-	
-}
+			},
 
-==, !=, >, <, >=, <=, &&, ||, ?, :
-
-*/
+			"ENUM": {
+				// ENUM - enumerator, логический перечислитель.
+				/*
+					ENUM - enumerator, логический перечислитель.
+				*/
+			}
 
 		},
 
@@ -672,135 +830,192 @@ else
 			// >>/<< - операторы "сдвига и другие"
 		},
 
-		// "ЦИКЛЫ" -
+		//"ЦИКЛЫ" -
 		"ЦИКЛЫ": {
 
-			// 'anything' - ...
-			/*	
+			// 'WHILE' - ...
+			/*
 				Описание:
-					'anything' - ...
+					'WHILE' - ...
 
 				Примеры:
-					'anything' - ...
+					int i = 1;
+					while (i <= 10) {
+						cout << i << endl;
+						i += 1;
+					}
+			*/
 
-				Вариации: 
-					'anything' - ...
-		*/
-
-			// 'anything' - ...
-			/*	
+			// 'Do WHILE' - ...
+			/*
 				Описание:
-					'anything' - ...
+					'Do WHILE' - ...
 
 				Примеры:
-					'anything' - ...
+					int i = 5;
+					do {
+						cout << i << endl;
+					} while (i > 10);
+			*/
 
-				Вариации: 
-					'anything' - ...
-		*/
+			// 'FOR' - ...
+			/*
+				Описание:
+					'FOR' - ...
 
-			// while/ do while/ for - циклы
+				Примеры:
+					for (int i = 1; i <= 10; i++) {
+						cout << i << endl;
+					}
+			*/
 		},
 
 		// "ФУНКЦИИ" -
 		"ФУНКЦИИ": {
+			
+			// Тип возвращаемых данных:
+			/*
+				void(int/float/char/string...) - тип возвращаемых данных (return);
+			*/
+			
+			// Параметры(аргументы) функций:
+			/*
+				int/void... (a, b, c...)
+			*/
 
-			// 'anything' - ...
-			/*	
-				Описание:
-					'anything' - ...
+			// Остановка, продолжение, прерывание функций
+			/*
+				break; -параметры / аргументы функций, способы возврата значений, прерывания и прочего
+			*/
 
-				Примеры:
-					'anything' - ...
+			// стандартые функции типа - ввод значения в консоль/вывод из
+			/*
+	
+				std::cout << "Ответ: " << pow(2, 3) << "\n";
+				std::cout << "Ответ: " << abs(-23) << "\n";
+				std::cout << "Ответ: " << sqrt(ceil(15.8)) << "\n";
+				std::cout << "Ответ: " << ceil(23.5) << "\n";
+				std::cout << "Ответ: " << floor(23.5) << "\n";
+			*/
 
-				Вариации: 
-					'anything' - ...
-		*/
-
-			// 'anything' - ...
-			/*	
-				Описание:
-					'anything' - ...
-
-				Примеры:
-					'anything' - ...
-
-				Вариации: 
-					'anything' - ...
-		*/
-
-			//Void/Int/String... - типы функций
-			// int/void... (a, b, c...)
-			// return 0;
-			// break; -параметры / аргументы функций, способы возврата значений, прерывания и прочего
-			// main(){} - основные функции инициализации и прочего
-			// стандартые функции типа - ввод значения в консоль/вывод из 
 			//консоли, задержка, пауза и прочие. генератор чисел. Чтение и запись в файл.
 			/*
-			std::cout << "Ответ: " << pow(2, 3) << "\n";
-			std::cout << "Ответ: " << abs(-23) << "\n";
-			std::cout << "Ответ: " << sqrt(ceil(15.8)) << "\n";
-			std::cout << "Ответ: " << ceil(23.5) << "\n";
-			std::cout << "Ответ: " << floor(23.5) << "\n";
-		*/
+				....
+			*/
+
+			//Прототипы функций:
+			/*
+				void printText(string text);
+				void printText(float text);
+				void printText(int text);
+			*/
+
+			// Перегрузка функции с другими типами данных:
+			/*
+				void printText(string text) {
+				cout << text << endl;
+				};
+
+				void printText(float text) {
+				cout << text << endl;
+				};
+
+				void printText(int text) {
+				cout << text << endl;
+				};
+			*/
+			
 		},
 
-		// "ИСКЛЮЧЕНИЯ" -
+		// "ИСКЛЮЧЕНИЯ" -поимка исключений или ошибок в коде
 		"ИСКЛЮЧЕНИЯ": {
+			/*
+				int x;
+				cin >> x;
+				int y;
+				cin >> y;
 
-			// 'anything' - ...
-			/*	
-				Описание:
-					'anything' - ...
+				errorFunc(x, y);
 
-				Примеры:
-					'anything' - ...
+				void errorFunc(float a, int b) {
+				float res;
+				try {
+					if (b != 0) {
+						res = a / b;
+					}
+					else {
+						throw (b);
+					}
+				}
+				catch (int number) {
+					cout << "Ошибка, делитель не может равняться нулю!" << endl;
+					res = 0;
+				}
 
-				Вариации: 
-					'anything' - ...
-		*/
+				cout << res << endl;
+				}
+			*/
 
-			// 'anything' - ...
-			/*	
-				Описание:
-					'anything' - ...
-
-				Примеры:
-					'anything' - ...
-
-				Вариации: 
-					'anything' - ...
-		*/
-
-			// try - catch = исключения - поимка ошибок в коде.
 		},
 
 		// "КЛАССЫ" -
 		"КЛАССЫ": {
+			// Классы: 
+			/*
+					class Car {
+					//Публичные параметры
+					public:
+						//Конструктор, без параметров
+						Car() {
 
-			// 'anything' - ...
-			/*	
-				Описание:
-					'anything' - ...
+						}
+						//Конструктор, перегруженный, с параметрами
+						Car(int height, float speed) {
+							this->height = height;
+							this->speed = speed;
+						}
 
-				Примеры:
-					'anything' - ...
+						// Методы класса
+						void setValues(int height, float speed) {
+							this->height = height;
+							this->speed = speed;
+						}
+						void print() {
+							cout << this->height << " - " << this->speed << endl;
+						}
+	
+						//Деструктор
+						~Car() {
+							cout << "Class is destruct!" << endl;
+						}
+					//Приватные параметры
+					private:
 
-				Вариации: 
-					'anything' - ...
-		*/
+					//Защищённые параметры
+					protected:
+						float cost;
+						int height;
+						float speed;
+					};
 
-			// 'anything' - ...
-			/*	
-				Описание:
-					'anything' - ...
+					class Motorcycle : public Car {
+					public:
+						void print() {
+						cout << height << " - " << speed << endl;
+						}
+					};
 
-				Примеры:
-					'anything' - ...
+					Car shkoda(1100, 234.5);
+					shkoda.print();
 
-				Вариации: 
-					'anything' - ...
-		*/
+					Car audi;
+					audi.setValues(300, 125.4);
+					audi.print();
+
+					Motorcycle bmw;
+					bmw.setValues(23, 234);
+					bmw.print();
+			*/
 
 		}
 

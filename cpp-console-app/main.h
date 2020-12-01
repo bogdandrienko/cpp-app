@@ -16,7 +16,7 @@ int closeConsole(bool Close)
 	if (!Close)
 	{
 		std::cout << std::endl << "\n" << "Нажмите ENTER для закрытия приложения: " << std::endl;
-		//std::cin.ignore();
+		std::cin.ignore();
 		std::cin.get();
 	}
 
@@ -51,16 +51,26 @@ int mathematick()
 	{
 	case '*':
 		return firstValue * secondValue;
+		break;
 	case '/':
 		return firstValue / secondValue;
+		break;
 	case '+':
 		return firstValue + secondValue;
+		break;
 	case '-':
 		return firstValue - secondValue;
+		break;
 	case '%':
 		return firstValue % secondValue;
+		break;
 	default:
 		std::cout << "Ошибка расчёта!\n";
+		break;
 	}
 	return 0;
+}
+
+void render() {
+	std::cout << "Ответ: " << mathematick();
 }
