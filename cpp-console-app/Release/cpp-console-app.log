@@ -1,4 +1,5 @@
-﻿  main.cpp
+﻿  help .cpp
+  main.cpp
 C:\Projects\cpp-app\cpp-console-app\main.h(60,14): warning C4101: number: неиспользованная локальная переменная
   Создание кода
   Previous IPDB not found, fall back to full compilation.
