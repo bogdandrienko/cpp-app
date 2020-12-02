@@ -10,13 +10,14 @@
 // Пространства имён
 using namespace std;
 
+
 // Главная функция:
 int main()
 {	
 	setlocale(0, "");
 	SetConsoleCP(1251);
 	
-	render();
+	cout << mathematick(input("второе"), input(), input("первое")) << endl;
 
 	closeConsole(false);
 }

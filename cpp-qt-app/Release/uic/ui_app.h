@@ -62,7 +62,7 @@ public:
     {
         if (appClass->objectName().isEmpty())
             appClass->setObjectName(QString::fromUtf8("appClass"));
-        appClass->resize(1280, 720);
+        appClass->resize(1105, 767);
         appClass->setMinimumSize(QSize(854, 480));
         appClass->setMaximumSize(QSize(3840, 2160));
         centralWidget = new QWidget(appClass);
@@ -225,7 +225,7 @@ public:
         appClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(appClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1280, 21));
+        menuBar->setGeometry(QRect(0, 0, 1105, 21));
         appClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(appClass);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));

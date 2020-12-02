@@ -4,11 +4,11 @@
 // Прототипы функций:
 int closeConsole(bool Close); // Не закрывать консоль без нажатия ENTER. после завершения программы
 
-int inputValue(std::string numberValue); // Получает в себя введённое пользователем целочисленное значение
+int input(std::string numberValue); // Получает в себя введённое пользователем целочисленное значение
 
-char inputChar(); // Получается в себя введённый пользователем символ
+char input(); // Получается в себя введённый пользователем символ
 
-int mathematick(); // Делает математический расчёт на основе двух целочисленных и символа
+int mathematick(int firstValue, char argument, int secondValue); // Делает математический расчёт на основе двух целочисленных и символа
 
 // Функции:
 int closeConsole(bool Close)
@@ -23,7 +23,7 @@ int closeConsole(bool Close)
 	return 0;
 }
 
-int inputValue(std::string numberValue)
+int input(std::string numberValue)
 {
 	std::cout << "Введите " << numberValue << " число: "; // просим пользователя ввести число
 	int inputValue = 0;
@@ -32,7 +32,7 @@ int inputValue(std::string numberValue)
 	return inputValue;
 }
 
-char inputChar()
+char input()
 {
 	std::cout << "Введите действие: "; // просим пользователя ввести действие
 	char inputChar = '0';
@@ -41,20 +41,26 @@ char inputChar()
 	return inputChar;
 }
 
-int mathematick()
+int mathematick(int secondValue, char argument, int firstValue)
 {
-	int firstValue = inputValue("первое");
-	char argument = inputChar();
-	int secondValue = inputValue("второе");
-
 	switch (argument)
 	{
 	case '*':
 		return firstValue * secondValue;
 		break;
 	case '/':
-		return firstValue / secondValue;
-		break;
+		try {
+			if (secondValue != 0) {
+				return firstValue / secondValue;
+			}
+			else {
+				throw (secondValue);
+			}
+		}
+		catch (int number) {
+			std::cout << "Делитель не может равняться нулю!\n";
+			return 0;
+		}
 	case '+':
 		return firstValue + secondValue;
 		break;
@@ -69,8 +75,4 @@ int mathematick()
 		break;
 	}
 	return 0;
-}
-
-void render() {
-	std::cout << "Ответ: " << mathematick();
 }
