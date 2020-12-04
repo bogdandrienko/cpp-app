@@ -1,4 +1,4 @@
-﻿  Reading Qt configuration (C:/Users/Bogdan/Qt/5.15.2/msvc2019/bin/qmake)
+﻿  Reading Qt configuration (C:/Users/User/Qt/5.15.2/msvc2019/bin/qmake)
   uic app.ui
   rcc app.qrc
   moc app.h
