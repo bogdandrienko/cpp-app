@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Projects\cpp-app\Release\cpp-sqlConnection-app.exe</FullPath>
+      <FullPath>C:\Project\Github_Projects\cpp-app\Release\cpp-sqlConnection-app.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
