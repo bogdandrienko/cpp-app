@@ -15,7 +15,7 @@ void startAnalyse(map <string,string> SettingsMap)
     }
     cout << SettingsMap["alias cam"] << endl;
     // read an image
-    Mat image = imread("C:\\Project\\Github_Projects\\cpp-app\\ComputerVision\\1.jpg", 1);
+    Mat image = imread("C:\\Project\\Github_Projects\\cpp-app\\cpp-computer_vision-app\\1.jpg", 1);
     // create image window named "My Image"
     namedWindow("My Image");
     // show the image on window
