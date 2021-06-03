@@ -31,17 +31,17 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../Envire/opencv-4.5.2/opencv/build/x64/vc15/lib/ -lopencv_world452
-#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../Envire/opencv-4.5.2/opencv/build/x64/vc15/lib/ -lopencv_world452d
-#else:unix: LIBS += -L$$PWD/../../../Envire/opencv-4.5.2/opencv/build/x64/vc15/lib/ -lopencv_world452
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../Envire/opencv-4.5.2/opencv/build/x64/vc15/lib/ -lopencv_world452
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../Envire/opencv-4.5.2/opencv/build/x64/vc15/lib/ -lopencv_world452d
+else:unix: LIBS += -L$$PWD/../../../Envire/opencv-4.5.2/opencv/build/x64/vc15/lib/ -lopencv_world452
 
-#INCLUDEPATH += $$PWD/../../../Envire/opencv-4.5.2/opencv/build/include
-#DEPENDPATH += $$PWD/../../../Envire/opencv-4.5.2/opencv/build/include
+INCLUDEPATH += $$PWD/../../../Envire/opencv-4.5.2/opencv/build/include
+DEPENDPATH += $$PWD/../../../Envire/opencv-4.5.2/opencv/build/include
 
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../Envire/opencv-4.5.2/opencv-4.5.2/opencv/build/x64/vc15/lib/ -lopencv_world452
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../Envire/opencv-4.5.2/opencv-4.5.2/opencv/build/x64/vc15/lib/ -lopencv_world452d
-else:unix: LIBS += -L$$PWD/../../../Envire/opencv-4.5.2/opencv-4.5.2/opencv/build/x64/vc15/lib/ -lopencv_world452
+#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../Envire/opencv-4.5.2/opencv-4.5.2/opencv/build/x64/vc15/lib/ -lopencv_world452
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../Envire/opencv-4.5.2/opencv-4.5.2/opencv/build/x64/vc15/lib/ -lopencv_world452d
+#else:unix: LIBS += -L$$PWD/../../../Envire/opencv-4.5.2/opencv-4.5.2/opencv/build/x64/vc15/lib/ -lopencv_world452
 
-INCLUDEPATH += $$PWD/../../../Envire/opencv-4.5.2/opencv-4.5.2/opencv/build/include
-DEPENDPATH += $$PWD/../../../Envire/opencv-4.5.2/opencv-4.5.2/opencv/build/include
+#INCLUDEPATH += $$PWD/../../../Envire/opencv-4.5.2/opencv-4.5.2/opencv/build/include
+#DEPENDPATH += $$PWD/../../../Envire/opencv-4.5.2/opencv-4.5.2/opencv/build/include

@@ -24,11 +24,9 @@ void MainWindow::on_pushButton_4_clicked()
 {
 //    start_Button("hi!");
     // read an image
-    /*
     cv::Mat image = cv::imread("C:\\Project\\Github_Projects\\cpp-app\\ComputerVision\\1.jpg", 1);
     // create image window named "My Image"
     cv::namedWindow("My Image");
     // show the image on window
     cv::imshow("My Image", image);
-*/
 }
