@@ -1,4 +1,5 @@
 QT       += core gui
+QT       += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,13 +14,15 @@ SOURCES += \
     cpp_main.cpp \
     cpp_sql.cpp \
     cpp_ui.cpp \
-    cpp_utilites.cpp
+    cpp_utilites.cpp \
+    filedownloader.cpp
 
 HEADERS += \
     cpp_cv.h \
     cpp_main.h \
     cpp_ui.h \
-    cpp_utilites.h
+    cpp_utilites.h \
+    filedownloader.h
 
 FORMS += \
     cpp_ui.ui

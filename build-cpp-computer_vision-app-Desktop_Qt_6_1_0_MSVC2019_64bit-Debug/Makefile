@@ -273,11 +273,13 @@ Makefile: ..\cpp-computer_vision-app\cpp-computer_vision-app.pro ..\..\..\IDE\Qt
 		..\cpp-computer_vision-app\cpp-computer_vision-app.pro \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Widgets.prl \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Gui.prl \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Network.prl \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Core.prl \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6EntryPoint.prl \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\mkspecs\features\build_pass.prf \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Widgetsd.prl \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Guid.prl \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Networkd.prl \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Cored.prl \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6EntryPointd.prl
 	$(QMAKE) -o Makefile ..\cpp-computer_vision-app\cpp-computer_vision-app.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug"
@@ -470,11 +472,13 @@ Makefile: ..\cpp-computer_vision-app\cpp-computer_vision-app.pro ..\..\..\IDE\Qt
 ..\cpp-computer_vision-app\cpp-computer_vision-app.pro:
 ..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Widgets.prl:
 ..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Gui.prl:
+..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Network.prl:
 ..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Core.prl:
 ..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6EntryPoint.prl:
 ..\..\..\IDE\Qt\6.1.0\msvc2019_64\mkspecs\features\build_pass.prf:
 ..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Widgetsd.prl:
 ..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Guid.prl:
+..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Networkd.prl:
 ..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Cored.prl:
 ..\..\..\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6EntryPointd.prl:
 qmake: FORCE
