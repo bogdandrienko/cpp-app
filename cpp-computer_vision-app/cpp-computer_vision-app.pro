@@ -39,10 +39,3 @@ else:unix: LIBS += -L$$PWD/../../../Envire/opencv-4.5.2/build/x64/vc15/lib/ -lop
 
 INCLUDEPATH += $$PWD/../../../Envire/opencv-4.5.2/build/include
 DEPENDPATH += $$PWD/../../../Envire/opencv-4.5.2/build/include
-
-#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../Envire/opencv-4.5.2/build/x64/vc15/lib/ -lopencv_world452
-#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../Envire/opencv-4.5.2/build/x64/vc15/lib/ -lopencv_world452d
-#else:unix: LIBS += -L$$PWD/../../../Envire/opencv-4.5.2/build/x64/vc15/lib/ -lopencv_world452
-
-#INCLUDEPATH += $$PWD/../../../Envire/opencv-4.5.2/build/include
-#DEPENDPATH += $$PWD/../../../Envire/opencv-4.5.2/build/include
