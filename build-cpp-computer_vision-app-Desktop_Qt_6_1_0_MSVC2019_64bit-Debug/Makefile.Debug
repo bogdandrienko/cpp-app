@@ -16,10 +16,10 @@ CXX           = cl
 DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -nologo -Zc:wchar_t -FS -Zc:strictStrings -Zi -MDd -utf-8 -W3 -w44456 -w44457 -w44458 /Fddebug\cpp-computer_vision-app.vc.pdb $(DEFINES)
 CXXFLAGS      = -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -permissive- -Zc:__cplusplus -Zc:externConstexpr -Zi -MDd -std:c++17 -utf-8 -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -EHsc /Fddebug\cpp-computer_vision-app.vc.pdb $(DEFINES)
-INCPATH       = -I..\cpp-computer_vision-app -I. -I..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include -I..\..\..\IDE\Qt\6.1.0\msvc2019_64\include -I..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets -I..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtGui -I..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtCore -Idebug -I. -I/include -I..\..\..\IDE\Qt\6.1.0\msvc2019_64\mkspecs\win32-msvc 
+INCPATH       = -I..\cpp-computer_vision-app -I. -I..\..\..\Envire\opencv-4.5.2\build\include -I..\..\..\IDE\Qt\6.1.0\msvc2019_64\include -I..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets -I..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtGui -I..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtCore -Idebug -I. -I/include -I..\..\..\IDE\Qt\6.1.0\msvc2019_64\mkspecs\win32-msvc 
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /DEBUG /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
-LIBS          = /LIBPATH:C:\Project\Envire\opencv-4.5.2\opencv-4.5.2\build\x64\vc15\lib C:\Project\Envire\opencv-4.5.2\opencv-4.5.2\build\x64\vc15\lib\opencv_world452d.lib C:\Project\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Widgetsd.lib C:\Project\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Guid.lib C:\Project\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Cored.lib C:\Project\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6EntryPointd.lib shell32.lib  
+LIBS          = /LIBPATH:C:\Project\Envire\opencv-4.5.2\build\x64\vc15\lib C:\Project\Envire\opencv-4.5.2\build\x64\vc15\lib\opencv_world452d.lib C:\Project\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Widgetsd.lib C:\Project\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Guid.lib C:\Project\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6Cored.lib C:\Project\IDE\Qt\6.1.0\msvc2019_64\lib\Qt6EntryPointd.lib shell32.lib  
 QMAKE         = C:\Project\IDE\Qt\6.1.0\msvc2019_64\bin\qmake.exe
 DEL_FILE      = del
 CHK_DIR_EXISTS= if not exist
@@ -320,7 +320,7 @@ debug\moc_cpp_ui.cpp: ..\cpp-computer_vision-app\cpp_ui.h \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtGui\qicon.h \
 		debug\moc_predefs.h \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\bin\moc.exe
-	C:\Project\IDE\Qt\6.1.0\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include C:/Project/Github_Projects/cpp-app/build-cpp-computer_vision-app-Desktop_Qt_6_1_0_MSVC2019_64bit-Debug/debug/moc_predefs.h -IC:/Project/IDE/Qt/6.1.0/msvc2019_64/mkspecs/win32-msvc -IC:/Project/Github_Projects/cpp-app/cpp-computer_vision-app -IC:/Project/Envire/opencv-4.5.2/opencv-4.5.2/build/include -IC:/Project/IDE/Qt/6.1.0/msvc2019_64/include -IC:/Project/IDE/Qt/6.1.0/msvc2019_64/include/QtWidgets -IC:/Project/IDE/Qt/6.1.0/msvc2019_64/include/QtGui -IC:/Project/IDE/Qt/6.1.0/msvc2019_64/include/QtCore -I. -I"C:\Project\IDE\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.29.30037\ATLMFC\include" -I"C:\Project\IDE\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.29.30037\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt" ..\cpp-computer_vision-app\cpp_ui.h -o debug\moc_cpp_ui.cpp
+	C:\Project\IDE\Qt\6.1.0\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include C:/Project/Github_Projects/cpp-app/build-cpp-computer_vision-app-Desktop_Qt_6_1_0_MSVC2019_64bit-Debug/debug/moc_predefs.h -IC:/Project/IDE/Qt/6.1.0/msvc2019_64/mkspecs/win32-msvc -IC:/Project/Github_Projects/cpp-app/cpp-computer_vision-app -IC:/Project/Envire/opencv-4.5.2/build/include -IC:/Project/IDE/Qt/6.1.0/msvc2019_64/include -IC:/Project/IDE/Qt/6.1.0/msvc2019_64/include/QtWidgets -IC:/Project/IDE/Qt/6.1.0/msvc2019_64/include/QtGui -IC:/Project/IDE/Qt/6.1.0/msvc2019_64/include/QtCore -I. -I"C:\Project\IDE\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.29.30037\ATLMFC\include" -I"C:\Project\IDE\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.29.30037\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt" ..\cpp-computer_vision-app\cpp_ui.h -o debug\moc_cpp_ui.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -346,41 +346,41 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 ####### Compile
 
 debug\cpp_cv.obj: ..\cpp-computer_vision-app\cpp_cv.cpp ..\cpp-computer_vision-app\cpp_cv.h \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\core.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\cvdef.h \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\version.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\hal\interface.h \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\cv_cpu_dispatch.h \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\cv_cpu_helper.h \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\hal\msa_macros.h \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\fast_math.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\base.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\opencv_modules.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\cvstd.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\cvstd_wrapper.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\neon_utils.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\vsx_utils.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\check.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\traits.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\matx.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\saturate.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\types.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\mat.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\bufferpool.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\mat.inl.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\persistence.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\operations.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\cvstd.inl.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\utility.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\utils\instrumentation.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\utils\tls.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\optim.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\core\ovx.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\highgui\highgui.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\highgui.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\imgcodecs.hpp \
-		..\..\..\Envire\opencv-4.5.2\opencv-4.5.2\build\include\opencv2\videoio.hpp
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\core.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\cvdef.h \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\version.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\hal\interface.h \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\cv_cpu_dispatch.h \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\cv_cpu_helper.h \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\hal\msa_macros.h \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\fast_math.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\base.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\opencv_modules.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\cvstd.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\cvstd_wrapper.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\neon_utils.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\vsx_utils.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\check.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\traits.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\matx.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\saturate.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\types.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\mat.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\bufferpool.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\mat.inl.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\persistence.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\operations.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\cvstd.inl.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\utility.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\utils\instrumentation.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\utils\tls.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\optim.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\core\ovx.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\highgui\highgui.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\highgui.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\imgcodecs.hpp \
+		..\..\..\Envire\opencv-4.5.2\build\include\opencv2\videoio.hpp
 
 debug\cpp_main.obj: ..\cpp-computer_vision-app\cpp_main.cpp ..\cpp-computer_vision-app\cpp_ui.h \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QMainWindow \
@@ -654,28 +654,73 @@ debug\cpp_ui.obj: ..\cpp-computer_vision-app\cpp_ui.cpp ..\cpp-computer_vision-a
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qtabwidget.h \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtGui\qicon.h \
 		ui_cpp_ui.h \
-		..\cpp-computer_vision-app\cpp_main.h \
-		..\cpp-computer_vision-app\cpp_utilites.h \
-		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtCore\QString \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtCore\QVariant \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QApplication \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qapplication.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtCore\qcoreapplication.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtCore\qeventloop.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtGui\qguiapplication.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtGui\qinputmethod.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtCore\qlocale.h \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QCheckBox \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qcheckbox.h \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qabstractbutton.h \
-		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QSpinBox \
-		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qspinbox.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QComboBox \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qcombobox.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qabstractitemdelegate.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qstyleoption.h \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qabstractspinbox.h \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtGui\qvalidator.h \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtCore\qregularexpression.h \
-		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtCore\qlocale.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qslider.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qabstractslider.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qstyle.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qtabbar.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qrubberband.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qframe.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtCore\qabstractitemmodel.h \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QDoubleSpinBox \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qspinbox.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QFrame \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QGridLayout \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qgridlayout.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qlayout.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qlayoutitem.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qboxlayout.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QHBoxLayout \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QLCDNumber \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qlcdnumber.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QLabel \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qlabel.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtGui\qpicture.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtGui\qtextdocument.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QMenuBar \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qmenubar.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qmenu.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtGui\qaction.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QProgressBar \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qprogressbar.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QPushButton \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qpushbutton.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QRadioButton \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qradiobutton.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QSlider \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QSpinBox \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QStatusBar \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qstatusbar.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QTabWidget \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QTextEdit \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qtextedit.h \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qabstractscrollarea.h \
-		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qframe.h \
-		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtGui\qtextdocument.h \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtGui\qtextoption.h \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtGui\qtextcursor.h \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtGui\qtextformat.h \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtGui\qpen.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QVBoxLayout \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QWidget \
+		..\cpp-computer_vision-app\cpp_main.h \
+		..\cpp-computer_vision-app\cpp_utilites.h \
+		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtCore\QString \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\QMessageBox \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qmessagebox.h \
 		..\..\..\IDE\Qt\6.1.0\msvc2019_64\include\QtWidgets\qdialog.h
