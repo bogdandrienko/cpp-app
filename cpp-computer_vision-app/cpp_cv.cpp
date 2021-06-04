@@ -10,6 +10,8 @@
 #include <QPixmap>
 #include "filedownloader.h"
 #include <stdio.h>
+#include "qdownloader.h"
+#include "filedownloader.h"
 //#include <curl/curl.h>
 //#include <CkHttp.h>
 
@@ -23,6 +25,30 @@ void startAnalyse(map <string,string> SettingsMap)
 //        cout << it->first << " : " << it->second << endl;
 //    }
 //    cout << SettingsMap["alias cam"] << endl;
+
+//    QString fileURL = "http://via.placeholder.com/300";
+////    QString fileURL = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.imgonline.com.ua%2Fimpose-picture-on-another-picture.php&psig=AOvVaw17jw_Ux--m3pw2SAwAU6GH&ust=1622858457864000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIiI3Yzx_PACFQAAAAAdAAAAABAD";
+//    QString saveFilePath = QString("C:/Images/1.jpg");
+//    FileDownloader Downloader;
+//    Downloader.downloadFile(fileURL, "0", saveFilePath);
+
+//    FileDownloader Downloader;
+//    Downloader.startDownload();
+
+//    imageReader.setAutoDetectImageFormat(false);
+//    QImage _img = imageReader.read();
+
+//    QString fileURL = "http://via.placeholder.com/300";
+//    manager = new QNetworkAccessManager;
+
+//    QNetworkRequest request;
+//    request.setUrl(QUrl(fileURL));
+//    reply = manager->get(request);
+//    file->write(reply->readAll());
+
+//    QDownloader Downloader;
+
+//    Downloader.setFile("http://via.placeholder.com/300");
 
 //    QNetworkAccessManager *manager;
 //    manager = new QNetworkAccessManager();
@@ -40,34 +66,34 @@ void startAnalyse(map <string,string> SettingsMap)
 //    QPixmap pm;
 //    pm.loadFromData(reply->readAll());
 
-    QUrl url("http://103.3.229.181/digital-photo-frame-ads/public/getImages");//this link contains two images
-                QNetworkAccessManager manager;
-                QNetworkReply *response = manager.get(QNetworkRequest(QUrl(url)));
-                QEventLoop event;
-                connect(response,SIGNAL(finished()),&event,SLOT(quit()));
-                event.exec();
-                QString html = response->readAll();
-                if(html.length() > 0){
-                           QStringList str;
-                           str = html.split(",");
-                           for (int i = 0; i < str.size(); ++i)
-                           {
-                    pic=pic.remove(QRegExp(QString::fromUtf8("[`~!@#$%^&*()_â€”+=|;<>Â«Â»,?{}\'\"\\\[\\\]\\\\]")));
-     QByteArray jpegData = pic.toLocal8Bit();
-       QPixmap pixmap;
-       pixmap.loadFromData(jpegData);
-       QPixmap scaled = pixmap.scaled(128,64,Qt::IgnoreAspectRatio, Qt::FastTransformation);
-       l.setPixmap(scaled);
-       l.show();
-       QString filename = QFileDialog::getSaveFileName(this, tr("Save Skin"), "/home/ihorse1/10-03-2015",tr("JPEG Image(*.jpg)"));
-       QFile file (filename);
-       file.open(QIODevice::WriteOnly);
-       QDataStream out (&file);
-       out << reply;
-       qDebug()<<out;
-       file.close();
-    }
-    }
+//    QUrl url("http://103.3.229.181/digital-photo-frame-ads/public/getImages");//this link contains two images
+//                QNetworkAccessManager manager;
+//                QNetworkReply *response = manager.get(QNetworkRequest(QUrl(url)));
+//                QEventLoop event;
+//                connect(response,SIGNAL(finished()),&event,SLOT(quit()));
+//                event.exec();
+//                QString html = response->readAll();
+//                if(html.length() > 0){
+//                           QStringList str;
+//                           str = html.split(",");
+//                           for (int i = 0; i < str.size(); ++i)
+//                           {
+//                    pic=pic.remove(QRegExp(QString::fromUtf8("[`~!@#$%^&*()_â€”+=|;<>Â«Â»,?{}\'\"\\\[\\\]\\\\]")));
+//     QByteArray jpegData = pic.toLocal8Bit();
+//       QPixmap pixmap;
+//       pixmap.loadFromData(jpegData);
+//       QPixmap scaled = pixmap.scaled(128,64,Qt::IgnoreAspectRatio, Qt::FastTransformation);
+//       l.setPixmap(scaled);
+//       l.show();
+//       QString filename = QFileDialog::getSaveFileName(this, tr("Save Skin"), "/home/ihorse1/10-03-2015",tr("JPEG Image(*.jpg)"));
+//       QFile file (filename);
+//       file.open(QIODevice::WriteOnly);
+//       QDataStream out (&file);
+//       out << reply;
+//       qDebug()<<out;
+//       file.close();
+//    }
+//    }
 
 //    cout << pm << endl;
 //    namedWindow("My Image");
