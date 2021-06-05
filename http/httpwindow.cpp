@@ -353,8 +353,8 @@ void HttpWindow::sslErrors(const QList<QSslError> &errors)
 
 void HttpWindow::download()
 {
-//    url = "http://via.placeholder.com/400.jpg";
-    url = "http://192.168.15.203:80/ISAPI/Streaming/channels/101/picture?snapShotImageType=JPEG";
+    url = "http://via.placeholder.com/1000.jpg";
+//    url = "http://192.168.15.203:80/ISAPI/Streaming/channels/101/picture?snapShotImageType=JPEG";
     connect(&qnam, &QNetworkAccessManager::authenticationRequired, this, &HttpWindow::authentication);
     reply.reset(qnam.get(QNetworkRequest(url)));
     connect(reply.get(), &QNetworkReply::finished, this, &HttpWindow::write);
@@ -366,30 +366,30 @@ void HttpWindow::authentication(QNetworkReply *, QAuthenticator *authenticator)
     authenticator->setPassword("q1234567");
 }
 
+
 void HttpWindow::write()
 {
-    file = openFileForWrite("C:\\Images\\1.jpg");
-    file->write(reply->readAll());
-    file->close();
-//    cv::imshow("1", cv::imread("C:\\Images\\1.jpg", cv::IMREAD_COLOR));
-//    cv::imshow("2", cv::Mat(240,320, CV_8UC3,cv::Scalar(255)));
+//    file = openFileForWrite("C:\\Images\\1.jpg");
+//    file->write(reply->readAll());
+//    file->close();
 
-    QByteArray base64Data = reply->readAll();
-    QByteArray bytes = QByteArray::fromBase64(base64Data);
-    QImage image;
-    image.loadFromData(bytes, "JPG");
-    cv::imshow("3", cv::Mat(800, 800, CV_8UC3, bytes.data()));
-
-
-//    cv::Mat imgbuf = cv::Mat(200, 200, CV_8UC1, );
-//    cv::Mat matImg = cv::imdecode(imgbuf, cv::IMREAD_ANYCOLOR);
-//    cv::imshow("3", cv::Mat(200, 200, CV_8UC3, ));
-
-//    cv::imshow("3", cv::Mat(240,320, CV_8UC3,cv::Scalar(255, 0, 0)));
-//cv::Mat image = cv::Mat(800, 800, CV_8UC1, array.data());
-//    cv::cvtColor(image, image, cv::COLOR_BGR2RGB, 0);
-//    cv::Mat image = cv::imdecode(imgbuf, cv::IMREAD_ANYCOLOR);
-//    cv::namedWindow("My Image");
+    cv::Mat image_source = cv::imread("C:\\Images\\1.jpg", cv::IMREAD_COLOR);
+    cv::Mat mask = cv::imread("C:\\Images\\2.jpg", 0);
+    cv::Mat bitwise_and;
+    cv::bitwise_and(image_source, image_source, bitwise_and, mask);
+    cv::Mat cvtcolor;
+    cv::cvtColor(bitwise_and, cvtcolor, cv::COLOR_BGR2HSV);
+    cv::Mat inrange;
+    cv::inRange(cvtcolor, cv::Scalar(0, 0, 150), cv::Scalar(255, 150 , 255), inrange);
+//    inrange.setTo(255, mask > 0);
+    cv::Mat final;
+    cv::resize(inrange, final, cv::Size(), 0.75, 0.75, cv::INTER_LINEAR);
+    int image_white_pixels = cv::countNonZero(inrange > 120);
+    int mask_white_pixels = cv::countNonZero(mask);
+    cv::putText(final, std::to_string(double(image_white_pixels) / double(mask_white_pixels) * 100) + "%",
+                cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
+    cv::namedWindow("render", cv::WINDOW_AUTOSIZE);
+    cv::imshow("render", final);
 }
 
 #endif
