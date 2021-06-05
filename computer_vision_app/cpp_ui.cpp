@@ -140,15 +140,31 @@ void MainUiClass::analyse_from_image()
 //        std::cout << item.first << " : " << item.second << std::endl; //Вывод ключей и значений
 //    }
 
+    std::string val[] = {
+        "15.202",
+        "15.206",
+        "15.207",
+        "15.208",
+        "15.209",
+        "15.210",
+        "15.211",
+        "15.203",
+        "15.204",
+        "15.205",
+    };
+
     cv::VideoCapture cap;
-//    cap.set(cv::CAP_PROP_POS_FRAMES, 60.0);
-    cap.set(cv::CAP_PROP_FPS , 1.0);
-//    cap.set()
-    cap.open("http://via.placeholder.com/1000.jpg");
+//    cap.set(cv::CAP_PROP_FPS , 15.0);
     cv::Mat image_source;
-    cap.read(image_source);
-    cv::imshow("render", image_source);
-    cv::waitKey(0);
+
+    for (auto ip : val){
+        cap.open("rtsp://admin:q1234567@192.168." + ip + ":554");
+        cap.read(image_source);
+        cv::imshow("render"+ ip, image_source);
+        cv::waitKey(1);
+    }
+
+
 
 //    QByteArray qbytearray = reply->readAll();
 //    if (qbytearray.count() <= 0)
@@ -191,6 +207,6 @@ void MainUiClass::analyse_from_image()
 //    cv::namedWindow("render", cv::WINDOW_AUTOSIZE);
 //    cv::imshow("render", final);
 
-    Sleep(250);
+    Sleep(1);
     download_from_url();
 }
