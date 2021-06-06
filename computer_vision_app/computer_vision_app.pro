@@ -36,5 +36,3 @@ else:unix: LIBS += -LC:/Project/Envire/opencv-4.5.2/build/x64/vc15/lib/ -lopencv
 INCLUDEPATH += C:/Project/Envire/opencv-4.5.2/build/include
 DEPENDPATH += C:/Project/Envire/opencv-4.5.2/build/include
 
-DISTFILES += \
-    ../cpp-console-app/Help/help.json
