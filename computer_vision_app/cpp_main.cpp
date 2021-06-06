@@ -1,7 +1,12 @@
+#include "cpp_main.h"
 #include "cpp_ui.h"
+#include "cpp_cv.h"
 
 #include <QApplication>
 #include <iostream>
+#include <map>
+
+
 
 int main(int argc, char *argv[])
 {
@@ -11,17 +16,19 @@ int main(int argc, char *argv[])
     return app.exec();
 }
 
-void start_analyse_main_func()
+void MainAppClass::start_analyse_main_func(std::map <std::string, std::string> AllSettingsMap)
 {
-    std::cout << "START\n";
+    std::cout << "start_analyse_main_func" << std::endl;
+
+    ComputerVisionClass::StartAnalyse_1(AllSettingsMap);
 }
 
-void stop_analyse_main_func()
-{
-    std::cout << "STOP\n";
-}
+//void stop_analyse_main_func()
+//{
+//    cout << "stop_analyse_main_func" << endl;
+//}
 
-void quitApp_main_func()
-{
-    std::cout << "QUIT\n";
-}
+//void quitApp_main_func()
+//{
+//    cout << "quitApp_main_func" << endl;
+//}
