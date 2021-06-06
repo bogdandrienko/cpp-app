@@ -43,14 +43,14 @@ public:
     QHBoxLayout *horizontalLayout_4;
     QVBoxLayout *verticalLayout;
     QGridLayout *gridLayout_3;
-    QProgressBar *progressBar;
-    QPushButton *QUIT_btn;
-    QLabel *label_18;
-    QLCDNumber *lcdNumber;
-    QPushButton *START_btn;
-    QPushButton *STOP_btn;
     QRadioButton *radioButton;
-    QLabel *information;
+    QPushButton *STOP_btn;
+    QPushButton *START_btn;
+    QPushButton *QUIT_btn;
+    QLabel *label_time;
+    QLabel *label_info;
+    QLCDNumber *lcdNumber;
+    QProgressBar *progressBar;
     QWidget *tab_2;
     QWidget *verticalLayoutWidget_4;
     QVBoxLayout *verticalLayout_4;
@@ -172,22 +172,24 @@ public:
     QWidget *tab_4;
     QWidget *gridLayoutWidget_6;
     QGridLayout *gridLayout_6;
-    QLabel *label_23;
-    QCheckBox *checkBox_6;
-    QSlider *horizontalSlider_2;
-    QComboBox *comboBox;
-    QComboBox *comboBox_2;
+    QComboBox *render_type_comboBox;
     QCheckBox *checkBox_5;
     QLabel *label_25;
-    QCheckBox *checkBox_4;
-    QLabel *label_26;
-    QLabel *label_24;
-    QSlider *horizontalSlider_3;
-    QCheckBox *checkBox_3;
-    QLabel *label_27;
-    QComboBox *comboBox_3;
-    QLabel *label_28;
+    QSlider *horizontalSlider_2;
+    QLabel *label_23;
     QSpinBox *spinBox_2;
+    QLabel *label_28;
+    QSlider *horizontalSlider_3;
+    QLabel *label_26;
+    QCheckBox *checkBox_3;
+    QCheckBox *checkBox_4;
+    QLabel *label_24;
+    QCheckBox *checkBox_6;
+    QComboBox *comboBox_2;
+    QComboBox *comboBox_3;
+    QLabel *label_27;
+    QSlider *render_size_horizontalSlider;
+    QLabel *label_32;
     QWidget *tab_5;
     QWidget *gridLayoutWidget_7;
     QGridLayout *gridLayout_7;
@@ -234,61 +236,61 @@ public:
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         gridLayout_3 = new QGridLayout();
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
-        progressBar = new QProgressBar(tab);
-        progressBar->setObjectName(QString::fromUtf8("progressBar"));
-        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(progressBar->sizePolicy().hasHeightForWidth());
-        progressBar->setSizePolicy(sizePolicy1);
-        progressBar->setValue(24);
-
-        gridLayout_3->addWidget(progressBar, 1, 2, 1, 1);
-
-        QUIT_btn = new QPushButton(tab);
-        QUIT_btn->setObjectName(QString::fromUtf8("QUIT_btn"));
-        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Minimum);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(QUIT_btn->sizePolicy().hasHeightForWidth());
-        QUIT_btn->setSizePolicy(sizePolicy2);
-
-        gridLayout_3->addWidget(QUIT_btn, 0, 3, 1, 1);
-
-        label_18 = new QLabel(tab);
-        label_18->setObjectName(QString::fromUtf8("label_18"));
-
-        gridLayout_3->addWidget(label_18, 2, 2, 1, 1);
-
-        lcdNumber = new QLCDNumber(tab);
-        lcdNumber->setObjectName(QString::fromUtf8("lcdNumber"));
-
-        gridLayout_3->addWidget(lcdNumber, 1, 3, 1, 1);
-
-        START_btn = new QPushButton(tab);
-        START_btn->setObjectName(QString::fromUtf8("START_btn"));
-        sizePolicy2.setHeightForWidth(START_btn->sizePolicy().hasHeightForWidth());
-        START_btn->setSizePolicy(sizePolicy2);
-
-        gridLayout_3->addWidget(START_btn, 0, 0, 1, 1);
-
-        STOP_btn = new QPushButton(tab);
-        STOP_btn->setObjectName(QString::fromUtf8("STOP_btn"));
-        sizePolicy2.setHeightForWidth(STOP_btn->sizePolicy().hasHeightForWidth());
-        STOP_btn->setSizePolicy(sizePolicy2);
-
-        gridLayout_3->addWidget(STOP_btn, 0, 2, 1, 1);
-
         radioButton = new QRadioButton(tab);
         radioButton->setObjectName(QString::fromUtf8("radioButton"));
         radioButton->setCheckable(false);
 
         gridLayout_3->addWidget(radioButton, 1, 0, 1, 1);
 
-        information = new QLabel(tab);
-        information->setObjectName(QString::fromUtf8("information"));
+        STOP_btn = new QPushButton(tab);
+        STOP_btn->setObjectName(QString::fromUtf8("STOP_btn"));
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(STOP_btn->sizePolicy().hasHeightForWidth());
+        STOP_btn->setSizePolicy(sizePolicy1);
 
-        gridLayout_3->addWidget(information, 2, 0, 1, 1);
+        gridLayout_3->addWidget(STOP_btn, 0, 2, 1, 1);
+
+        START_btn = new QPushButton(tab);
+        START_btn->setObjectName(QString::fromUtf8("START_btn"));
+        sizePolicy1.setHeightForWidth(START_btn->sizePolicy().hasHeightForWidth());
+        START_btn->setSizePolicy(sizePolicy1);
+
+        gridLayout_3->addWidget(START_btn, 0, 0, 1, 1);
+
+        QUIT_btn = new QPushButton(tab);
+        QUIT_btn->setObjectName(QString::fromUtf8("QUIT_btn"));
+        sizePolicy1.setHeightForWidth(QUIT_btn->sizePolicy().hasHeightForWidth());
+        QUIT_btn->setSizePolicy(sizePolicy1);
+
+        gridLayout_3->addWidget(QUIT_btn, 0, 3, 1, 1);
+
+        label_time = new QLabel(tab);
+        label_time->setObjectName(QString::fromUtf8("label_time"));
+
+        gridLayout_3->addWidget(label_time, 2, 0, 1, 1);
+
+        label_info = new QLabel(tab);
+        label_info->setObjectName(QString::fromUtf8("label_info"));
+
+        gridLayout_3->addWidget(label_info, 2, 2, 1, 1);
+
+        lcdNumber = new QLCDNumber(tab);
+        lcdNumber->setObjectName(QString::fromUtf8("lcdNumber"));
+
+        gridLayout_3->addWidget(lcdNumber, 2, 3, 1, 1);
+
+        progressBar = new QProgressBar(tab);
+        progressBar->setObjectName(QString::fromUtf8("progressBar"));
+        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(progressBar->sizePolicy().hasHeightForWidth());
+        progressBar->setSizePolicy(sizePolicy2);
+        progressBar->setValue(24);
+
+        gridLayout_3->addWidget(progressBar, 1, 2, 1, 2);
 
 
         verticalLayout->addLayout(gridLayout_3);
@@ -853,7 +855,7 @@ public:
         sensetivity_cam_1_Edit->setObjectName(QString::fromUtf8("sensetivity_cam_1_Edit"));
         sensetivity_cam_1_Edit->setMinimum(1);
         sensetivity_cam_1_Edit->setMaximum(255);
-        sensetivity_cam_1_Edit->setValue(30);
+        sensetivity_cam_1_Edit->setValue(100);
 
         gridLayout->addWidget(sensetivity_cam_1_Edit, 4, 1, 1, 1);
 
@@ -945,8 +947,8 @@ public:
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
         textEdit_8 = new QTextEdit(verticalLayoutWidget_2);
         textEdit_8->setObjectName(QString::fromUtf8("textEdit_8"));
-        sizePolicy2.setHeightForWidth(textEdit_8->sizePolicy().hasHeightForWidth());
-        textEdit_8->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(textEdit_8->sizePolicy().hasHeightForWidth());
+        textEdit_8->setSizePolicy(sizePolicy1);
         textEdit_8->setMaximumSize(QSize(250, 30));
 
         gridLayout_4->addWidget(textEdit_8, 2, 5, 1, 1);
@@ -977,8 +979,8 @@ public:
 
         textEdit_3 = new QTextEdit(verticalLayoutWidget_2);
         textEdit_3->setObjectName(QString::fromUtf8("textEdit_3"));
-        sizePolicy2.setHeightForWidth(textEdit_3->sizePolicy().hasHeightForWidth());
-        textEdit_3->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(textEdit_3->sizePolicy().hasHeightForWidth());
+        textEdit_3->setSizePolicy(sizePolicy1);
         textEdit_3->setMaximumSize(QSize(250, 30));
 
         gridLayout_4->addWidget(textEdit_3, 2, 1, 1, 1);
@@ -997,24 +999,24 @@ public:
 
         textEdit_7 = new QTextEdit(verticalLayoutWidget_2);
         textEdit_7->setObjectName(QString::fromUtf8("textEdit_7"));
-        sizePolicy2.setHeightForWidth(textEdit_7->sizePolicy().hasHeightForWidth());
-        textEdit_7->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(textEdit_7->sizePolicy().hasHeightForWidth());
+        textEdit_7->setSizePolicy(sizePolicy1);
         textEdit_7->setMaximumSize(QSize(250, 30));
 
         gridLayout_4->addWidget(textEdit_7, 2, 3, 1, 1);
 
         textEdit_2 = new QTextEdit(verticalLayoutWidget_2);
         textEdit_2->setObjectName(QString::fromUtf8("textEdit_2"));
-        sizePolicy2.setHeightForWidth(textEdit_2->sizePolicy().hasHeightForWidth());
-        textEdit_2->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(textEdit_2->sizePolicy().hasHeightForWidth());
+        textEdit_2->setSizePolicy(sizePolicy1);
         textEdit_2->setMaximumSize(QSize(250, 30));
 
         gridLayout_4->addWidget(textEdit_2, 1, 3, 1, 1);
 
         textEdit = new QTextEdit(verticalLayoutWidget_2);
         textEdit->setObjectName(QString::fromUtf8("textEdit"));
-        sizePolicy2.setHeightForWidth(textEdit->sizePolicy().hasHeightForWidth());
-        textEdit->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(textEdit->sizePolicy().hasHeightForWidth());
+        textEdit->setSizePolicy(sizePolicy1);
         textEdit->setMaximumSize(QSize(250, 30));
 
         gridLayout_4->addWidget(textEdit, 1, 1, 1, 1);
@@ -1041,16 +1043,16 @@ public:
         gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
         textEdit_11 = new QTextEdit(verticalLayoutWidget_2);
         textEdit_11->setObjectName(QString::fromUtf8("textEdit_11"));
-        sizePolicy2.setHeightForWidth(textEdit_11->sizePolicy().hasHeightForWidth());
-        textEdit_11->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(textEdit_11->sizePolicy().hasHeightForWidth());
+        textEdit_11->setSizePolicy(sizePolicy1);
         textEdit_11->setMaximumSize(QSize(150, 30));
 
         gridLayout_5->addWidget(textEdit_11, 0, 6, 1, 1);
 
         textEdit_13 = new QTextEdit(verticalLayoutWidget_2);
         textEdit_13->setObjectName(QString::fromUtf8("textEdit_13"));
-        sizePolicy2.setHeightForWidth(textEdit_13->sizePolicy().hasHeightForWidth());
-        textEdit_13->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(textEdit_13->sizePolicy().hasHeightForWidth());
+        textEdit_13->setSizePolicy(sizePolicy1);
         textEdit_13->setMaximumSize(QSize(150, 30));
 
         gridLayout_5->addWidget(textEdit_13, 1, 4, 1, 1);
@@ -1062,8 +1064,8 @@ public:
 
         textEdit_37 = new QTextEdit(verticalLayoutWidget_2);
         textEdit_37->setObjectName(QString::fromUtf8("textEdit_37"));
-        sizePolicy2.setHeightForWidth(textEdit_37->sizePolicy().hasHeightForWidth());
-        textEdit_37->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(textEdit_37->sizePolicy().hasHeightForWidth());
+        textEdit_37->setSizePolicy(sizePolicy1);
         textEdit_37->setMaximumSize(QSize(150, 30));
 
         gridLayout_5->addWidget(textEdit_37, 1, 7, 1, 1);
@@ -1075,8 +1077,8 @@ public:
 
         textEdit_12 = new QTextEdit(verticalLayoutWidget_2);
         textEdit_12->setObjectName(QString::fromUtf8("textEdit_12"));
-        sizePolicy2.setHeightForWidth(textEdit_12->sizePolicy().hasHeightForWidth());
-        textEdit_12->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(textEdit_12->sizePolicy().hasHeightForWidth());
+        textEdit_12->setSizePolicy(sizePolicy1);
         textEdit_12->setMaximumSize(QSize(150, 30));
 
         gridLayout_5->addWidget(textEdit_12, 0, 7, 1, 1);
@@ -1088,32 +1090,32 @@ public:
 
         textEdit_40 = new QTextEdit(verticalLayoutWidget_2);
         textEdit_40->setObjectName(QString::fromUtf8("textEdit_40"));
-        sizePolicy2.setHeightForWidth(textEdit_40->sizePolicy().hasHeightForWidth());
-        textEdit_40->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(textEdit_40->sizePolicy().hasHeightForWidth());
+        textEdit_40->setSizePolicy(sizePolicy1);
         textEdit_40->setMaximumSize(QSize(200, 30));
 
         gridLayout_5->addWidget(textEdit_40, 1, 2, 1, 1);
 
         textEdit_32 = new QTextEdit(verticalLayoutWidget_2);
         textEdit_32->setObjectName(QString::fromUtf8("textEdit_32"));
-        sizePolicy2.setHeightForWidth(textEdit_32->sizePolicy().hasHeightForWidth());
-        textEdit_32->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(textEdit_32->sizePolicy().hasHeightForWidth());
+        textEdit_32->setSizePolicy(sizePolicy1);
         textEdit_32->setMaximumSize(QSize(150, 30));
 
         gridLayout_5->addWidget(textEdit_32, 1, 5, 1, 1);
 
         textEdit_9 = new QTextEdit(verticalLayoutWidget_2);
         textEdit_9->setObjectName(QString::fromUtf8("textEdit_9"));
-        sizePolicy2.setHeightForWidth(textEdit_9->sizePolicy().hasHeightForWidth());
-        textEdit_9->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(textEdit_9->sizePolicy().hasHeightForWidth());
+        textEdit_9->setSizePolicy(sizePolicy1);
         textEdit_9->setMaximumSize(QSize(150, 30));
 
         gridLayout_5->addWidget(textEdit_9, 0, 4, 1, 1);
 
         textEdit_38 = new QTextEdit(verticalLayoutWidget_2);
         textEdit_38->setObjectName(QString::fromUtf8("textEdit_38"));
-        sizePolicy2.setHeightForWidth(textEdit_38->sizePolicy().hasHeightForWidth());
-        textEdit_38->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(textEdit_38->sizePolicy().hasHeightForWidth());
+        textEdit_38->setSizePolicy(sizePolicy1);
         textEdit_38->setMaximumSize(QSize(150, 30));
 
         gridLayout_5->addWidget(textEdit_38, 1, 6, 1, 1);
@@ -1125,16 +1127,16 @@ public:
 
         textEdit_10 = new QTextEdit(verticalLayoutWidget_2);
         textEdit_10->setObjectName(QString::fromUtf8("textEdit_10"));
-        sizePolicy2.setHeightForWidth(textEdit_10->sizePolicy().hasHeightForWidth());
-        textEdit_10->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(textEdit_10->sizePolicy().hasHeightForWidth());
+        textEdit_10->setSizePolicy(sizePolicy1);
         textEdit_10->setMaximumSize(QSize(150, 30));
 
         gridLayout_5->addWidget(textEdit_10, 0, 5, 1, 1);
 
         textEdit_39 = new QTextEdit(verticalLayoutWidget_2);
         textEdit_39->setObjectName(QString::fromUtf8("textEdit_39"));
-        sizePolicy2.setHeightForWidth(textEdit_39->sizePolicy().hasHeightForWidth());
-        textEdit_39->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(textEdit_39->sizePolicy().hasHeightForWidth());
+        textEdit_39->setSizePolicy(sizePolicy1);
         textEdit_39->setMaximumSize(QSize(200, 30));
 
         gridLayout_5->addWidget(textEdit_39, 0, 2, 1, 1);
@@ -1168,15 +1170,25 @@ public:
         gridLayout_6 = new QGridLayout(gridLayoutWidget_6);
         gridLayout_6->setObjectName(QString::fromUtf8("gridLayout_6"));
         gridLayout_6->setContentsMargins(0, 0, 0, 0);
-        label_23 = new QLabel(gridLayoutWidget_6);
-        label_23->setObjectName(QString::fromUtf8("label_23"));
+        render_type_comboBox = new QComboBox(gridLayoutWidget_6);
+        render_type_comboBox->addItem(QString());
+        render_type_comboBox->addItem(QString());
+        render_type_comboBox->addItem(QString());
+        render_type_comboBox->addItem(QString());
+        render_type_comboBox->addItem(QString());
+        render_type_comboBox->setObjectName(QString::fromUtf8("render_type_comboBox"));
 
-        gridLayout_6->addWidget(label_23, 1, 0, 1, 1);
+        gridLayout_6->addWidget(render_type_comboBox, 2, 1, 1, 1);
 
-        checkBox_6 = new QCheckBox(gridLayoutWidget_6);
-        checkBox_6->setObjectName(QString::fromUtf8("checkBox_6"));
+        checkBox_5 = new QCheckBox(gridLayoutWidget_6);
+        checkBox_5->setObjectName(QString::fromUtf8("checkBox_5"));
 
-        gridLayout_6->addWidget(checkBox_6, 0, 3, 1, 1);
+        gridLayout_6->addWidget(checkBox_5, 0, 2, 1, 1);
+
+        label_25 = new QLabel(gridLayoutWidget_6);
+        label_25->setObjectName(QString::fromUtf8("label_25"));
+
+        gridLayout_6->addWidget(label_25, 2, 0, 1, 1);
 
         horizontalSlider_2 = new QSlider(gridLayoutWidget_6);
         horizontalSlider_2->setObjectName(QString::fromUtf8("horizontalSlider_2"));
@@ -1194,48 +1206,23 @@ public:
 
         gridLayout_6->addWidget(horizontalSlider_2, 1, 3, 1, 1);
 
-        comboBox = new QComboBox(gridLayoutWidget_6);
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->setObjectName(QString::fromUtf8("comboBox"));
+        label_23 = new QLabel(gridLayoutWidget_6);
+        label_23->setObjectName(QString::fromUtf8("label_23"));
 
-        gridLayout_6->addWidget(comboBox, 2, 1, 1, 1);
+        gridLayout_6->addWidget(label_23, 1, 0, 1, 1);
 
-        comboBox_2 = new QComboBox(gridLayoutWidget_6);
-        comboBox_2->addItem(QString());
-        comboBox_2->addItem(QString());
-        comboBox_2->addItem(QString());
-        comboBox_2->setObjectName(QString::fromUtf8("comboBox_2"));
+        spinBox_2 = new QSpinBox(gridLayoutWidget_6);
+        spinBox_2->setObjectName(QString::fromUtf8("spinBox_2"));
+        spinBox_2->setMinimum(1);
+        spinBox_2->setMaximum(32);
+        spinBox_2->setValue(4);
 
-        gridLayout_6->addWidget(comboBox_2, 2, 3, 1, 1);
+        gridLayout_6->addWidget(spinBox_2, 3, 3, 1, 1);
 
-        checkBox_5 = new QCheckBox(gridLayoutWidget_6);
-        checkBox_5->setObjectName(QString::fromUtf8("checkBox_5"));
+        label_28 = new QLabel(gridLayoutWidget_6);
+        label_28->setObjectName(QString::fromUtf8("label_28"));
 
-        gridLayout_6->addWidget(checkBox_5, 0, 2, 1, 1);
-
-        label_25 = new QLabel(gridLayoutWidget_6);
-        label_25->setObjectName(QString::fromUtf8("label_25"));
-
-        gridLayout_6->addWidget(label_25, 2, 0, 1, 1);
-
-        checkBox_4 = new QCheckBox(gridLayoutWidget_6);
-        checkBox_4->setObjectName(QString::fromUtf8("checkBox_4"));
-
-        gridLayout_6->addWidget(checkBox_4, 0, 1, 1, 1);
-
-        label_26 = new QLabel(gridLayoutWidget_6);
-        label_26->setObjectName(QString::fromUtf8("label_26"));
-
-        gridLayout_6->addWidget(label_26, 2, 2, 1, 1);
-
-        label_24 = new QLabel(gridLayoutWidget_6);
-        label_24->setObjectName(QString::fromUtf8("label_24"));
-
-        gridLayout_6->addWidget(label_24, 1, 2, 1, 1);
+        gridLayout_6->addWidget(label_28, 3, 2, 1, 1);
 
         horizontalSlider_3 = new QSlider(gridLayoutWidget_6);
         horizontalSlider_3->setObjectName(QString::fromUtf8("horizontalSlider_3"));
@@ -1250,15 +1237,38 @@ public:
 
         gridLayout_6->addWidget(horizontalSlider_3, 1, 1, 1, 1);
 
+        label_26 = new QLabel(gridLayoutWidget_6);
+        label_26->setObjectName(QString::fromUtf8("label_26"));
+
+        gridLayout_6->addWidget(label_26, 2, 2, 1, 1);
+
         checkBox_3 = new QCheckBox(gridLayoutWidget_6);
         checkBox_3->setObjectName(QString::fromUtf8("checkBox_3"));
 
         gridLayout_6->addWidget(checkBox_3, 0, 0, 1, 1);
 
-        label_27 = new QLabel(gridLayoutWidget_6);
-        label_27->setObjectName(QString::fromUtf8("label_27"));
+        checkBox_4 = new QCheckBox(gridLayoutWidget_6);
+        checkBox_4->setObjectName(QString::fromUtf8("checkBox_4"));
 
-        gridLayout_6->addWidget(label_27, 3, 0, 1, 1);
+        gridLayout_6->addWidget(checkBox_4, 0, 1, 1, 1);
+
+        label_24 = new QLabel(gridLayoutWidget_6);
+        label_24->setObjectName(QString::fromUtf8("label_24"));
+
+        gridLayout_6->addWidget(label_24, 1, 2, 1, 1);
+
+        checkBox_6 = new QCheckBox(gridLayoutWidget_6);
+        checkBox_6->setObjectName(QString::fromUtf8("checkBox_6"));
+
+        gridLayout_6->addWidget(checkBox_6, 0, 3, 1, 1);
+
+        comboBox_2 = new QComboBox(gridLayoutWidget_6);
+        comboBox_2->addItem(QString());
+        comboBox_2->addItem(QString());
+        comboBox_2->addItem(QString());
+        comboBox_2->setObjectName(QString::fromUtf8("comboBox_2"));
+
+        gridLayout_6->addWidget(comboBox_2, 2, 3, 1, 1);
 
         comboBox_3 = new QComboBox(gridLayoutWidget_6);
         comboBox_3->addItem(QString());
@@ -1270,18 +1280,28 @@ public:
 
         gridLayout_6->addWidget(comboBox_3, 3, 1, 1, 1);
 
-        label_28 = new QLabel(gridLayoutWidget_6);
-        label_28->setObjectName(QString::fromUtf8("label_28"));
+        label_27 = new QLabel(gridLayoutWidget_6);
+        label_27->setObjectName(QString::fromUtf8("label_27"));
 
-        gridLayout_6->addWidget(label_28, 3, 2, 1, 1);
+        gridLayout_6->addWidget(label_27, 3, 0, 1, 1);
 
-        spinBox_2 = new QSpinBox(gridLayoutWidget_6);
-        spinBox_2->setObjectName(QString::fromUtf8("spinBox_2"));
-        spinBox_2->setMinimum(1);
-        spinBox_2->setMaximum(32);
-        spinBox_2->setValue(4);
+        render_size_horizontalSlider = new QSlider(gridLayoutWidget_6);
+        render_size_horizontalSlider->setObjectName(QString::fromUtf8("render_size_horizontalSlider"));
+        sizePolicy3.setHeightForWidth(render_size_horizontalSlider->sizePolicy().hasHeightForWidth());
+        render_size_horizontalSlider->setSizePolicy(sizePolicy3);
+        render_size_horizontalSlider->setMinimum(1);
+        render_size_horizontalSlider->setMaximum(10);
+        render_size_horizontalSlider->setSingleStep(1);
+        render_size_horizontalSlider->setPageStep(1);
+        render_size_horizontalSlider->setValue(3);
+        render_size_horizontalSlider->setOrientation(Qt::Horizontal);
 
-        gridLayout_6->addWidget(spinBox_2, 3, 3, 1, 1);
+        gridLayout_6->addWidget(render_size_horizontalSlider, 4, 1, 1, 1);
+
+        label_32 = new QLabel(gridLayoutWidget_6);
+        label_32->setObjectName(QString::fromUtf8("label_32"));
+
+        gridLayout_6->addWidget(label_32, 4, 0, 1, 1);
 
         tabWidget->addTab(tab_4, QString());
         tab_5 = new QWidget();
@@ -1299,8 +1319,8 @@ public:
 
         textEdit_43 = new QTextEdit(gridLayoutWidget_7);
         textEdit_43->setObjectName(QString::fromUtf8("textEdit_43"));
-        sizePolicy2.setHeightForWidth(textEdit_43->sizePolicy().hasHeightForWidth());
-        textEdit_43->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(textEdit_43->sizePolicy().hasHeightForWidth());
+        textEdit_43->setSizePolicy(sizePolicy1);
 
         gridLayout_7->addWidget(textEdit_43, 0, 1, 1, 1);
 
@@ -1335,8 +1355,8 @@ public:
 
         textEdit_45 = new QTextEdit(gridLayoutWidget_8);
         textEdit_45->setObjectName(QString::fromUtf8("textEdit_45"));
-        sizePolicy2.setHeightForWidth(textEdit_45->sizePolicy().hasHeightForWidth());
-        textEdit_45->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(textEdit_45->sizePolicy().hasHeightForWidth());
+        textEdit_45->setSizePolicy(sizePolicy1);
 
         gridLayout_8->addWidget(textEdit_45, 0, 3, 1, 1);
 
@@ -1347,8 +1367,8 @@ public:
 
         textEdit_44 = new QTextEdit(gridLayoutWidget_8);
         textEdit_44->setObjectName(QString::fromUtf8("textEdit_44"));
-        sizePolicy2.setHeightForWidth(textEdit_44->sizePolicy().hasHeightForWidth());
-        textEdit_44->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(textEdit_44->sizePolicy().hasHeightForWidth());
+        textEdit_44->setSizePolicy(sizePolicy1);
 
         gridLayout_8->addWidget(textEdit_44, 0, 1, 1, 1);
 
@@ -1364,7 +1384,7 @@ public:
 
         retranslateUi(MainClass);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainClass);
@@ -1373,12 +1393,12 @@ public:
     void retranslateUi(QMainWindow *MainClass)
     {
         MainClass->setWindowTitle(QCoreApplication::translate("MainClass", "MainClass", nullptr));
-        QUIT_btn->setText(QCoreApplication::translate("MainClass", "QUIT", nullptr));
-        label_18->setText(QCoreApplication::translate("MainClass", "INFORMATION", nullptr));
-        START_btn->setText(QCoreApplication::translate("MainClass", "START", nullptr));
-        STOP_btn->setText(QCoreApplication::translate("MainClass", "STOP", nullptr));
         radioButton->setText(QCoreApplication::translate("MainClass", "WORK", nullptr));
-        information->setText(QCoreApplication::translate("MainClass", "INFORMATION", nullptr));
+        STOP_btn->setText(QCoreApplication::translate("MainClass", "STOP", nullptr));
+        START_btn->setText(QCoreApplication::translate("MainClass", "START", nullptr));
+        QUIT_btn->setText(QCoreApplication::translate("MainClass", "QUIT", nullptr));
+        label_time->setText(QCoreApplication::translate("MainClass", "INFORMATION", nullptr));
+        label_info->setText(QCoreApplication::translate("MainClass", "INFORMATION", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainClass", "MANAGEMENT", nullptr));
         login_cam_Edit->setHtml(QCoreApplication::translate("MainClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -1392,7 +1412,7 @@ public:
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">q12345678</p></body></html>", nullptr));
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">q1234567</p></body></html>", nullptr));
         password_cam_Edit->setPlaceholderText(QCoreApplication::translate("MainClass", "q1234567", nullptr));
         label_17->setText(QCoreApplication::translate("MainClass", "PASSWORD CAM", nullptr));
         protocol_type_Edit->setHtml(QCoreApplication::translate("MainClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -1602,25 +1622,26 @@ public:
         write_now_sql_checkBox->setText(QCoreApplication::translate("MainClass", "WRITE NOW SQL", nullptr));
         checkBox_2->setText(QCoreApplication::translate("MainClass", "WRITE DATA SQL", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QCoreApplication::translate("MainClass", "SQL", nullptr));
-        label_23->setText(QCoreApplication::translate("MainClass", "SPEED ANALYSIS", nullptr));
-        checkBox_6->setText(QCoreApplication::translate("MainClass", "WRITE TO TEXT", nullptr));
-        comboBox->setItemText(0, QCoreApplication::translate("MainClass", "none", nullptr));
-        comboBox->setItemText(1, QCoreApplication::translate("MainClass", "source", nullptr));
-        comboBox->setItemText(2, QCoreApplication::translate("MainClass", "final", nullptr));
-        comboBox->setItemText(3, QCoreApplication::translate("MainClass", "extended", nullptr));
-        comboBox->setItemText(4, QCoreApplication::translate("MainClass", "all", nullptr));
+        render_type_comboBox->setItemText(0, QCoreApplication::translate("MainClass", "none", nullptr));
+        render_type_comboBox->setItemText(1, QCoreApplication::translate("MainClass", "source", nullptr));
+        render_type_comboBox->setItemText(2, QCoreApplication::translate("MainClass", "final", nullptr));
+        render_type_comboBox->setItemText(3, QCoreApplication::translate("MainClass", "extended", nullptr));
+        render_type_comboBox->setItemText(4, QCoreApplication::translate("MainClass", "all", nullptr));
 
+        render_type_comboBox->setCurrentText(QCoreApplication::translate("MainClass", "extended", nullptr));
+        checkBox_5->setText(QCoreApplication::translate("MainClass", "WRITE TO WIDGET", nullptr));
+        label_25->setText(QCoreApplication::translate("MainClass", "RENDER TYPE", nullptr));
+        label_23->setText(QCoreApplication::translate("MainClass", "SPEED ANALYSIS", nullptr));
+        label_28->setText(QCoreApplication::translate("MainClass", "PROCESS CORES", nullptr));
+        label_26->setText(QCoreApplication::translate("MainClass", "SOURCE TYPE", nullptr));
+        checkBox_3->setText(QCoreApplication::translate("MainClass", "AUTOPLAY", nullptr));
+        checkBox_4->setText(QCoreApplication::translate("MainClass", "AUTOIMPORT", nullptr));
+        label_24->setText(QCoreApplication::translate("MainClass", "SPEED VIDEO-STREAM", nullptr));
+        checkBox_6->setText(QCoreApplication::translate("MainClass", "WRITE TO TEXT", nullptr));
         comboBox_2->setItemText(0, QCoreApplication::translate("MainClass", "image-http", nullptr));
         comboBox_2->setItemText(1, QCoreApplication::translate("MainClass", "video-rtsp", nullptr));
         comboBox_2->setItemText(2, QCoreApplication::translate("MainClass", "video-file", nullptr));
 
-        checkBox_5->setText(QCoreApplication::translate("MainClass", "WRITE TO WIDGET", nullptr));
-        label_25->setText(QCoreApplication::translate("MainClass", "RENDER TYPE", nullptr));
-        checkBox_4->setText(QCoreApplication::translate("MainClass", "AUTOIMPORT", nullptr));
-        label_26->setText(QCoreApplication::translate("MainClass", "SOURCE TYPE", nullptr));
-        label_24->setText(QCoreApplication::translate("MainClass", "SPEED VIDEO-STREAM", nullptr));
-        checkBox_3->setText(QCoreApplication::translate("MainClass", "AUTOPLAY", nullptr));
-        label_27->setText(QCoreApplication::translate("MainClass", "COMPUTE TYPE", nullptr));
         comboBox_3->setItemText(0, QCoreApplication::translate("MainClass", "sync", nullptr));
         comboBox_3->setItemText(1, QCoreApplication::translate("MainClass", "async", nullptr));
         comboBox_3->setItemText(2, QCoreApplication::translate("MainClass", "multithread", nullptr));
@@ -1628,7 +1649,8 @@ public:
         comboBox_3->setItemText(4, QCoreApplication::translate("MainClass", "complex", nullptr));
 
         comboBox_3->setCurrentText(QCoreApplication::translate("MainClass", "sync", nullptr));
-        label_28->setText(QCoreApplication::translate("MainClass", "PROCESS CORES", nullptr));
+        label_27->setText(QCoreApplication::translate("MainClass", "COMPUTE TYPE", nullptr));
+        label_32->setText(QCoreApplication::translate("MainClass", "RENDER SIZE", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QCoreApplication::translate("MainClass", "DEBUG", nullptr));
         label_29->setText(QCoreApplication::translate("MainClass", "SETTINGS FILE NAME", nullptr));
         textEdit_43->setHtml(QCoreApplication::translate("MainClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"

@@ -25,7 +25,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainClass_t {
     const uint offsetsAndSize[18];
-    char stringdata0[135];
+    char stringdata0[136];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_MainClass_t, stringdata0) + ofs), len 
@@ -37,14 +37,14 @@ QT_MOC_LITERAL(31, 0), // ""
 QT_MOC_LITERAL(32, 24), // "authentication_to_access"
 QT_MOC_LITERAL(57, 14), // "QNetworkReply*"
 QT_MOC_LITERAL(72, 15), // "QAuthenticator*"
-QT_MOC_LITERAL(88, 13), // "authenticator"
-QT_MOC_LITERAL(102, 13), // "write_to_file"
-QT_MOC_LITERAL(116, 18) // "analyse_from_image"
+QT_MOC_LITERAL(88, 14), // "qauthenticator"
+QT_MOC_LITERAL(103, 13), // "write_to_file"
+QT_MOC_LITERAL(117, 18) // "analyse_from_image"
 
     },
     "MainClass\0on_START_btn_clicked\0\0"
     "authentication_to_access\0QNetworkReply*\0"
-    "QAuthenticator*\0authenticator\0"
+    "QAuthenticator*\0qauthenticator\0"
     "write_to_file\0analyse_from_image"
 };
 #undef QT_MOC_LITERAL

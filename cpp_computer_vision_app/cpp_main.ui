@@ -30,7 +30,7 @@
      </sizepolicy>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideMiddle</enum>
@@ -56,52 +56,13 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <layout class="QGridLayout" name="gridLayout_3">
-          <item row="1" column="2">
-           <widget class="QProgressBar" name="progressBar">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="value">
-             <number>24</number>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="3">
-           <widget class="QPushButton" name="QUIT_btn">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+          <item row="1" column="0">
+           <widget class="QRadioButton" name="radioButton">
             <property name="text">
-             <string>QUIT</string>
+             <string>WORK</string>
             </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <widget class="QLabel" name="label_18">
-            <property name="text">
-             <string>INFORMATION</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="3">
-           <widget class="QLCDNumber" name="lcdNumber"/>
-          </item>
-          <item row="0" column="0">
-           <widget class="QPushButton" name="START_btn">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>START</string>
+            <property name="checkable">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -118,20 +79,59 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QRadioButton" name="radioButton">
-            <property name="text">
-             <string>WORK</string>
+          <item row="0" column="0">
+           <widget class="QPushButton" name="START_btn">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
-            <property name="checkable">
-             <bool>false</bool>
+            <property name="text">
+             <string>START</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QPushButton" name="QUIT_btn">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>QUIT</string>
             </property>
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="information">
+           <widget class="QLabel" name="label_time">
             <property name="text">
              <string>INFORMATION</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLabel" name="label_info">
+            <property name="text">
+             <string>INFORMATION</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3">
+           <widget class="QLCDNumber" name="lcdNumber"/>
+          </item>
+          <item row="1" column="2" colspan="2">
+           <widget class="QProgressBar" name="progressBar">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="value">
+             <number>24</number>
             </property>
            </widget>
           </item>
@@ -211,7 +211,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;q12345678&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;q1234567&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="placeholderText">
             <string>q1234567</string>
@@ -1347,7 +1347,7 @@ p, li { white-space: pre-wrap; }
             <number>255</number>
            </property>
            <property name="value">
-            <number>30</number>
+            <number>100</number>
            </property>
           </widget>
          </item>
@@ -2056,17 +2056,49 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_6">
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_23">
+       <item row="2" column="1">
+        <widget class="QComboBox" name="render_type_comboBox">
+         <property name="currentText">
+          <string>extended</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>none</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>source</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>final</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>extended</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>all</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QCheckBox" name="checkBox_5">
          <property name="text">
-          <string>SPEED ANALYSIS</string>
+          <string>WRITE TO WIDGET</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="3">
-        <widget class="QCheckBox" name="checkBox_6">
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_25">
          <property name="text">
-          <string>WRITE TO TEXT</string>
+          <string>RENDER TYPE</string>
          </property>
         </widget>
        </item>
@@ -2098,86 +2130,30 @@ p, li { white-space: pre-wrap; }
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
-        <widget class="QComboBox" name="comboBox">
-         <item>
-          <property name="text">
-           <string>none</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>source</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>final</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>extended</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>all</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="2" column="3">
-        <widget class="QComboBox" name="comboBox_2">
-         <item>
-          <property name="text">
-           <string>image-http</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>video-rtsp</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>video-file</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QCheckBox" name="checkBox_5">
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_23">
          <property name="text">
-          <string>WRITE TO WIDGET</string>
+          <string>SPEED ANALYSIS</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_25">
-         <property name="text">
-          <string>RENDER TYPE</string>
+       <item row="3" column="3">
+        <widget class="QSpinBox" name="spinBox_2">
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>32</number>
+         </property>
+         <property name="value">
+          <number>4</number>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QCheckBox" name="checkBox_4">
+       <item row="3" column="2">
+        <widget class="QLabel" name="label_28">
          <property name="text">
-          <string>AUTOIMPORT</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QLabel" name="label_26">
-         <property name="text">
-          <string>SOURCE TYPE</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLabel" name="label_24">
-         <property name="text">
-          <string>SPEED VIDEO-STREAM</string>
+          <string>PROCESS CORES</string>
          </property>
         </widget>
        </item>
@@ -2209,6 +2185,13 @@ p, li { white-space: pre-wrap; }
          </property>
         </widget>
        </item>
+       <item row="2" column="2">
+        <widget class="QLabel" name="label_26">
+         <property name="text">
+          <string>SOURCE TYPE</string>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="0">
         <widget class="QCheckBox" name="checkBox_3">
          <property name="text">
@@ -2216,11 +2199,44 @@ p, li { white-space: pre-wrap; }
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_27">
+       <item row="0" column="1">
+        <widget class="QCheckBox" name="checkBox_4">
          <property name="text">
-          <string>COMPUTE TYPE</string>
+          <string>AUTOIMPORT</string>
          </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="label_24">
+         <property name="text">
+          <string>SPEED VIDEO-STREAM</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QCheckBox" name="checkBox_6">
+         <property name="text">
+          <string>WRITE TO TEXT</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="QComboBox" name="comboBox_2">
+         <item>
+          <property name="text">
+           <string>image-http</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>video-rtsp</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>video-file</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="3" column="1">
@@ -2255,23 +2271,45 @@ p, li { white-space: pre-wrap; }
          </item>
         </widget>
        </item>
-       <item row="3" column="2">
-        <widget class="QLabel" name="label_28">
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_27">
          <property name="text">
-          <string>PROCESS CORES</string>
+          <string>COMPUTE TYPE</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="3">
-        <widget class="QSpinBox" name="spinBox_2">
+       <item row="4" column="1">
+        <widget class="QSlider" name="render_size_horizontalSlider">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimum">
           <number>1</number>
          </property>
          <property name="maximum">
-          <number>32</number>
+          <number>10</number>
+         </property>
+         <property name="singleStep">
+          <number>1</number>
+         </property>
+         <property name="pageStep">
+          <number>1</number>
          </property>
          <property name="value">
-          <number>4</number>
+          <number>3</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_32">
+         <property name="text">
+          <string>RENDER SIZE</string>
          </property>
         </widget>
        </item>

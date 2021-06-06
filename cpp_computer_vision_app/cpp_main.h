@@ -17,6 +17,8 @@
 #include <QSpinBox>
 #include <QDoubleSpinBox>
 #include <QTextEdit>
+#include <QComboBox>
+#include <QSlider>
 #include <QObject>
 #include <QStringList>
 #include <QFile>
@@ -45,7 +47,7 @@ public:
 private slots:
     void on_START_btn_clicked();
 
-    void authentication_to_access(QNetworkReply *, QAuthenticator *authenticator);
+    void authentication_to_access(QNetworkReply *, QAuthenticator *qauthenticator);
     void write_to_file();
     void analyse_from_image();
 
@@ -89,6 +91,10 @@ public:
     static std::string QDoubleSpinBox_obj(QDoubleSpinBox *value);
 
     static std::string QTextEdit_obj(QTextEdit *value);
+
+    static std::string QComboBox_obj(QComboBox *value);
+
+    static std::string QSlider_obj(QSlider *value);
 
 private:
 };
