@@ -1386,6 +1386,7 @@ public:
         render_type_comboBox->addItem(QString());
         render_type_comboBox->addItem(QString());
         render_type_comboBox->addItem(QString());
+        render_type_comboBox->addItem(QString());
         render_type_comboBox->setObjectName(QString::fromUtf8("render_type_comboBox"));
 
         gridLayout_6->addWidget(render_type_comboBox, 2, 1, 1, 1);
@@ -1641,7 +1642,7 @@ public:
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">http</p></body></html>", nullptr));
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">test</p></body></html>", nullptr));
         protocol_type_Edit->setPlaceholderText(QCoreApplication::translate("MainClass", "http", nullptr));
         label_15->setText(QCoreApplication::translate("MainClass", "PROTOCOL TYPE", nullptr));
         textEdit_24->setPlaceholderText(QCoreApplication::translate("MainClass", "15.203", nullptr));
@@ -1870,8 +1871,9 @@ public:
         render_type_comboBox->setItemText(3, QCoreApplication::translate("MainClass", "extended", nullptr));
         render_type_comboBox->setItemText(4, QCoreApplication::translate("MainClass", "all", nullptr));
         render_type_comboBox->setItemText(5, QCoreApplication::translate("MainClass", "debug", nullptr));
+        render_type_comboBox->setItemText(6, QCoreApplication::translate("MainClass", "test", nullptr));
 
-        render_type_comboBox->setCurrentText(QCoreApplication::translate("MainClass", "debug", nullptr));
+        render_type_comboBox->setCurrentText(QCoreApplication::translate("MainClass", "test", nullptr));
         checkBox_5->setText(QCoreApplication::translate("MainClass", "WRITE TO WIDGET", nullptr));
         label_25->setText(QCoreApplication::translate("MainClass", "RENDER TYPE", nullptr));
         label_23->setText(QCoreApplication::translate("MainClass", "SPEED ANALYSIS", nullptr));
