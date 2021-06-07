@@ -83,26 +83,15 @@ public:
 
     static std::string GetUrlFromIp(std::map <std::string, std::string> Map, std::string Ip);
 
+    static std::string GetLocalTime();
 
-private:
-};
+    static std::string GetConvertedQt_obj(QCheckBox *value);
+    static std::string GetConvertedQt_obj(QSpinBox *value);
+    static std::string GetConvertedQt_obj(QDoubleSpinBox *value);
+    static std::string GetConvertedQt_obj(QTextEdit *value);
+    static std::string GetConvertedQt_obj(QComboBox *value);
+    static std::string GetConvertedQt_obj(QSlider *value);
 
-
-
-class CustomConvertQtClass{
-public:
-
-    static std::string QCheckBox_obj(QCheckBox *value);
-
-    static std::string QSpinBox_obj(QSpinBox *value);
-
-    static std::string QDoubleSpinBox_obj(QDoubleSpinBox *value);
-
-    static std::string QTextEdit_obj(QTextEdit *value);
-
-    static std::string QComboBox_obj(QComboBox *value);
-
-    static std::string QSlider_obj(QSlider *value);
 
 private:
 };

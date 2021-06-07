@@ -42,7 +42,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideMiddle</enum>
@@ -289,7 +289,7 @@
                <number>1</number>
               </property>
               <property name="value">
-               <number>128</number>
+               <number>140</number>
               </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -327,7 +327,7 @@
                <number>255</number>
               </property>
               <property name="value">
-               <number>255</number>
+               <number>15</number>
               </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -469,7 +469,7 @@
                <number>255</number>
               </property>
               <property name="value">
-               <number>128</number>
+               <number>255</number>
               </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
