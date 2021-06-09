@@ -4,6 +4,10 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <windows.h>
+#include <sqlext.h>
+#include <sqltypes.h>
+#include <sql.h>
 
 #include <QCheckBox>
 #include <QSpinBox>
@@ -13,6 +17,11 @@
 #include <QSlider>
 
 #include <QApplication>
+#include <QDebug>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QVariant>
+#include <QVariantList>
 #include <QtWidgets>
 #include <QtNetwork>
 #include <QDataStream>
@@ -77,7 +86,24 @@ void MainClass::on_START_btn_clicked()
         { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox) },
 
         { "render_size", UtilitesClass::GetConvertedQt_obj(ui->render_size_horizontalSlider) },
+        { "TimeDelay", UtilitesClass::GetConvertedQt_obj(ui->TimeDelay_doubleSpinBox) },
     };
+
+
+
+
+//    for (auto& local_vector : UtilitesClass::GetValuesFromSQL("SELECT * FROM grohot16_now_table WHERE device_row='16/1';")){
+//        for (auto& local_value : local_vector){
+//            UtilitesClass::PrintValueToConsole(local_value);
+//        }
+//    }
+
+//    for (auto& local_vector : UtilitesClass::GetValuesFromSQL()){
+//        for (auto& local_value : local_vector){
+//            UtilitesClass::PrintValueToConsole(local_value);
+//        }
+//    }
+
 
     if (Playing){
         try{
@@ -86,7 +112,7 @@ void MainClass::on_START_btn_clicked()
             ui->playing_radioButton->setChecked(Playing);
         } catch (int number) {
             UtilitesClass::PrintValueToConsole("Exception: " + std::to_string(number));
-            Sleep(1000);
+            Sleep(1);
             on_START_btn_clicked();
         }
     }
@@ -197,7 +223,7 @@ void MainClass::analyse_from_image()
     } else if(result < 0){
         result = 0.0;
     } else {
-        float pow_10 = pow(10.0f, (float)1);
+        float pow_10 = pow(10.0f, (float)2);
         result = round(result * pow_10) / pow_10;
     }
 
@@ -210,15 +236,20 @@ void MainClass::analyse_from_image()
                 cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
     cv::putText(final, UtilitesClass::GetValueFromMap(AllSettingsMap, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam"),
                 cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+
     if(result > std::stoi((UtilitesClass::GetValueFromMap(AllSettingsMap, "AlarmLevel")))){
         cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
         QString danger = "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #FF0350,stop: 0.4999 #FF0020,stop: 0.5 #FF0019,stop: 1 #FF0000 );border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;border: .px solid black;}";
         ui->progressBar->setStyleSheet(danger);
+
+        UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(3), result, 1);
     }
     else {
         cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
         QString safe= "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #78d,stop: 0.4999 #46a,stop: 0.5 #45a,stop: 1 #238 );border-bottom-right-radius: 7px;border-bottom-left-radius: 7px;border: 1px solid black;}";
         ui->progressBar->setStyleSheet(safe);
+
+        UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(3), result, 0);
     }
 
 
@@ -239,8 +270,15 @@ void MainClass::analyse_from_image()
     ui->lcdNumber->display(result);
     UtilitesClass::PrintValueToConsole("RESULT IS : " + std::to_string(result) + "%");
 
+
+
+
+
+
     if (Playing){
-        Sleep(1);
+        int val = std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*100;
+        UtilitesClass::PrintValueToConsole(std::to_string(val));
+        Sleep(std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*100);
         on_START_btn_clicked();
     }
 }
@@ -251,6 +289,67 @@ void UtilitesClass::PrintValueToConsole(std::string Value)
 {
     std::cout << Value << std::endl;
 };
+
+std::vector<std::vector<std::string>> UtilitesClass::GetValuesFromSQL(std::string sqlQuery, std::string connectionString, QString connectionDriver)
+{
+    QSqlDatabase qdb = QSqlDatabase::addDatabase(connectionDriver);
+    qdb.setDatabaseName(QString::fromStdString(connectionString));
+    if (qdb.open()) {
+        UtilitesClass::PrintValueToConsole("good to open sql");
+        QSqlQuery query(qdb);
+        query.exec(QString::fromStdString(sqlQuery));
+        std::vector<std::vector<std::string>> global_vector;
+        int rows_count = 0;
+        while(query.next())
+        {
+            std::vector<std::string> local_vector;
+            std::string local_request;
+            if (query.at() == 0){
+                while (true) {
+                    if (query.value(rows_count).isNull()){
+                        UtilitesClass::PrintValueToConsole("rows_count succefull finded");
+                        break;
+                    } else {
+                        rows_count++;
+                    }
+                }
+            }
+            for (int i=0;i<rows_count;i++) {
+                local_vector.push_back(query.value(i).toString().toStdString());
+            }
+            global_vector.push_back(local_vector);
+        }
+        qdb.close();
+        return global_vector;
+    } else {
+        UtilitesClass::PrintValueToConsole("error to open sql");
+        std::vector<std::vector<std::string>> global_vector = {};
+        return global_vector;
+    }
+}
+
+
+
+void UtilitesClass::SetValuesToSQL(std::string device_row, double value_row, bool alarm_row, std::string sqlQuery, std::string connectionString, QString connectionDriver)
+{
+    QSqlDatabase qdb = QSqlDatabase::addDatabase(connectionDriver);
+    qdb.setDatabaseName(QString::fromStdString(connectionString));
+    if (qdb.open()) {
+        UtilitesClass::PrintValueToConsole("good to open sql");
+        QSqlQuery query(qdb);
+        query.prepare("UPDATE grohot16_now_table "
+                      "SET value_row = :value, alarm_row = :alarm, datetime_row =  GETDATE() "
+                      "WHERE device_row = :device");
+        query.bindValue(":value", value_row);
+        query.bindValue(":alarm", alarm_row);
+        query.bindValue(":device", QString::fromStdString(device_row));
+
+        query.exec();
+        qdb.close();
+    } else {
+        UtilitesClass::PrintValueToConsole("error to open sql");
+    }
+}
 
 
 
@@ -289,8 +388,8 @@ std::string UtilitesClass::GetUrlFromIp(std::map <std::string, std::string> Map,
 
 
 std::string UtilitesClass::GetLocalTime(){
-    time_t t = time(NULL);
-    return asctime(localtime(&t));
+    time_t now = time(0);
+    return std::string(ctime(&now));
 };
 
 
