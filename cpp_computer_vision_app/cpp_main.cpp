@@ -25,6 +25,9 @@
 #include <QtWidgets>
 #include <QtNetwork>
 #include <QDataStream>
+#include <QtConcurrent>
+#include <QObject>
+#include <QFuture>
 
 #include <opencv2/opencv.hpp>
 
@@ -53,6 +56,19 @@ MainClass::~MainClass()
 {
     delete ui;
 }
+
+
+
+ThreadClass::ThreadClass(QObject *parent) : QObject(parent)
+{
+
+}
+
+
+void ThreadClass::one_thread(std::map<std::string,std::string> Map)
+{
+    UtilitesClass::PrintValueToConsole(UtilitesClass::GetValueFromMap(Map, "alias_cam") + " | " + UtilitesClass::GetValueFromMap(Map, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(Map, "mask_cam"));
+};
 
 
 
@@ -103,6 +119,40 @@ void MainClass::on_START_btn_clicked()
 //            UtilitesClass::PrintValueToConsole(local_value);
 //        }
 //    }
+
+
+//    for (auto& local_vector : UtilitesClass::GetValuesFromSQL()){
+//        for (auto& local_value : local_vector){
+//            UtilitesClass::PrintValueToConsole(local_value);
+//        }
+//    }
+
+
+
+    std::vector<std::map<std::string,std::string>> local_vector =
+    {
+        {
+            { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_1_Edit) },
+            { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_1_Edit) },
+            { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_1_Edit)}
+        },
+        {
+            { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_2_Edit) },
+            { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_2_Edit) },
+            { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_2_Edit)}
+        },
+        {
+            { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_3_Edit) },
+            { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_3_Edit) },
+            { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_3_Edit)}
+        }
+    };
+
+    for (auto& local_value : local_vector)
+    {
+        auto future = QtConcurrent::run(ThreadClass::one_thread, local_value);
+    }
+
 
 
     if (Playing){

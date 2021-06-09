@@ -27,6 +27,9 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QApplication>
+#include <QtConcurrent>
+#include <QObject>
+#include <QFuture>
 
 #include <memory>
 
@@ -98,6 +101,18 @@ public:
 
 
 private:
+};
+
+class ThreadClass : public QObject
+{
+    Q_OBJECT
+public:
+    explicit ThreadClass(QObject *parent = nullptr);
+
+    static void one_thread(std::map<std::string,std::string> Map);
+
+private:
+    std::map<std::string,std::string> Map;
 };
 
 #endif // MAINCLASS_H

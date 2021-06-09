@@ -48,7 +48,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideMiddle</enum>
@@ -1624,7 +1624,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="4" column="2">
-             <widget class="QTextEdit" name="textEdit_4">
+             <widget class="QTextEdit" name="alias_cam_2_Edit">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -1650,7 +1650,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="4" column="3">
-             <widget class="QTextEdit" name="textEdit_5">
+             <widget class="QTextEdit" name="alias_cam_3_Edit">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
                 <horstretch>0</horstretch>
