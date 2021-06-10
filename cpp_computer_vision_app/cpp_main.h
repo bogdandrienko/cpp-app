@@ -103,16 +103,40 @@ public:
 private:
 };
 
+
+
+
+
+
+
 class ThreadClass : public QObject
 {
     Q_OBJECT
 public:
     explicit ThreadClass(QObject *parent = nullptr);
+    ~ThreadClass();
 
-    static void one_thread(std::map<std::string,std::string> Map);
+    void one_thread(std::map<std::string,std::string> All, std::map<std::string,std::string> One);
+    void download_from_url();
+private slots:
 
+    void authentication_to_access(QNetworkReply *, QAuthenticator *qauthenticator);
+    void write_to_file();
+    void analyse_from_image();
 private:
+    ThreadClass *thread_obj;
     std::map<std::string,std::string> Map;
+
+    std::unique_ptr<QFile> openFileForWrite(const QString &fileName);
+    std::unique_ptr<QFile> file;
+
+    QNetworkAccessManager qnam;
+    QScopedPointer<QNetworkReply, QScopedPointerDeleteLater> qreply;
+
+
+    std::map <std::string,std::string> AllSettingsMap;
+    std::map <std::string, std::string> OneSettingsMap;
+    bool Playing;
 };
 
 #endif // MAINCLASS_H

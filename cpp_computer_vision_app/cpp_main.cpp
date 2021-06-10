@@ -59,113 +59,121 @@ MainClass::~MainClass()
 
 
 
-ThreadClass::ThreadClass(QObject *parent) : QObject(parent)
-{
-
-}
-
-
-void ThreadClass::one_thread(std::map<std::string,std::string> Map)
-{
-    UtilitesClass::PrintValueToConsole(UtilitesClass::GetValueFromMap(Map, "alias_cam") + " | " + UtilitesClass::GetValueFromMap(Map, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(Map, "mask_cam"));
-};
-
-
-
 void MainClass::on_START_btn_clicked()
 {
 //    UtilitesClass::PrintValueToConsole("on_START_btn_clicked");
 
     Playing = true;
     AllSettingsMap = {
-        { "protocol_type", UtilitesClass::GetConvertedQt_obj(ui->protocol_type_Edit)},
-        { "port_cam", UtilitesClass::GetConvertedQt_obj(ui->port_cam_spinBox) },
-        { "login_cam", UtilitesClass::GetConvertedQt_obj(ui->login_cam_Edit) },
-        { "password_cam", UtilitesClass::GetConvertedQt_obj(ui->password_cam_Edit) },
-
-        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_1_Edit) },
-        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_1_Edit) },
-        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_1_Edit) },
-
-        { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox) },
-        { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox) },
-
-        { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox) },
-        { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox) },
-        { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox) },
-
-        { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox) },
-        { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox) },
-        { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox) },
-        { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox) },
-        { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox) },
-        { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox) },
-
         { "render_size", UtilitesClass::GetConvertedQt_obj(ui->render_size_horizontalSlider) },
         { "TimeDelay", UtilitesClass::GetConvertedQt_obj(ui->TimeDelay_doubleSpinBox) },
+
+        { "protocol_type", UtilitesClass::GetConvertedQt_obj(ui->protocol_type_textEdit)},
+        { "port_cam", UtilitesClass::GetConvertedQt_obj(ui->port_cam_spinBox) },
+        { "login_cam", UtilitesClass::GetConvertedQt_obj(ui->login_cam_textEdit) },
+        { "password_cam", UtilitesClass::GetConvertedQt_obj(ui->password_cam_textEdit) },
+
+        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_3) },
+        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_3) },
+        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_3) },
+        { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_3) },
+        { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_3) },
+        { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_3) },
+        { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_3) },
+        { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_3) },
+        { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_3) },
+        { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_3) },
+        { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_3) },
+        { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_3) },
+        { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_3) },
+        { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_3) },
     };
-
-
-
-
-//    for (auto& local_vector : UtilitesClass::GetValuesFromSQL("SELECT * FROM grohot16_now_table WHERE device_row='16/1';")){
-//        for (auto& local_value : local_vector){
-//            UtilitesClass::PrintValueToConsole(local_value);
-//        }
-//    }
-
-//    for (auto& local_vector : UtilitesClass::GetValuesFromSQL()){
-//        for (auto& local_value : local_vector){
-//            UtilitesClass::PrintValueToConsole(local_value);
-//        }
-//    }
-
-
-//    for (auto& local_vector : UtilitesClass::GetValuesFromSQL()){
-//        for (auto& local_value : local_vector){
-//            UtilitesClass::PrintValueToConsole(local_value);
-//        }
-//    }
 
 
 
     std::vector<std::map<std::string,std::string>> local_vector =
     {
         {
-            { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_1_Edit) },
-            { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_1_Edit) },
-            { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_1_Edit)}
+            { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_1) },
+            { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_1) },
+//            { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_1) },
+//            { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_1) },
+//            { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_1) },
+//            { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_1) },
+//            { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_1) },
+//            { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_1) },
+//            { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_1) },
+//            { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_1) },
+//            { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_1) },
+//            { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_1) },
+//            { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_1) },
+//            { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_1) },
         },
-        {
-            { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_2_Edit) },
-            { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_2_Edit) },
-            { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_2_Edit)}
-        },
-        {
-            { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_3_Edit) },
-            { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_3_Edit) },
-            { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_3_Edit)}
-        }
+//        {
+//            { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_2) },
+//            { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_2) },
+////            { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_2) },
+////            { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_2) },
+////            { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_2) },
+////            { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_2) },
+////            { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_2) },
+////            { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_2) },
+////            { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_2) },
+////            { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_2) },
+////            { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_2) },
+////            { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_2) },
+////            { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_2) },
+////            { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_2) },
+//        },
+//        {
+//            { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_3) },
+////            { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_3) },
+////            { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_3) },
+////            { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_3) },
+////            { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_3) },
+////            { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_3) },
+////            { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_3) },
+////            { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_3) },
+////            { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_3) },
+////            { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_3) },
+////            { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_3) },
+////            { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_3) },
+////            { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_3) },
+////            { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_3) },
+//        }
     };
 
     for (auto& local_value : local_vector)
     {
-        auto future = QtConcurrent::run(ThreadClass::one_thread, local_value);
-    }
+//        auto future = QtConcurrent::run(ThreadClass::one_thread, local_value);
+
+//        ThreadClass obj;
+//        obj.download_from_url();
+//        auto future = QtConcurrent::run(ThreadClass::one_thread, local_value);
+
+        QFuture<void> future = QtConcurrent::run([=]() {
+            try {
+                ThreadClass obj;
+                obj.one_thread(AllSettingsMap, local_value);
+            }  catch (std::string error) {
+                UtilitesClass::PrintValueToConsole(error);
+            }
+        });
+    };
 
 
 
-    if (Playing){
-        try{
-            Sleep(1);
-            download_from_url();
-            ui->playing_radioButton->setChecked(Playing);
-        } catch (int number) {
-            UtilitesClass::PrintValueToConsole("Exception: " + std::to_string(number));
-            Sleep(1);
-            on_START_btn_clicked();
-        }
-    }
+//    if (Playing){
+//        try{
+//            Sleep(1);
+//            download_from_url();
+//            ui->playing_radioButton->setChecked(Playing);
+//        } catch (int number) {
+//            UtilitesClass::PrintValueToConsole("Exception: " + std::to_string(number));
+//            Sleep(1);
+//            on_START_btn_clicked();
+//        }
+//    }
 }
 
 
@@ -292,14 +300,14 @@ void MainClass::analyse_from_image()
         QString danger = "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #FF0350,stop: 0.4999 #FF0020,stop: 0.5 #FF0019,stop: 1 #FF0000 );border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;border: .px solid black;}";
         ui->progressBar->setStyleSheet(danger);
 
-        UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(3), result, 1);
+//        UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(3), result, 1);
     }
     else {
         cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
         QString safe= "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #78d,stop: 0.4999 #46a,stop: 0.5 #45a,stop: 1 #238 );border-bottom-right-radius: 7px;border-bottom-left-radius: 7px;border: 1px solid black;}";
         ui->progressBar->setStyleSheet(safe);
 
-        UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(3), result, 0);
+//        UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(3), result, 0);
     }
 
 
@@ -318,7 +326,7 @@ void MainClass::analyse_from_image()
     ui->label_info->setText(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam")));
     ui->progressBar->setValue(result);
     ui->lcdNumber->display(result);
-    UtilitesClass::PrintValueToConsole("RESULT IS : " + std::to_string(result) + "%");
+//    UtilitesClass::PrintValueToConsole("RESULT IS : " + std::to_string(result) + "%");
 
 
 
@@ -326,12 +334,123 @@ void MainClass::analyse_from_image()
 
 
     if (Playing){
-        int val = std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*100;
-        UtilitesClass::PrintValueToConsole(std::to_string(val));
         Sleep(std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*100);
         on_START_btn_clicked();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ThreadClass::ThreadClass(QObject *parent) : QObject(parent)
+{
+    UtilitesClass::PrintValueToConsole("ThreadClass");
+}
+
+ThreadClass::~ThreadClass()
+{
+//    delete thread_obj;
+}
+
+void ThreadClass::one_thread(std::map<std::string,std::string> All, std::map<std::string,std::string> One)
+{
+    UtilitesClass::PrintValueToConsole("one_thread");
+    AllSettingsMap = All;
+    OneSettingsMap = One;
+    download_from_url();
+};
+
+void ThreadClass::download_from_url()
+{
+    UtilitesClass::PrintValueToConsole("download_from_url");
+
+//    for (auto& local_value : AllSettingsMap)
+//    {
+//        UtilitesClass::PrintValueToConsole(local_value.first + " : " + local_value.second);
+//    };
+//    for (auto& local_value : OneSettingsMap)
+//    {
+//        UtilitesClass::PrintValueToConsole(local_value.first + " : " + local_value.second);
+//    };
+//    UtilitesClass::PrintValueToConsole(UtilitesClass::GetUrlFromIp(AllSettingsMap, UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam")));
+    //    http://placehold.it/900x350
+
+    connect(&qnam, &QNetworkAccessManager::authenticationRequired, this, &ThreadClass::authentication_to_access);
+//    qreply.reset(qnam.get(QNetworkRequest(QString::fromStdString("http://placehold.it/900x350"))));
+    qreply.reset(qnam.get(QNetworkRequest(QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap, UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam"))))));
+    connect(qreply.get(), &QNetworkReply::finished, this, &ThreadClass::write_to_file);
+
+}
+
+
+
+void ThreadClass::authentication_to_access(QNetworkReply *, QAuthenticator *qauthenticator)
+{
+    UtilitesClass::PrintValueToConsole("authentication_to_access");
+
+    qauthenticator->setUser(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "login_cam")));
+    qauthenticator->setPassword(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "password_cam")));
+}
+
+
+
+std::unique_ptr<QFile> ThreadClass::openFileForWrite(const QString &fileName)
+{
+    UtilitesClass::PrintValueToConsole("openFileForWrite");
+
+    std::unique_ptr<QFile> file = std::make_unique<QFile>(fileName);
+    if (!file->open(QIODevice::WriteOnly)) {
+        return nullptr;
+    }
+    return file;
+}
+
+
+
+void ThreadClass::write_to_file()
+{
+    UtilitesClass::PrintValueToConsole("write_to_file");
+
+    file = openFileForWrite(QString::fromStdString("./" + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam") + ".jpg"));
+    file->write(qreply->readAll());
+    file->close();
+
+    analyse_from_image();
+}
+
+
+
+void ThreadClass::analyse_from_image()
+{
+    cv::Mat image_source = cv::imread(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam") + ".jpg", cv::IMREAD_COLOR);
+    cv::namedWindow("source", cv::WINDOW_AUTOSIZE);
+    cv::imshow("source", image_source);
+    cv::waitKey(1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
