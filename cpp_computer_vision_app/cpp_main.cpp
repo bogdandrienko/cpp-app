@@ -1,35 +1,18 @@
 #include "cpp_main.h"
 #include "ui_cpp_main.h"
 
+#include <QtCore>
+#include <QtWidgets>
+#include <QtNetwork>
+#include <QtSql>
+#include <QtConcurrent>
+
+#include <opencv2/opencv.hpp>
+
+#include <memory>
 #include <iostream>
 #include <string>
 #include <map>
-#include <windows.h>
-#include <sqlext.h>
-#include <sqltypes.h>
-#include <sql.h>
-
-#include <QCheckBox>
-#include <QSpinBox>
-#include <QDoubleSpinBox>
-#include <QTextEdit>
-#include <QComboBox>
-#include <QSlider>
-
-#include <QApplication>
-#include <QDebug>
-#include <QSqlDatabase>
-#include <QSqlQuery>
-#include <QVariant>
-#include <QVariantList>
-#include <QtWidgets>
-#include <QtNetwork>
-#include <QDataStream>
-#include <QtConcurrent>
-#include <QObject>
-#include <QFuture>
-
-#include <opencv2/opencv.hpp>
 
 
 
@@ -354,11 +337,12 @@ void MainClass::analyse_from_image()
 
 ThreadClass::ThreadClass(QObject *parent) : QObject(parent)
 {
-    UtilitesClass::PrintValueToConsole("ThreadClass");
+    UtilitesClass::PrintValueToConsole("ThreadClass created");
 }
 
 ThreadClass::~ThreadClass()
 {
+    UtilitesClass::PrintValueToConsole("ThreadClass remove");
 //    delete thread_obj;
 }
 
@@ -385,13 +369,19 @@ void ThreadClass::download_from_url()
 //    UtilitesClass::PrintValueToConsole(UtilitesClass::GetUrlFromIp(AllSettingsMap, UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam")));
     //    http://placehold.it/900x350
 
-    connect(&qnam, &QNetworkAccessManager::authenticationRequired, this, &ThreadClass::authentication_to_access);
-//    qreply.reset(qnam.get(QNetworkRequest(QString::fromStdString("http://placehold.it/900x350"))));
-    qreply.reset(qnam.get(QNetworkRequest(QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap, UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam"))))));
-    connect(qreply.get(), &QNetworkReply::finished, this, &ThreadClass::write_to_file);
+//    connect(&qnam, &QNetworkAccessManager::authenticationRequired, this, &ThreadClass::authentication_to_access);
+////    qreply.reset(qnam.get(QNetworkRequest(QString::fromStdString("http://placehold.it/900x350"))));
+//    qreply.reset(qnam.get(QNetworkRequest(QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap, UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam"))))));
+//    connect(qreply.get(), &QNetworkReply::finished, this, &ThreadClass::write_to_file);
 
+
+//    QNetworkReply qrepl;
+    QScopedPointer<QNetworkReply, QScopedPointerDeleteLater> qrepl;
+    QNetworkAccessManager qna;
+    qrepl.reset(qna.get(QNetworkRequest(QString::fromStdString("http://placehold.it/900x350"))));
+    connect(qrepl.get(), &QNetworkReply::finished, this, &ThreadClass::write_to_file);
 }
-
+`
 
 
 void ThreadClass::authentication_to_access(QNetworkReply *, QAuthenticator *qauthenticator)

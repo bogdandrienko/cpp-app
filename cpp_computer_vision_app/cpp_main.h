@@ -1,37 +1,20 @@
 #ifndef MAINCLASS_H
 #define MAINCLASS_H
 
+#include <QtCore>
+#include <QtWidgets>
+#include <QtNetwork>
+#include <QtSql>
+#include <QtConcurrent>
+
+#include <opencv2/opencv.hpp>
+
+#include <memory>
 #include <iostream>
 #include <string>
 #include <map>
 
-#include <QMainWindow>
-#include <QCheckBox>
-#include <QSpinBox>
-#include <QDoubleSpinBox>
-#include <QTextEdit>
-#include <QProgressDialog>
-#include <QUrl>
-#include <QString>
-#include <QCheckBox>
-#include <QSpinBox>
-#include <QDoubleSpinBox>
-#include <QTextEdit>
-#include <QComboBox>
-#include <QSlider>
-#include <QObject>
-#include <QStringList>
-#include <QFile>
-#include <QDir>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QApplication>
-#include <QtConcurrent>
-#include <QObject>
-#include <QFuture>
 
-#include <memory>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainClass; }
@@ -112,14 +95,15 @@ private:
 class ThreadClass : public QObject
 {
     Q_OBJECT
+
 public:
     explicit ThreadClass(QObject *parent = nullptr);
     ~ThreadClass();
 
     void one_thread(std::map<std::string,std::string> All, std::map<std::string,std::string> One);
     void download_from_url();
-private slots:
 
+private slots:
     void authentication_to_access(QNetworkReply *, QAuthenticator *qauthenticator);
     void write_to_file();
     void analyse_from_image();
