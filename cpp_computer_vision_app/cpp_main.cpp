@@ -220,9 +220,13 @@ void MainClass::write_to_file()
 {
     UtilitesClass::PrintValueToConsole("write_to_file");
 
+
+
     file = openFileForWrite(QString::fromStdString("./" + UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam") + ".jpg"));
     file->write(qreply->readAll());
     file->close();
+
+    qbytearray = qreply->readAll();
 
     if (Playing){
         Sleep(1);
@@ -236,8 +240,14 @@ void MainClass::analyse_from_image()
 {
     UtilitesClass::PrintValueToConsole("analyse_from_image");
 
-
-    cv::Mat image_source = cv::imread(UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam") + ".jpg", cv::IMREAD_COLOR);
+    cv::Mat image_source;
+    QPixmap qPixmap;
+    if(qPixmap.loadFromData(qbytearray,"JPG"))
+    {
+        QImage qImage = qPixmap.toImage();
+        cv::Mat image_source(qImage.height(), qImage.width(), CV_8UC4, const_cast<uchar*>(qImage.bits()), static_cast<size_t>(qImage.bytesPerLine()));
+    }
+//    cv::Mat image_source = cv::imread(UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam") + ".jpg", cv::IMREAD_COLOR);
     cv::Mat mask = cv::imread(UtilitesClass::GetValueFromMap(AllSettingsMap, "mask_cam"), 0);
 
 

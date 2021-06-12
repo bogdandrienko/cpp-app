@@ -52,10 +52,11 @@ private:
     QNetworkAccessManager qnam;
     QScopedPointer<QNetworkReply, QScopedPointerDeleteLater> qreply;
 
-
     std::map <std::string,std::string> AllSettingsMap;
     std::map <std::string, std::string> OneSettingsMap;
     bool Playing;
+
+    QByteArray qbytearray;
 };
 
 
@@ -85,4 +86,5 @@ public:
 
 private:
 };
+
 #endif // MAINCLASS_H
