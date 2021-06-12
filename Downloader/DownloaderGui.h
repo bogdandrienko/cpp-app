@@ -62,6 +62,7 @@ signals:
     void error();
 
 private slots:
+    void slotAuthentication(QNetworkReply*, QAuthenticator*);
     void slotFinished(QNetworkReply*);
 
 };
