@@ -146,17 +146,37 @@ void MainClass::on_START_btn_clicked()
 
 
 
-    if (Playing){
-        try{
-            Sleep(1);
-            download_from_url();
-            ui->playing_radioButton->setChecked(Playing);
-        } catch (int number) {
-            UtilitesClass::PrintValueToConsole("Exception: " + std::to_string(number));
-            Sleep(1);
-            on_START_btn_clicked();
-        }
-    }
+    for (auto& local_value : local_vector)
+    {
+        QUrl url = QString::fromStdString(UtilitesClass::GetValueFromMap(local_value, "ip_cam"));
+        QString alias = QString::fromStdString(UtilitesClass::GetValueFromMap(local_value, "alias_cam"));
+        QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+        QNetworkReply* reply = manager->get(QNetworkRequest(url));
+        QEventLoop loop;
+        connect(manager, &QNetworkAccessManager::authenticationRequired, this, &MainClass::authentication_to_access);
+        connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+        loop.exec();
+        QByteArray data = reply->readAll();
+        MainClass::showPic(data, alias);
+        reply->deleteLater();
+        manager->deleteLater();
+    };
+    Sleep(500);
+    on_START_btn_clicked();
+
+
+
+//    if (Playing){
+//        try{
+//            Sleep(1);
+//            download_from_url();
+//            ui->playing_radioButton->setChecked(Playing);
+//        } catch (int number) {
+//            UtilitesClass::PrintValueToConsole("Exception: " + std::to_string(number));
+//            Sleep(1);
+//            on_START_btn_clicked();
+//        }
+//    }
 }
 
 
@@ -314,6 +334,21 @@ void MainClass::analyse_from_image()
     if (Playing){
         Sleep(std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*100);
         on_START_btn_clicked();
+    }
+}
+
+
+
+void MainClass::showPic(QByteArray& ba, QString& alias)
+{
+    QPixmap qPixmap;
+    QByteArray pData = ba;
+    if(qPixmap.loadFromData(pData,"JPG"))
+    {
+        QImage qImage = qPixmap.toImage();
+        cv::Mat mat(qImage.height(), qImage.width(), CV_8UC4, const_cast<uchar*>(qImage.bits()), static_cast<size_t>(qImage.bytesPerLine()));
+        cv::resize(mat, mat, cv::Size(), 0.25, 0.25, cv::INTER_LINEAR);
+        cv::imshow(alias.toStdString(), mat);
     }
 }
 

@@ -33,11 +33,13 @@ private:
 public:
     DownloaderGui(QWidget* pwgt = 0);
 
+    static void showPic(QByteArray& ba, QString& alias);
+
 private slots:
     void slotGo();
     void slotError();
     void slotDownloadProgress(qint64, qint64);
-    void slotDone(const QUrl&, const QByteArray&);
+    void slotDone(const QUrl&, const QByteArray&, const QString&);
 
 };
 
@@ -54,16 +56,16 @@ private:
 public:
     Downloader(QObject* pobj = 0);
 
-    void download(const QUrl&);
+    void download(const QUrl&, const QString&);
 
 signals:
     void downloadProgress(qint64, qint64);
-    void done(const QUrl&, const QByteArray&);
+    void done(const QUrl&, const QByteArray&, const QString&);
     void error();
 
 private slots:
     void slotAuthentication(QNetworkReply*, QAuthenticator*);
-    void slotFinished(QNetworkReply*);
+    void slotFinished(QNetworkReply*, const QString);
 
 };
 

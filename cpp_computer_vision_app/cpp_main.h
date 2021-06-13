@@ -29,6 +29,7 @@ public:
     ~MainClass();
 
     void download_from_url();
+    static void showPic(QByteArray&, QString&);
     static void Thread_download_from_url(std::map <std::string,std::string> AllSettingsMap, std::map <std::string, std::string> OneSettingsMap);
     static void Thread_write_to_file(std::map <std::string,std::string> AllSettingsMap, std::map <std::string, std::string> OneSettingsMap);
 

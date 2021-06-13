@@ -14,21 +14,12 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    DownloaderGui.cpp \
     requestmanager.cpp
 
 HEADERS += \
-    DownloaderGui.h \
     requestmanager.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-win32:CONFIG(release, debug|release): LIBS += -LC:/Project/Envire/opencv-4.5.2/build/x64/vc15/lib/ -lopencv_world452
-else:win32:CONFIG(debug, debug|release): LIBS += -LC:/Project/Envire/opencv-4.5.2/build/x64/vc15/lib/ -lopencv_world452d
-else:unix: LIBS += -LC:/Project/Envire/opencv-4.5.2/build/x64/vc15/lib/ -lopencv_world452
-
-INCLUDEPATH += C:/Project/Envire/opencv-4.5.2/build/include
-DEPENDPATH += C:/Project/Envire/opencv-4.5.2/build/include
