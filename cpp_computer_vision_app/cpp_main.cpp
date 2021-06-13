@@ -148,12 +148,16 @@ void MainClass::on_START_btn_clicked()
 
     for (auto& local_value : local_vector)
     {
-        QUrl url = QString::fromStdString(UtilitesClass::GetValueFromMap(local_value, "ip_cam"));
+        QUrl url = QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap ,UtilitesClass::GetValueFromMap(local_value, "ip_cam")));
+        url.setUserName("admin");
+        url.setPassword("q1234567");
         QString alias = QString::fromStdString(UtilitesClass::GetValueFromMap(local_value, "alias_cam"));
         QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+//        QNetworkRequest *request = new QNetworkRequest(url);
+//        connect(manager, SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), this, SLOT(authentication_to_access(QNetworkReply*,QAuthenticator*)));
+//        connect(manager, &QNetworkAccessManager::authenticationRequired, this, &MainClass::authentication_to_access);
         QNetworkReply* reply = manager->get(QNetworkRequest(url));
         QEventLoop loop;
-        connect(manager, &QNetworkAccessManager::authenticationRequired, this, &MainClass::authentication_to_access);
         connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
         loop.exec();
         QByteArray data = reply->readAll();
@@ -178,6 +182,19 @@ void MainClass::on_START_btn_clicked()
 //        }
 //    }
 }
+
+
+//void MainClass::authentication_to_access(QNetworkReply *, QAuthenticator *qauthenticator)
+//{
+//    UtilitesClass::PrintValueToConsole("authentication_to_access");
+
+//    qauthenticator->setUser(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "login_cam")));
+//    qauthenticator->setPassword(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "password_cam")));
+//}
+
+
+
+
 
 
 
