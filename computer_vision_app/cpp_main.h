@@ -26,17 +26,8 @@ public:
     MainClass(QWidget *parent = nullptr);
     ~MainClass();
 
-    void download_from_url();
-    static void showPic(QByteArray&, QString&);
-    static void Thread_download_from_url(std::map <std::string,std::string> AllSettingsMap, std::map <std::string, std::string> OneSettingsMap);
-    static void Thread_write_to_file(std::map <std::string,std::string> AllSettingsMap, std::map <std::string, std::string> OneSettingsMap);
-
 private slots:
     void on_START_btn_clicked();
-
-    void authentication_to_access(QNetworkReply *, QAuthenticator *qauthenticator);
-    void write_to_file();
-    void analyse_from_image();
 
     void on_STOP_btn_clicked();
 
@@ -45,17 +36,7 @@ private slots:
 private:
     Ui::MainClass *ui;
 
-    std::unique_ptr<QFile> openFileForWrite(const QString &fileName);
-    std::unique_ptr<QFile> file;
-
-    QNetworkAccessManager qnam;
-    QScopedPointer<QNetworkReply, QScopedPointerDeleteLater> qreply;
-
-    std::map <std::string,std::string> AllSettingsMap;
-    std::map <std::string, std::string> OneSettingsMap;
     bool Playing;
-
-    QByteArray qbytearray;
 };
 
 
