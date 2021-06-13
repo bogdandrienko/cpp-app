@@ -8,14 +8,15 @@
 
 #include <opencv2/opencv.hpp>
 
-//DownloaderGui::DownloaderGui(QWidget *parent)
-//    : QMainWindow(parent)
-//{
-//}
-
-//DownloaderGui::~DownloaderGui()
-//{
-//}
+std::string GetValueFromMap(std::map <std::string, std::string> Map, std::string Key)
+{
+    std::string value = "";
+    for (auto& map_elem : Map)
+        if(map_elem.first == Key){
+            value = map_elem.second;
+        }
+    return value;
+};
 
 void DownloaderGui::showPic(const QString& strFileName)
 {
@@ -39,8 +40,8 @@ DownloaderGui::DownloaderGui(QWidget* pwgt) : QWidget(pwgt)
     m_ptxt = new QLineEdit;
     m_pcmd = new QPushButton(tr("&Go"));
 
-
-    QString strDownloadLink = "http://192.168.15.203:80/ISAPI/Streaming/channels/101/picture?snapShotImageType=JPEG";
+//    QString strDownloadLink = "http://192.168.15.203:80/ISAPI/Streaming/channels/101/picture?snapShotImageType=JPEG";
+    QString strDownloadLink = "http://qt-book.com/pic.jpg";
     m_ptxt->setText(strDownloadLink);
 
     connect(m_pcmd, SIGNAL(clicked()), SLOT(slotGo()));
@@ -56,10 +57,30 @@ DownloaderGui::DownloaderGui(QWidget* pwgt) : QWidget(pwgt)
 
 void DownloaderGui::slotGo()
 {
-    m_pdl->download(QUrl(m_ptxt->text()));
+    std::vector<std::map<std::string,std::string>> local_vector =
+    {
+        {
+            { "alias_cam", "1" },
+            { "ip_cam", "http://qt-book.com/pic.jpg" },
+        },
+        {
+            { "alias_cam", "2" },
+            { "ip_cam", "http://qt-book.com/pic.jpg" },
+        },
+        {
+            { "alias_cam", "3" },
+            { "ip_cam", "http://qt-book.com/pic.jpg" },
+        }
+    };
+
+    for (auto& local_value : local_vector)
+    {
+        QUrl url = QString::fromStdString(GetValueFromMap(local_value, "ip_cam"));
+        QString alias = QString::fromStdString(GetValueFromMap(local_value, "alias_cam"));
+        m_pdl->download(url);
+    };
+//    m_pdl->download(QUrl(m_ptxt->text()));
 }
-
-
 
 void DownloaderGui::slotError()
 {
@@ -75,8 +96,6 @@ void DownloaderGui::slotDownloadProgress(qint64 nReceived, qint64 nTotal)
     m_ppb->setValue((100 * nReceived / nTotal));
 }
 
-
-
 void DownloaderGui::slotDone(const QUrl& url, const QByteArray& ba)
 {
 //    cv::imshow("source", cv::imread("C:\\Users\\Bogdan\\Downloads\\pic.jpg", cv::IMREAD_COLOR));
@@ -90,7 +109,7 @@ void DownloaderGui::slotDone(const QUrl& url, const QByteArray& ba)
         cv::imshow("render", mat);
     }
 
-    slotGo();
+//    slotGo();
 
     QString strFileName = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) +
                           "/" + url.path().section("/", -1);
@@ -105,23 +124,9 @@ void DownloaderGui::slotDone(const QUrl& url, const QByteArray& ba)
     }
 }
 
-
-
-
-
-
-
 Downloader::Downloader(QObject *pobj) : QObject(pobj)
 {
     m_pnam = new QNetworkAccessManager(this);
-//    connect(&m_pnam, &QNetworkAccessManager::authenticationRequired, this, &Downloader::slotAuthentication);
-    connect(m_pnam, SIGNAL(authenticationRequired(QNetworkReply*, QAuthenticator*)),
-            this, SLOT(slotAuthentication(QNetworkReply*, QAuthenticator*))
-            );
-    connect(m_pnam, SIGNAL(finished(QNetworkReply*)),
-            this, SLOT(slotFinished(QNetworkReply*))
-            );
-
 }
 
 void Downloader::slotAuthentication(QNetworkReply *, QAuthenticator* qauthenticator)
@@ -135,6 +140,8 @@ void Downloader::download(const QUrl& url)
     QNetworkRequest request(url);
     QNetworkReply* pnr = m_pnam->get(request);
     connect(pnr, SIGNAL(downloadProgress(qint64, qint64)), this, SIGNAL(downloadProgress(qint64, qint64)));
+    connect(m_pnam, SIGNAL(authenticationRequired(QNetworkReply*, QAuthenticator*)), this, SLOT(slotAuthentication(QNetworkReply*, QAuthenticator*)));
+    connect(m_pnam, SIGNAL(finished(QNetworkReply*)), this, SLOT(slotFinished(QNetworkReply*)));
 }
 
 void Downloader::slotFinished(QNetworkReply* pnr)
