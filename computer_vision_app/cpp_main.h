@@ -28,10 +28,10 @@ public:
 
 private slots:
     void on_START_btn_clicked();
-
     void on_STOP_btn_clicked();
-
     void on_QUIT_btn_clicked();
+
+    void start();
 
 private:
     Ui::MainClass *ui;
@@ -49,7 +49,7 @@ public:
     ThreadClass(QWidget *parent = nullptr);
     ~ThreadClass();
 
-    static void startThread(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap);
+    static double startThread(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap);
 
 private slots:
 
