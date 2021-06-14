@@ -16,88 +16,6 @@
 
 
 
-ThreadClass::ThreadClass(QWidget *parent)
-{
-
-}
-
-ThreadClass::~ThreadClass()
-{
-
-}
-
-
-
-double ThreadClass::startThread(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap)
-{
-    double result = 0.0;
-    try {
-        QUrl url = QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap ,UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam")));
-        url.setUserName("admin");
-        url.setPassword("q1234567");
-        QNetworkAccessManager *manager = new QNetworkAccessManager;
-        QNetworkReply* reply = manager->get(QNetworkRequest(url));
-        QEventLoop loop;
-        connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-        loop.exec();
-        QByteArray data = reply->readAll();
-        cv::Mat image_source;
-        QPixmap qPixmap;
-        if (qPixmap.loadFromData(data,"JPG")) {
-            QImage qImage = qPixmap.toImage();
-            image_source = cv::Mat(qImage.height(), qImage.width(), CV_8UC4, const_cast<uchar*>(qImage.bits()), static_cast<size_t>(qImage.bytesPerLine()));
-            cv::Mat mask = cv::imread(UtilitesClass::GetValueFromMap(OneSettingsMap, "mask_cam"), 0);
-            cv::Mat bitwise_and;
-            cv::bitwise_and(image_source, image_source, bitwise_and, mask);
-            cv::Mat cvtcolor;
-            cv::cvtColor(bitwise_and, cvtcolor, cv::COLOR_BGR2HSV);
-            cv::Mat inrange;
-            cv::inRange(cvtcolor, cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_1_1")),
-                                             std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_1_2")),
-                                             std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_1_3"))),
-                        cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_2_1")),
-                                   std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_2_2")),
-                                   std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_2_3"))), inrange);
-            inrange.setTo(std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "InRangeSetTo")), inrange >= std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "InRangeSetFrom")));
-            double result = double(cv::countNonZero(inrange > std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "CountNotZero")))) / double(cv::countNonZero(mask)) * 100 * std::stod(UtilitesClass::GetValueFromMap(OneSettingsMap, "CorrectCoefficient"));
-            if (result > 100)
-            {
-                result = 100.0;
-            }
-            else if(result < 0)
-            {
-                result = 0.0;
-            }
-            else
-            {
-                float pow_10 = pow(10.0f, (float)2);
-                result = round(result * pow_10) / pow_10;
-            }
-
-            if(result > std::stoi((UtilitesClass::GetValueFromMap(OneSettingsMap, "AlarmLevel")))){
-//                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(3), result, 1);
-            }
-            else {
-//                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(3), result, 0);
-            }
-            UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam") + " IS : " + std::to_string(result) + "%" + " | " + UtilitesClass::GetLocalTime());
-
-            reply->deleteLater();
-            manager->deleteLater();
-
-//            UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(3), result, 0);
-
-            return result;
-        }
-    }  catch (std::string error) {
-        UtilitesClass::PrintValueToConsole(error);
-        return 0;
-    }
-    return result;
-}
-
-
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -120,6 +38,34 @@ MainClass::MainClass(QWidget *parent)
 MainClass::~MainClass()
 {
     delete ui;
+}
+
+
+
+void MainClass::on_START_btn_clicked()
+{
+    on_STOP_btn_clicked();
+
+    Playing = true;
+    ui->playing_radioButton->setChecked(Playing);
+    start();
+}
+
+
+
+void MainClass::on_STOP_btn_clicked()
+{
+    Playing = false;
+    cv::destroyAllWindows();
+    ui->playing_radioButton->setChecked(Playing);
+}
+
+
+
+void MainClass::on_QUIT_btn_clicked()
+{
+    on_STOP_btn_clicked();
+    this->close();
 }
 
 
@@ -304,9 +250,8 @@ void MainClass::start()
             QCoreApplication::processEvents();
             if (Playing){
                 QCoreApplication::processEvents();
-//                QFuture<double> future = QtConcurrent::run(&ThreadClass::startThread, AllSettingsMap, OneSettingsMap);
 
-//                QFuture<double> future = QtConcurrent::run(&ThreadClass::startThread, AllSettingsMap, OneSettingsMap);
+//                QFuture<double> future = QtConcurrent::run(&MainClass::startThread, AllSettingsMap, OneSettingsMap);
 //                double result = future.result();
 //                int alarm = 0;
 //                if (result > std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"))){
@@ -314,18 +259,19 @@ void MainClass::start()
 //                }
 //                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(3), result, alarm);
 
-                int result = ThreadClass::startThread(AllSettingsMap, OneSettingsMap);
-                int alarm = 0;
-                if (result >= std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"))){
-                    alarm = 1;
-                }
-                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(3), result, alarm);
+//                double result = ThreadClass::startThread(AllSettingsMap, OneSettingsMap);
+//                int alarm = 0;
+//                if (result >= std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"))){
+//                    alarm = 1;
+//                }
+//                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(3), result, alarm);
 
+                startSync(AllSettingsMap, OneSettingsMap);
             }
             QCoreApplication::processEvents();
         }
         QCoreApplication::processEvents();
-//        Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
+        Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
         if (Playing){
             on_START_btn_clicked();
         }
@@ -334,30 +280,161 @@ void MainClass::start()
 
 
 
-void MainClass::on_START_btn_clicked()
+void MainClass::startSync(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap)
 {
-    on_STOP_btn_clicked();
+    try {
+        QUrl url = QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap, UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam")));
+        url.setUserName(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "login_cam")));
+        url.setPassword(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "password_cam")));
+        QNetworkAccessManager *manager = new QNetworkAccessManager;
+        QNetworkReply* reply = manager->get(QNetworkRequest(url));
+        QEventLoop loop;
+        connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+        loop.exec();
+        QByteArray data = reply->readAll();
+        cv::Mat image_source;
+        QPixmap qPixmap;
+        if (qPixmap.loadFromData(data,"JPG")) {
+            QImage qImage = qPixmap.toImage();
+            image_source = cv::Mat(qImage.height(), qImage.width(), CV_8UC4, const_cast<uchar*>(qImage.bits()), static_cast<size_t>(qImage.bytesPerLine()));
+            cv::Mat mask = cv::imread(UtilitesClass::GetValueFromMap(OneSettingsMap, "mask_cam"), 0);
+            cv::Mat bitwise_and;
+            cv::bitwise_and(image_source, image_source, bitwise_and, mask);
 
-    Playing = true;
-    ui->playing_radioButton->setChecked(Playing);
-    start();
+            cv::Mat cvtcolor;
+            cv::cvtColor(bitwise_and, cvtcolor, cv::COLOR_BGR2HSV);
+
+            cv::Mat inrange;
+            cv::inRange(cvtcolor, cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_1_1")),
+                                             std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_1_2")),
+                                             std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_1_3"))),
+                        cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_2_1")),
+                                   std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_2_2")),
+                                   std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_2_3"))), inrange);
+
+            inrange.setTo(std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "InRangeSetTo")), inrange >= std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "InRangeSetFrom")));
+
+
+            double result = double(cv::countNonZero(inrange > std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "CountNotZero")))) / double(cv::countNonZero(mask)) * 100 * std::stod(UtilitesClass::GetValueFromMap(OneSettingsMap, "CorrectCoefficient"));
+            if (result > 100){
+                result = 100.0;
+            } else if(result < 0){
+                result = 0.0;
+            } else {
+                float pow_10 = pow(10.0f, (float)2);
+                result = round(result * pow_10) / pow_10;
+            }
+
+            cv::Mat final;
+            cv::resize(inrange, final, cv::Size(), std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0,
+                       std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0, cv::INTER_LINEAR);
+
+
+            cv::putText(final, UtilitesClass::GetLocalTime(),
+                        cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+            cv::putText(final, UtilitesClass::GetValueFromMap(AllSettingsMap, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"),
+                        cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+
+            if(result > std::stoi((UtilitesClass::GetValueFromMap(AllSettingsMap, "AlarmLevel")))){
+                cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
+                QString danger = "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #FF0350,stop: 0.4999 #FF0020,stop: 0.5 #FF0019,stop: 1 #FF0000 );border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;border: .px solid black;}";
+                ui->progressBar->setStyleSheet(danger);
+
+                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(3), result, 1);
+            }
+            else {
+                cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
+                QString safe= "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #78d,stop: 0.4999 #46a,stop: 0.5 #45a,stop: 1 #238 );border-bottom-right-radius: 7px;border-bottom-left-radius: 7px;border: 1px solid black;}";
+                ui->progressBar->setStyleSheet(safe);
+
+                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(3), result, 0);
+            }
+
+
+            cv::namedWindow("render", cv::WINDOW_AUTOSIZE);
+            cv::imshow("render", final);
+            cv::waitKey(1);
+
+            cv::resize(image_source, image_source, cv::Size(), std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0,
+                       std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0, cv::INTER_LINEAR);
+            cv::namedWindow("source", cv::WINDOW_AUTOSIZE);
+            cv::imshow("source", image_source);
+            cv::waitKey(1);
+
+
+            ui->label_time->setText(QString::fromStdString(UtilitesClass::GetLocalTime()));
+            ui->label_info->setText(QString::fromStdString(UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam")));
+            ui->progressBar->setValue(result);
+            ui->lcdNumber->display(result);
+            UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam") + "IS : " + std::to_string(result) + "%");
+
+            reply->deleteLater();
+            manager->deleteLater();
+        }
+    }  catch (std::string error) {
+        UtilitesClass::PrintValueToConsole(error);
+    }
 }
 
 
 
-void MainClass::on_STOP_btn_clicked()
+ThreadClass::ThreadClass(QWidget *parent){}
+ThreadClass::~ThreadClass(){}
+double ThreadClass::startThread(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap)
 {
-    Playing = false;
-    cv::destroyAllWindows();
-    ui->playing_radioButton->setChecked(Playing);
-}
-
-
-
-void MainClass::on_QUIT_btn_clicked()
-{
-    on_STOP_btn_clicked();
-    this->close();
+    double result = 0.0;
+    try {
+        QUrl url = QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap ,UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam")));
+        url.setUserName("admin");
+        url.setPassword("q1234567");
+        QNetworkAccessManager *manager = new QNetworkAccessManager;
+        QNetworkReply* reply = manager->get(QNetworkRequest(url));
+        QEventLoop loop;
+        connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+        loop.exec();
+        QByteArray data = reply->readAll();
+        cv::Mat image_source;
+        QPixmap qPixmap;
+        if (qPixmap.loadFromData(data,"JPG")) {
+            QImage qImage = qPixmap.toImage();
+            image_source = cv::Mat(qImage.height(), qImage.width(), CV_8UC4, const_cast<uchar*>(qImage.bits()), static_cast<size_t>(qImage.bytesPerLine()));
+            cv::Mat mask = cv::imread(UtilitesClass::GetValueFromMap(OneSettingsMap, "mask_cam"), 0);
+            cv::Mat bitwise_and;
+            cv::bitwise_and(image_source, image_source, bitwise_and, mask);
+            cv::Mat cvtcolor;
+            cv::cvtColor(bitwise_and, cvtcolor, cv::COLOR_BGR2HSV);
+            cv::Mat inrange;
+            cv::inRange(cvtcolor, cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_1_1")),
+                                             std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_1_2")),
+                                             std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_1_3"))),
+                        cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_2_1")),
+                                   std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_2_2")),
+                                   std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_2_3"))), inrange);
+            inrange.setTo(std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "InRangeSetTo")), inrange >= std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "InRangeSetFrom")));
+            result = double(cv::countNonZero(inrange > std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "CountNotZero")))) / double(cv::countNonZero(mask)) * 100 * std::stod(UtilitesClass::GetValueFromMap(OneSettingsMap, "CorrectCoefficient"));
+            if (result > 100)
+            {
+                result = 100.0;
+            }
+            else if(result < 0)
+            {
+                result = 0.0;
+            }
+            else
+            {
+                float pow_10 = pow(10.0f, (float)2);
+                result = round(result * pow_10) / pow_10;
+            }
+            UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam") + " IS : " + std::to_string(result) + "%" + " | " + UtilitesClass::GetLocalTime());
+            reply->deleteLater();
+            manager->deleteLater();
+            return result;
+        }
+    }  catch (std::string error) {
+        UtilitesClass::PrintValueToConsole(error);
+        return 0;
+    }
+    return result;
 }
 
 

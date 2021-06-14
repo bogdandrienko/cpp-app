@@ -33,6 +33,9 @@ private slots:
 
     void start();
 
+    static double startThread(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap);
+    void startSync(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap);
+
 private:
     Ui::MainClass *ui;
 
