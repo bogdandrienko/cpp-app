@@ -14,6 +14,138 @@
 #include <string>
 #include <map>
 
+
+
+ThreadClass::ThreadClass(QWidget *parent)
+{
+
+}
+
+ThreadClass::~ThreadClass()
+{
+
+}
+
+
+
+
+void ThreadClass::startThread(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap)
+{
+//    try {
+//        QUrl url = QString::fromStdString("http://via.placeholder.com/1000.jpg");
+////        QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+//        QNetworkAccessManager *manager = new QNetworkAccessManager;
+//        QNetworkReply* reply = manager->get(QNetworkRequest(url));
+//        QEventLoop loop;
+//        connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+//        loop.exec();
+//        QByteArray data = reply->readAll();
+//        cv::Mat image_source;
+//        std::cout << data.size() << std::endl;
+//        QPixmap qPixmap;
+//        if (qPixmap.loadFromData(data,"JPG")) {
+//            QImage qImage = qPixmap.toImage();
+//            image_source = cv::Mat(qImage.height(), qImage.width(), CV_8UC4, const_cast<uchar*>(qImage.bits()), static_cast<size_t>(qImage.bytesPerLine()));
+//            cv::Mat mask = cv::imread(UtilitesClass::GetValueFromMap(OneSettingsMap, "mask_cam"), 0);
+//            cv::namedWindow("render : " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), cv::WINDOW_AUTOSIZE);
+//            cv::imshow("render : " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), image_source);
+//            cv::waitKey(1);
+//        }
+
+
+
+        try {
+            QUrl url = QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap ,UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam")));
+            url.setUserName("admin");
+            url.setPassword("q1234567");
+//            QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+            QNetworkAccessManager *manager = new QNetworkAccessManager;
+            QNetworkReply* reply = manager->get(QNetworkRequest(url));
+            QEventLoop loop;
+            connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+            loop.exec();
+            QByteArray data = reply->readAll();
+            cv::Mat image_source;
+            QPixmap qPixmap;
+            if (qPixmap.loadFromData(data,"JPG")) {
+                QImage qImage = qPixmap.toImage();
+                image_source = cv::Mat(qImage.height(), qImage.width(), CV_8UC4, const_cast<uchar*>(qImage.bits()), static_cast<size_t>(qImage.bytesPerLine()));
+                cv::Mat mask = cv::imread(UtilitesClass::GetValueFromMap(OneSettingsMap, "mask_cam"), 0);
+                cv::Mat bitwise_and;
+                cv::bitwise_and(image_source, image_source, bitwise_and, mask);
+                cv::Mat cvtcolor;
+                cv::cvtColor(bitwise_and, cvtcolor, cv::COLOR_BGR2HSV);
+                cv::Mat inrange;
+                cv::inRange(cvtcolor, cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_1_1")),
+                                                 std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_1_2")),
+                                                 std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_1_3"))),
+                            cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_2_1")),
+                                       std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_2_2")),
+                                       std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_2_3"))), inrange);
+                inrange.setTo(std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "InRangeSetTo")), inrange >= std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "InRangeSetFrom")));
+                double result = double(cv::countNonZero(inrange > std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "CountNotZero")))) / double(cv::countNonZero(mask)) * 100 * std::stod(UtilitesClass::GetValueFromMap(OneSettingsMap, "CorrectCoefficient"));
+                if (result > 100)
+                {
+                    result = 100.0;
+                }
+                else if(result < 0)
+                {
+                    result = 0.0;
+                }
+                else
+                {
+                    float pow_10 = pow(10.0f, (float)2);
+                    result = round(result * pow_10) / pow_10;
+                }
+                cv::Mat final;
+                cv::resize(inrange, final, cv::Size(), std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0,
+                           std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0, cv::INTER_LINEAR);
+                cv::putText(final, UtilitesClass::GetLocalTime(),
+                            cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                cv::putText(final, UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"),
+                            cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                if(result > std::stoi((UtilitesClass::GetValueFromMap(OneSettingsMap, "AlarmLevel")))){
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
+                    QString danger = "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #FF0350,stop: 0.4999 #FF0020,stop: 0.5 #FF0019,stop: 1 #FF0000 );border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;border: .px solid black;}";
+//                    ui->progressBar->setStyleSheet(danger);
+    //                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(3), result, 1);
+                }
+                else {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
+                    QString safe= "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #78d,stop: 0.4999 #46a,stop: 0.5 #45a,stop: 1 #238 );border-bottom-right-radius: 7px;border-bottom-left-radius: 7px;border: 1px solid black;}";
+//                    ui->progressBar->setStyleSheet(safe);
+    //                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(3), result, 0);
+                }
+//                ui->label_time->setText(QString::fromStdString(UtilitesClass::GetLocalTime()));
+//                ui->label_info->setText(QString::fromStdString(UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam")));
+//                ui->progressBar->setValue(result);
+//                ui->lcdNumber->display(result);
+                UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam") + " IS : " + std::to_string(result) + "%" + " | " + UtilitesClass::GetLocalTime());
+//                cv::imwrite(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam") + ".jpg", image_source);
+//                cv::namedWindow("render : " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), cv::WINDOW_AUTOSIZE);
+//                cv::imshow("render : " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), final);
+//                cv::waitKey(1);
+//                cv::resize(image_source, image_source, cv::Size(), std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0,
+//                           std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0, cv::INTER_LINEAR);
+//                cv::namedWindow("source : " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), cv::WINDOW_AUTOSIZE);
+//                cv::imshow("source : " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), image_source);
+//                cv::waitKey(1);
+//                cv::resize(mask, mask, cv::Size(), std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0,
+//                           std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0, cv::INTER_LINEAR);
+//                cv::namedWindow("mask : " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), cv::WINDOW_AUTOSIZE);
+//                cv::imshow("mask : " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), mask);
+//                cv::waitKey(1);
+                reply->deleteLater();
+                manager->deleteLater();
+                cv::destroyWindow("render : " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"));
+            }
+        }  catch (std::string error) {
+            UtilitesClass::PrintValueToConsole(error);
+        }
+}
+
+
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -46,7 +178,7 @@ void MainClass::on_START_btn_clicked()
     std::map <std::string,std::string> AllSettingsMap = {
         { "render_size", UtilitesClass::GetConvertedQt_obj(ui->render_size_horizontalSlider) },
         { "TimeDelay", UtilitesClass::GetConvertedQt_obj(ui->TimeDelay_doubleSpinBox) },
-        { "protocol_type", UtilitesClass::GetConvertedQt_obj(ui->protocol_type_textEdit)},
+        { "protocol_type", UtilitesClass::GetConvertedQt_obj(ui->protocol_type_textEdit) },
         { "port_cam", UtilitesClass::GetConvertedQt_obj(ui->port_cam_spinBox) },
         { "login_cam", UtilitesClass::GetConvertedQt_obj(ui->login_cam_textEdit) },
         { "password_cam", UtilitesClass::GetConvertedQt_obj(ui->password_cam_textEdit) },
@@ -214,97 +346,21 @@ void MainClass::on_START_btn_clicked()
             { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_10) },
         },
     };
+
     for (auto& OneSettingsMap : AllSettingsVector)
     {
-        try {
-            QUrl url = QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap ,UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam")));
-            url.setUserName("admin");
-            url.setPassword("q1234567");
-            QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-            QNetworkReply* reply = manager->get(QNetworkRequest(url));
-            QEventLoop loop;
-            connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-            loop.exec();
-            QByteArray data = reply->readAll();
-            cv::Mat image_source;
-            QPixmap qPixmap;
-            if (qPixmap.loadFromData(data,"JPG")) {
-                QImage qImage = qPixmap.toImage();
-                image_source = cv::Mat(qImage.height(), qImage.width(), CV_8UC4, const_cast<uchar*>(qImage.bits()), static_cast<size_t>(qImage.bytesPerLine()));
-                cv::Mat mask = cv::imread(UtilitesClass::GetValueFromMap(OneSettingsMap, "mask_cam"), 0);
-                cv::Mat bitwise_and;
-                cv::bitwise_and(image_source, image_source, bitwise_and, mask);
-                cv::Mat cvtcolor;
-                cv::cvtColor(bitwise_and, cvtcolor, cv::COLOR_BGR2HSV);
-                cv::Mat inrange;
-                cv::inRange(cvtcolor, cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_1_1")),
-                                                 std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_1_2")),
-                                                 std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_1_3"))),
-                            cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_2_1")),
-                                       std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_2_2")),
-                                       std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_2_3"))), inrange);
-                inrange.setTo(std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "InRangeSetTo")), inrange >= std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "InRangeSetFrom")));
-                double result = double(cv::countNonZero(inrange > std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "CountNotZero")))) / double(cv::countNonZero(mask)) * 100 * std::stod(UtilitesClass::GetValueFromMap(OneSettingsMap, "CorrectCoefficient"));
-                if (result > 100)
-                {
-                    result = 100.0;
-                }
-                else if(result < 0)
-                {
-                    result = 0.0;
-                }
-                else
-                {
-                    float pow_10 = pow(10.0f, (float)2);
-                    result = round(result * pow_10) / pow_10;
-                }
-                cv::Mat final;
-                cv::resize(inrange, final, cv::Size(), std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0,
-                           std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0, cv::INTER_LINEAR);
-                cv::putText(final, UtilitesClass::GetLocalTime(),
-                            cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
-                cv::putText(final, UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"),
-                            cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
-                if(result > std::stoi((UtilitesClass::GetValueFromMap(OneSettingsMap, "AlarmLevel")))){
-                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
-                    QString danger = "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #FF0350,stop: 0.4999 #FF0020,stop: 0.5 #FF0019,stop: 1 #FF0000 );border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;border: .px solid black;}";
-                    ui->progressBar->setStyleSheet(danger);
-    //                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(3), result, 1);
-                }
-                else {
-                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
-                    QString safe= "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #78d,stop: 0.4999 #46a,stop: 0.5 #45a,stop: 1 #238 );border-bottom-right-radius: 7px;border-bottom-left-radius: 7px;border: 1px solid black;}";
-                    ui->progressBar->setStyleSheet(safe);
-    //                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(AllSettingsMap, "alias_cam").substr(3), result, 0);
-                }
-                ui->label_time->setText(QString::fromStdString(UtilitesClass::GetLocalTime()));
-                ui->label_info->setText(QString::fromStdString(UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam")));
-                ui->progressBar->setValue(result);
-                ui->lcdNumber->display(result);
-                UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam") + " IS : " + std::to_string(result) + "%" + " | " + UtilitesClass::GetLocalTime());
-                reply->deleteLater();
-                manager->deleteLater();
-//                cv::imwrite(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam") + ".jpg", image_source);
-//                cv::namedWindow("render : " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), cv::WINDOW_AUTOSIZE);
-//                cv::imshow("render : " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), final);
-//                cv::waitKey(1);
-//                cv::resize(image_source, image_source, cv::Size(), std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0,
-//                           std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0, cv::INTER_LINEAR);
-//                cv::namedWindow("source : " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), cv::WINDOW_AUTOSIZE);
-//                cv::imshow("source : " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), image_source);
-//                cv::waitKey(1);
-//                cv::resize(mask, mask, cv::Size(), std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0,
-//                           std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0, cv::INTER_LINEAR);
-//                cv::namedWindow("mask : " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), cv::WINDOW_AUTOSIZE);
-//                cv::imshow("mask : " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), mask);
-//                cv::waitKey(1);
-            }
-        }  catch (std::string error) {
-            UtilitesClass::PrintValueToConsole(error);
-        }
+        QCoreApplication::processEvents();
+        QFuture<void> future = QtConcurrent::run(&ThreadClass::startThread, AllSettingsMap, OneSettingsMap);
+
+//        QFuture<void> future = QtConcurrent::run([=]() {
+////            ThreadClass obj;
+////            obj.startThread(OneSettingsMap);
+//            ThreadClass::startThread(OneSettingsMap);
+//        });
     }
     if (Playing){
-        Sleep(std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*100);
+        QCoreApplication::processEvents();
+        Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
         on_START_btn_clicked();
     }
 }
@@ -332,6 +388,8 @@ void UtilitesClass::PrintValueToConsole(std::string Value)
 {
     std::cout << Value << std::endl;
 };
+
+
 
 std::vector<std::vector<std::string>> UtilitesClass::GetValuesFromSQL(std::string sqlQuery, std::string connectionString, QString connectionDriver)
 {
@@ -458,3 +516,5 @@ std::string UtilitesClass::GetConvertedQt_obj(QComboBox *value) {
 std::string UtilitesClass::GetConvertedQt_obj(QSlider *value) {
     return std::to_string(value->value());
 };
+
+

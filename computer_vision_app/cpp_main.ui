@@ -6860,10 +6860,13 @@ p, li { white-space: pre-wrap; }
                </size>
               </property>
               <property name="minimum">
-               <double>0.010000000000000</double>
+               <double>0.100000000000000</double>
               </property>
               <property name="maximum">
                <double>100.000000000000000</double>
+              </property>
+              <property name="value">
+               <double>0.100000000000000</double>
               </property>
              </widget>
             </item>

@@ -41,6 +41,23 @@ private:
 
 
 
+class ThreadClass : public QObject
+{
+    Q_OBJECT
+
+public:
+    ThreadClass(QWidget *parent = nullptr);
+    ~ThreadClass();
+
+    static void startThread(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap);
+
+private slots:
+
+private:
+};
+
+
+
 class UtilitesClass{
 public:
 
