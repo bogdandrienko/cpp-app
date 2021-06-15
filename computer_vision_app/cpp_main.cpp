@@ -272,6 +272,20 @@ void MainClass::start()
             QCoreApplication::processEvents();
             if (Playing){
                 MultiThreadClass::start(AllSettingsMap, AllSettingsVector);
+
+//                auto future = QtConcurrent::run(MultiThreadClass::start, AllSettingsMap, AllSettingsVector);
+
+//                QFuture<void> future = QtConcurrent::run([=]() {
+//                    MultiThreadClass::start(AllSettingsMap, AllSettingsVector);
+//                });
+
+//                QFuture<void> future = QtConcurrent::run([=]() {
+//                    try {
+//                        MultiThreadClass::start(AllSettingsMap, AllSettingsVector);
+//                    }  catch (std::string error) {
+//                        UtilitesClass::PrintValueToConsole(error);
+//                    }
+//                });
             }
             Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
             QCoreApplication::processEvents();
@@ -342,20 +356,20 @@ void MainClass::startSync(std::map<std::string,std::string> AllSettingsMap, std:
                 ui->progressBar->setStyleSheet(safe);
                 UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(3), result, 0);
             }
-//            cv::namedWindow("render " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), cv::WINDOW_AUTOSIZE);
-//            cv::imshow("render " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), final);
-//            cv::waitKey(1);
-
-//            cv::resize(image_source, image_source, cv::Size(), std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0,
-//                       std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0, cv::INTER_LINEAR);
-//            cv::namedWindow("source " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), cv::WINDOW_AUTOSIZE);
-//            cv::imshow("source " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), image_source);
-//            cv::waitKey(1);
             ui->label_time->setText(QString::fromStdString(UtilitesClass::GetLocalTime()));
             ui->label_info->setText(QString::fromStdString(UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam")));
             ui->progressBar->setValue(result);
             ui->lcdNumber->display(result);
             UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam") + " IS : " + std::to_string(result) + "%");
+            //            cv::namedWindow("render " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), cv::WINDOW_AUTOSIZE);
+            //            cv::imshow("render " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), final);
+            //            cv::waitKey(1);
+
+            //            cv::resize(image_source, image_source, cv::Size(), std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0,
+            //                       std::stoi(UtilitesClass::GetValueFromMap(AllSettingsMap, "render_size")) / 80.0, cv::INTER_LINEAR);
+            //            cv::namedWindow("source " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), cv::WINDOW_AUTOSIZE);
+            //            cv::imshow("source " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"), image_source);
+            //            cv::waitKey(1);
             reply->deleteLater();
             manager->deleteLater();
         }
