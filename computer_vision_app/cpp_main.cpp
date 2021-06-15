@@ -247,41 +247,32 @@ void MainClass::start()
 
 
 
-        for (auto& OneSettingsMap : AllSettingsVector)
-        {
-            QCoreApplication::processEvents();
-            if (Playing){
-                QCoreApplication::processEvents();
+//        for (auto& OneSettingsMap : AllSettingsVector)
+//        {
+//            QCoreApplication::processEvents();
+//            if (Playing){
+//                QCoreApplication::processEvents();
 
-//                QFuture<double> future = QtConcurrent::run(&MainClass::startThread, AllSettingsMap, OneSettingsMap);
-//                double result = future.result();
-//                int alarm = 0;
-//                if (result > std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"))){
-//                    alarm = 1;
-//                }
-//                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(3), result, alarm);
+////                QFuture<double> future = QtConcurrent::run(&MainClass::startThread, AllSettingsMap, OneSettingsMap);
+////                double result = future.result();
+////                int alarm = 0;
+////                if (result > std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam"))){
+////                    alarm = 1;
+////                }
+////                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(3), result, alarm);
 
-//                startSync(AllSettingsMap, OneSettingsMap);
+////                startSync(AllSettingsMap, OneSettingsMap);
+//            }
+//            QCoreApplication::processEvents();
+//        }
 
+        MultiThreadClass::start(AllSettingsMap, AllSettingsVector);
 
-//                DownloaderClass obj;
-//                obj.startDownload(AllSettingsMap, OneSettingsMap);
-//                QUrl imageUrl(QString::fromStdString("http://via.placeholder.com/1000.jpg"));
-                QUrl imageUrl = QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap, UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam")));
-                UtilitesClass::PrintValueToConsole(UtilitesClass::GetUrlFromIp(AllSettingsMap, UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam")));
-                imageUrl.setUserName(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "login_cam")));
-                imageUrl.setPassword(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "password_cam")));
-                m_pImgCtrl = new FileDownloader(OneSettingsMap, imageUrl, this);
-                connect(m_pImgCtrl, SIGNAL(downloaded()), this, SLOT(loadImage()));
-                Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
-            }
-            QCoreApplication::processEvents();
-        }
-        QCoreApplication::processEvents();
-        Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
-        if (Playing){
-            on_START_btn_clicked();
-        }
+//        QCoreApplication::processEvents();
+//        Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
+//        if (Playing){
+//            on_START_btn_clicked();
+//        }
     }
 }
 
@@ -459,6 +450,15 @@ void MainClass::loadImage()
 
 
 
+
+
+
+
+
+
+
+
+
 FileDownloader::FileDownloader(std::map<std::string,std::string> OneSettingsMapData, QUrl imageUrl, QObject *parent) :
  QObject(parent)
 {
@@ -486,6 +486,55 @@ std::map<std::string,std::string> FileDownloader::OneSettingsMapData()
 {
     return OneSettingsMap;
 }
+
+
+
+
+
+
+
+
+MultiThreadClass::MultiThreadClass(std::map<std::string, std::string> AllSettingsMap,
+                                   std::map<std::string,std::string> OneSettingsMap,
+                                   QWidget *parent) : QObject(parent)
+{
+    UtilitesClass::PrintValueToConsole("object created");
+
+    connect(&manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(downloadFinished(QNetworkReply*)));
+    QUrl url = QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap ,UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam")));
+    UtilitesClass::PrintValueToConsole(url.toString().toStdString());
+    url.setUserName(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "login_cam")));
+    url.setPassword(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "password_cam")));
+    QNetworkRequest request(url);
+    manager.get(request);
+}
+
+MultiThreadClass::~MultiThreadClass()
+{
+
+}
+
+void MultiThreadClass::start(std::map<std::string, std::string> AllSettingsMap,
+                             std::vector<std::map<std::string,std::string>> AllSettingsVector)
+{
+    UtilitesClass::PrintValueToConsole("MultiThreadClass started");
+
+    for (auto& OneSettingsMap : AllSettingsVector)
+    {
+        MultiThreadClass* obj = new MultiThreadClass(AllSettingsMap, OneSettingsMap);
+
+    }
+}
+
+void MultiThreadClass::downloadFinished(QNetworkReply *reply)
+{
+    UtilitesClass::PrintValueToConsole("Download finished");
+
+
+}
+
+
+
 
 
 

@@ -93,6 +93,32 @@ private:
 
 
 
+class MultiThreadClass : public QObject
+{
+Q_OBJECT
+public:
+    explicit MultiThreadClass(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap, QWidget *parent = nullptr);
+    virtual ~MultiThreadClass();
+
+    static void start(std::map<std::string, std::string> AllSettingsMap,
+                      std::vector<std::map<std::string,std::string>> AllSettingsVector);
+
+signals:
+//    void finish();
+
+private slots:
+    void downloadFinished(QNetworkReply*);
+
+private:
+    QNetworkAccessManager manager;
+    QNetworkReply* reply;
+    QEventLoop* loop;
+    QByteArray* data;
+
+};
+
+
+
 class UtilitesClass{
 public:
 
