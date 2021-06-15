@@ -62,8 +62,14 @@ void MainClass::start()
     if (Playing){
         QCoreApplication::processEvents();
         std::map <std::string,std::string> AllSettingsMap = {
-            { "render_size", UtilitesClass::GetConvertedQt_obj(ui->render_size_horizontalSlider) },
+            { "AutoPlay", UtilitesClass::GetConvertedQt_obj(ui->AutoPlay_checkBox) },
+            { "AutoImport", UtilitesClass::GetConvertedQt_obj(ui->AutoImport_checkBox) },
+            { "WriteToWidget", UtilitesClass::GetConvertedQt_obj(ui->WriteToWidget_checkBox) },
+            { "WriteToText", UtilitesClass::GetConvertedQt_obj(ui->WriteToText_checkBox) },
+            { "RenderSize", UtilitesClass::GetConvertedQt_obj(ui->RenderSize_horizontalSlider) },
+            { "RenderType", UtilitesClass::GetConvertedQt_obj(ui->RenderType_comboBox) },
             { "TimeDelay", UtilitesClass::GetConvertedQt_obj(ui->TimeDelay_doubleSpinBox) },
+
             { "protocol_type", UtilitesClass::GetConvertedQt_obj(ui->protocol_type_textEdit) },
             { "port_cam", UtilitesClass::GetConvertedQt_obj(ui->port_cam_spinBox) },
             { "login_cam", UtilitesClass::GetConvertedQt_obj(ui->login_cam_textEdit) },
@@ -340,44 +346,59 @@ void MultiThreadClass::finish(QNetworkReply *reply)
                 UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam").substr(3), result, 0);
             }
 
-
-
-    //        #######################################
-            UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam") + " IS : " + std::to_string(result) + "%" + " | " + UtilitesClass::GetLocalTime());
-
-
-
-//    //    #######################################
-//            UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "render_size")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"));
-//            UtilitesClass::RenderCvImage(mask, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "render_size")) / 80.0, "mask " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"));
-
-
-
-//    //    #######################################
-//            cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
-//            cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
-//            if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
-//                cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
-//            }
-//            else {
-//                cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
-//            }
-//            UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "render_size")) / 80.0, "final" + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"));
-
-
-
-    //    #######################################
-            Gui->label_time->setText(QString::fromStdString(UtilitesClass::GetLocalTime()));
-            Gui->label_info->setText(QString::fromStdString(UtilitesClass::GetValueFromMap(OneSettings, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam")));
-            Gui->progressBar->setValue(result);
-            Gui->lcdNumber->display(result);
-            if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
-                QString danger = "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #FF0350,stop: 0.4999 #FF0020,stop: 0.5 #FF0019,stop: 1 #FF0000 );border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;border: .px solid black;}";
-                Gui->progressBar->setStyleSheet(danger);
+            if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "none") {
+            } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") ==  "source") {
+                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"));
+            } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "final") {
+                cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
+                }
+                else {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
+                }
+                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final" + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"));
+            } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "extended") {
+                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"));
+                cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
+                }
+                else {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
+                }
+                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final" + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"));
+            } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "all") {
+                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"));
+                UtilitesClass::RenderCvImage(mask, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "mask " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"));
+                cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
+                }
+                else {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
+                }
+                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final" + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"));
             }
-            else {
-                QString safe= "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #78d,stop: 0.4999 #46a,stop: 0.5 #45a,stop: 1 #238 );border-bottom-right-radius: 7px;border-bottom-left-radius: 7px;border: 1px solid black;}";
-                Gui->progressBar->setStyleSheet(safe);
+            if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToWidget") == "true") {
+                Gui->label_time->setText(QString::fromStdString(UtilitesClass::GetLocalTime()));
+                Gui->label_info->setText(QString::fromStdString(UtilitesClass::GetValueFromMap(OneSettings, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam")));
+                Gui->progressBar->setValue(result);
+                Gui->lcdNumber->display(result);
+                if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
+                    QString danger = "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #FF0350,stop: 0.4999 #FF0020,stop: 0.5 #FF0019,stop: 1 #FF0000 );border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;border: .px solid black;}";
+                    Gui->progressBar->setStyleSheet(danger);
+                }
+                else {
+                    QString safe= "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #78d,stop: 0.4999 #46a,stop: 0.5 #45a,stop: 1 #238 );border-bottom-right-radius: 7px;border-bottom-left-radius: 7px;border: 1px solid black;}";
+                    Gui->progressBar->setStyleSheet(safe);
+                }
+            }
+            if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToText") == "true") {
+                UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam") + " IS : " + std::to_string(result) + "%" + " | " + UtilitesClass::GetLocalTime());
             }
         }
     }  catch (std::string error) {
@@ -391,10 +412,10 @@ void UtilitesClass::PrintValueToConsole(std::string Value)
     std::cout << Value << std::endl;
 };
 
-void UtilitesClass::RenderCvImage(cv::Mat Image, double renderSize, std::string name)
+void UtilitesClass::RenderCvImage(cv::Mat Image, double RenderSize, std::string name)
 {
     cv::Mat source = Image.clone();
-    cv::resize(source, source, cv::Size(), renderSize, renderSize, cv::INTER_LINEAR);
+    cv::resize(source, source, cv::Size(), RenderSize, RenderSize, cv::INTER_LINEAR);
     cv::namedWindow(name, cv::WINDOW_AUTOSIZE);
     cv::imshow(name, source);
     cv::waitKey(1);
