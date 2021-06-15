@@ -477,7 +477,6 @@ FileDownloader::~FileDownloader()
 void FileDownloader::fileDownloaded(QNetworkReply* pReply) {
     UtilitesClass::PrintValueToConsole("download started");
     m_DownloadedData = pReply->readAll();
-    //emit a signal
     pReply->deleteLater();
     emit downloaded();
 }
