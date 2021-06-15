@@ -29,11 +29,27 @@ MainClass::MainClass(QWidget *parent)
     , ui(new Ui::MainClass)
 {
     ui->setupUi(this);
+
+    AutoImport();
+    AutoPlay();
 }
 
 MainClass::~MainClass()
 {
     delete ui;
+}
+
+void MainClass::AutoImport()
+{
+
+}
+
+void MainClass::AutoPlay()
+{
+    if (UtilitesClass::GetConvertedQt_obj(ui->AutoPlay_checkBox) == "true") {
+        Sleep(1000);
+        on_START_btn_clicked();
+    }
 }
 
 void MainClass::on_START_btn_clicked()
@@ -57,198 +73,201 @@ void MainClass::on_QUIT_btn_clicked()
     this->close();
 }
 
+
 void MainClass::start()
 {
-    if (Playing){
-        QCoreApplication::processEvents();
-        std::map <std::string,std::string> AllSettingsMap = {
-            { "AutoPlay", UtilitesClass::GetConvertedQt_obj(ui->AutoPlay_checkBox) },
-            { "AutoImport", UtilitesClass::GetConvertedQt_obj(ui->AutoImport_checkBox) },
-            { "WriteToWidget", UtilitesClass::GetConvertedQt_obj(ui->WriteToWidget_checkBox) },
-            { "WriteToText", UtilitesClass::GetConvertedQt_obj(ui->WriteToText_checkBox) },
-            { "RenderSize", UtilitesClass::GetConvertedQt_obj(ui->RenderSize_horizontalSlider) },
-            { "RenderType", UtilitesClass::GetConvertedQt_obj(ui->RenderType_comboBox) },
-            { "TimeDelay", UtilitesClass::GetConvertedQt_obj(ui->TimeDelay_doubleSpinBox) },
+    while (Playing) {
+        try {
+                QCoreApplication::processEvents();
+                std::map <std::string,std::string> AllSettingsMap = {
+                    { "AutoPlay", UtilitesClass::GetConvertedQt_obj(ui->AutoPlay_checkBox) },
+                    { "AutoImport", UtilitesClass::GetConvertedQt_obj(ui->AutoImport_checkBox) },
+                    { "WriteToWidget", UtilitesClass::GetConvertedQt_obj(ui->WriteToWidget_checkBox) },
+                    { "WriteToText", UtilitesClass::GetConvertedQt_obj(ui->WriteToText_checkBox) },
+                    { "RenderSize", UtilitesClass::GetConvertedQt_obj(ui->RenderSize_horizontalSlider) },
+                    { "RenderType", UtilitesClass::GetConvertedQt_obj(ui->RenderType_comboBox) },
+                    { "TimeDelay", UtilitesClass::GetConvertedQt_obj(ui->TimeDelay_doubleSpinBox) },
 
-            { "protocol_type", UtilitesClass::GetConvertedQt_obj(ui->protocol_type_textEdit) },
-            { "port_cam", UtilitesClass::GetConvertedQt_obj(ui->port_cam_spinBox) },
-            { "login_cam", UtilitesClass::GetConvertedQt_obj(ui->login_cam_textEdit) },
-            { "password_cam", UtilitesClass::GetConvertedQt_obj(ui->password_cam_textEdit) },
-        };
-        std::vector<std::map<std::string,std::string>> AllSettingsVector =
-        {
-            {
-                { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_1) },
-                { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_1) },
-                { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_1) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_1) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_1) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_1) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_1) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_1) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_1) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_1) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_1) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_1) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_1) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_1) },
-            },
-            {
-                { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_2) },
-                { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_2) },
-                { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_2) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_2) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_2) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_2) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_2) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_2) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_2) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_2) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_2) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_2) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_2) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_2) },
-            },
-            {
-                { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_3) },
-                { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_3) },
-                { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_3) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_3) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_3) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_3) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_3) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_3) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_3) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_3) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_3) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_3) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_3) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_3) },
-            },
-            {
-                { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_4) },
-                { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_4) },
-                { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_4) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_4) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_4) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_4) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_4) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_4) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_4) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_4) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_4) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_4) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_4) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_4) },
-            },
-            {
-                { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_5) },
-                { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_5) },
-                { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_5) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_5) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_5) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_5) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_5) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_5) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_5) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_5) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_5) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_5) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_5) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_5) },
-            },
-            {
-                { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_6) },
-                { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_6) },
-                { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_6) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_6) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_6) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_6) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_6) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_6) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_6) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_6) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_6) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_6) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_6) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_6) },
-            },
-            {
-                { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_7) },
-                { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_7) },
-                { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_7) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_7) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_7) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_7) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_7) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_7) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_7) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_7) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_7) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_7) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_7) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_7) },
-            },
-            {
-                { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_8) },
-                { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_8) },
-                { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_8) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_8) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_8) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_8) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_8) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_8) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_8) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_8) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_8) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_8) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_8) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_8) },
-            },
-            {
-                { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_9) },
-                { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_9) },
-                { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_9) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_9) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_9) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_9) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_9) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_9) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_9) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_9) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_9) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_9) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_9) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_9) },
-            },
-            {
-                { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_10) },
-                { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_10) },
-                { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_10) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_10) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_10) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_10) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_10) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_10) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_10) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_10) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_10) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_10) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_10) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_10) },
-            },
-        };
-        while (Playing) {
-            try {
+                    { "protocol_type", UtilitesClass::GetConvertedQt_obj(ui->protocol_type_textEdit) },
+                    { "port_cam", UtilitesClass::GetConvertedQt_obj(ui->port_cam_spinBox) },
+                    { "login_cam", UtilitesClass::GetConvertedQt_obj(ui->login_cam_textEdit) },
+                    { "password_cam", UtilitesClass::GetConvertedQt_obj(ui->password_cam_textEdit) },
+                };
                 QCoreApplication::processEvents();
-                if (Playing){
-                    MultiThreadClass::start(AllSettingsMap, AllSettingsVector, *ui);
-                }
-                Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
+                std::vector<std::map<std::string,std::string>> AllSettingsVector =
+                {
+                    {
+                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_1) },
+                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_1) },
+                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_1) },
+                        { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_1) },
+                        { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_1) },
+                        { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_1) },
+                        { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_1) },
+                        { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_1) },
+                        { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_1) },
+                        { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_1) },
+                        { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_1) },
+                        { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_1) },
+                        { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_1) },
+                        { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_1) },
+                    },
+                    {
+                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_2) },
+                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_2) },
+                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_2) },
+                        { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_2) },
+                        { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_2) },
+                        { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_2) },
+                        { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_2) },
+                        { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_2) },
+                        { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_2) },
+                        { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_2) },
+                        { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_2) },
+                        { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_2) },
+                        { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_2) },
+                        { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_2) },
+                    },
+                    {
+                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_3) },
+                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_3) },
+                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_3) },
+                        { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_3) },
+                        { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_3) },
+                        { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_3) },
+                        { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_3) },
+                        { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_3) },
+                        { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_3) },
+                        { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_3) },
+                        { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_3) },
+                        { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_3) },
+                        { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_3) },
+                        { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_3) },
+                    },
+                    {
+                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_4) },
+                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_4) },
+                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_4) },
+                        { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_4) },
+                        { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_4) },
+                        { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_4) },
+                        { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_4) },
+                        { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_4) },
+                        { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_4) },
+                        { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_4) },
+                        { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_4) },
+                        { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_4) },
+                        { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_4) },
+                        { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_4) },
+                    },
+                    {
+                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_5) },
+                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_5) },
+                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_5) },
+                        { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_5) },
+                        { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_5) },
+                        { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_5) },
+                        { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_5) },
+                        { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_5) },
+                        { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_5) },
+                        { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_5) },
+                        { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_5) },
+                        { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_5) },
+                        { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_5) },
+                        { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_5) },
+                    },
+                    {
+                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_6) },
+                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_6) },
+                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_6) },
+                        { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_6) },
+                        { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_6) },
+                        { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_6) },
+                        { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_6) },
+                        { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_6) },
+                        { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_6) },
+                        { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_6) },
+                        { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_6) },
+                        { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_6) },
+                        { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_6) },
+                        { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_6) },
+                    },
+                    {
+                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_7) },
+                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_7) },
+                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_7) },
+                        { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_7) },
+                        { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_7) },
+                        { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_7) },
+                        { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_7) },
+                        { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_7) },
+                        { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_7) },
+                        { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_7) },
+                        { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_7) },
+                        { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_7) },
+                        { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_7) },
+                        { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_7) },
+                    },
+                    {
+                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_8) },
+                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_8) },
+                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_8) },
+                        { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_8) },
+                        { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_8) },
+                        { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_8) },
+                        { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_8) },
+                        { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_8) },
+                        { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_8) },
+                        { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_8) },
+                        { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_8) },
+                        { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_8) },
+                        { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_8) },
+                        { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_8) },
+                    },
+                    {
+                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_9) },
+                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_9) },
+                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_9) },
+                        { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_9) },
+                        { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_9) },
+                        { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_9) },
+                        { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_9) },
+                        { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_9) },
+                        { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_9) },
+                        { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_9) },
+                        { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_9) },
+                        { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_9) },
+                        { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_9) },
+                        { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_9) },
+                    },
+                    {
+                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_10) },
+                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_10) },
+                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_10) },
+                        { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_10) },
+                        { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_10) },
+                        { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_10) },
+                        { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_10) },
+                        { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_10) },
+                        { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_10) },
+                        { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_10) },
+                        { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_10) },
+                        { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_10) },
+                        { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_10) },
+                        { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_10) },
+                    },
+                };
+            QCoreApplication::processEvents();
+            if (Playing){
                 QCoreApplication::processEvents();
-            }  catch (std::string error) {
-                UtilitesClass::PrintValueToConsole(error);
+                MultiThreadClass::start(AllSettingsMap, AllSettingsVector, *ui);
+                QCoreApplication::processEvents();
             }
+            QCoreApplication::processEvents();
+            Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
+            QCoreApplication::processEvents();
+        }  catch (std::string error) {
+            UtilitesClass::PrintValueToConsole(error);
         }
     }
 }
@@ -518,9 +537,9 @@ std::string UtilitesClass::GetLocalTime(){
 
 std::string UtilitesClass::GetConvertedQt_obj(QCheckBox *value) {
     if (value->isChecked() == 1) {
-        return "True";
+        return "true";
     }
-    return "False";
+    return "false";
 };
 std::string UtilitesClass::GetConvertedQt_obj(QSpinBox *value) {
     return std::to_string(value->value());

@@ -72,7 +72,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideMiddle</enum>
@@ -6816,6 +6816,9 @@ p, li { white-space: pre-wrap; }
               <property name="text">
                <string>WRITE TO WIDGET</string>
               </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item row="10" column="2">
@@ -6898,6 +6901,9 @@ p, li { white-space: pre-wrap; }
               <property name="text">
                <string>AUTOIMPORT</string>
               </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item row="4" column="2">
@@ -6916,6 +6922,9 @@ p, li { white-space: pre-wrap; }
               </property>
               <property name="text">
                <string>WRITE TO TEXT</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -6969,6 +6978,9 @@ p, li { white-space: pre-wrap; }
               </property>
               <property name="text">
                <string>AUTOPLAY</string>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
               </property>
              </widget>
             </item>
