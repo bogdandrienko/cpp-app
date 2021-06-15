@@ -244,6 +244,9 @@ void MainClass::start()
                 { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_10) },
             },
         };
+
+
+
         for (auto& OneSettingsMap : AllSettingsVector)
         {
             QCoreApplication::processEvents();
@@ -259,8 +262,18 @@ void MainClass::start()
 //                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam").substr(3), result, alarm);
 
 //                startSync(AllSettingsMap, OneSettingsMap);
-                DownloaderClass obj;
-                obj.startDownload(AllSettingsMap, OneSettingsMap);
+
+
+//                DownloaderClass obj;
+//                obj.startDownload(AllSettingsMap, OneSettingsMap);
+//                QUrl imageUrl(QString::fromStdString("http://via.placeholder.com/1000.jpg"));
+                QUrl imageUrl = QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap, UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam")));
+                UtilitesClass::PrintValueToConsole(UtilitesClass::GetUrlFromIp(AllSettingsMap, UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam")));
+                imageUrl.setUserName(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "login_cam")));
+                imageUrl.setPassword(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "password_cam")));
+                m_pImgCtrl = new FileDownloader(OneSettingsMap, imageUrl, this);
+                connect(m_pImgCtrl, SIGNAL(downloaded()), this, SLOT(loadImage()));
+                Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
             }
             QCoreApplication::processEvents();
         }
@@ -418,74 +431,68 @@ double MainClass::startThread(std::map<std::string,std::string> AllSettingsMap, 
 
 
 
-DownloaderClass::DownloaderClass(QObject *parent)
+
+void MainClass::loadImage()
 {
-
-}
-
-
-
-DownloaderClass::~DownloaderClass()
-{
-
-}
-
-
-
-void DownloaderClass::startDownload(std::map<std::string, std::string> AllSettingsMap, std::map<std::string, std::string> OneSettingsMap)
-{
-
-    QUrl url = QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap ,UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam")));
-    url.setUserName("admin");
-    url.setPassword("q1234567");
-    QNetworkRequest request(url);
-    QNetworkAccessManager *manager = new QNetworkAccessManager;
-    QNetworkReply* reply = manager->get(request);
-    connect(reply, &QNetworkReply::finished, this, &DownloaderClass::downloadFinished);
-}
-
-
-
-void DownloaderClass::downloadFinished()
-{
-    QByteArray data = reply->readAll();
+    UtilitesClass::PrintValueToConsole("Download finished");
+    QByteArray data = m_pImgCtrl->downloadedData();
     cv::Mat image_source;
     QPixmap qPixmap;
     if (qPixmap.loadFromData(data,"JPG")) {
         QImage qImage = qPixmap.toImage();
         image_source = cv::Mat(qImage.height(), qImage.width(), CV_8UC4, const_cast<uchar*>(qImage.bits()), static_cast<size_t>(qImage.bytesPerLine()));
-        cv::Mat mask = cv::imread(UtilitesClass::GetValueFromMap(OneSettingsMap, "mask_cam"), 0);
-        cv::Mat bitwise_and;
-        cv::bitwise_and(image_source, image_source, bitwise_and, mask);
-        cv::Mat cvtcolor;
-        cv::cvtColor(bitwise_and, cvtcolor, cv::COLOR_BGR2HSV);
-        cv::Mat inrange;
-        cv::inRange(cvtcolor, cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_1_1")),
-                                         std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_1_2")),
-                                         std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_1_3"))),
-                    cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_2_1")),
-                               std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_2_2")),
-                               std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "Point_2_3"))), inrange);
-        inrange.setTo(std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "InRangeSetTo")), inrange >= std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "InRangeSetFrom")));
-        double result = double(cv::countNonZero(inrange > std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "CountNotZero")))) / double(cv::countNonZero(mask)) * 100 * std::stod(UtilitesClass::GetValueFromMap(OneSettingsMap, "CorrectCoefficient"));
-        if (result > 100)
-        {
-            result = 100.0;
-        }
-        else if(result < 0)
-        {
-            result = 0.0;
-        }
-        else
-        {
-            float pow_10 = pow(10.0f, (float)2);
-            result = round(result * pow_10) / pow_10;
-        }
-        UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettingsMap, "alias_cam") + " IS : " + std::to_string(result) + "%" + " | " + UtilitesClass::GetLocalTime());
-        reply->deleteLater();
-        manager.deleteLater();
+        cv::resize(image_source, image_source, cv::Size(), 0.25, 0.25, cv::INTER_LINEAR);
+        cv::namedWindow("render " + std::to_string(counter), cv::WINDOW_AUTOSIZE);
+        cv::imshow("render " + std::to_string(counter), image_source);
+        cv::waitKey(1);
+        ++counter;
+    }
+    for (auto& value : m_pImgCtrl->OneSettingsMapData())
+    {
+        UtilitesClass::PrintValueToConsole(value.first + " | " + value.second);
     }
 }
+
+
+
+
+
+
+
+FileDownloader::FileDownloader(std::map<std::string,std::string> OneSettingsMapData, QUrl imageUrl, QObject *parent) :
+ QObject(parent)
+{
+    connect(&m_WebCtrl, SIGNAL (finished(QNetworkReply*)), this, SLOT (fileDownloaded(QNetworkReply*)));
+    QNetworkRequest request(imageUrl);
+    m_WebCtrl.get(request);
+    UtilitesClass::PrintValueToConsole("object created");
+}
+FileDownloader::~FileDownloader()
+{
+
+}
+void FileDownloader::fileDownloaded(QNetworkReply* pReply) {
+    UtilitesClass::PrintValueToConsole("download started");
+    m_DownloadedData = pReply->readAll();
+    //emit a signal
+    pReply->deleteLater();
+    emit downloaded();
+}
+QByteArray FileDownloader::downloadedData()
+{
+    return m_DownloadedData;
+}
+std::map<std::string,std::string> FileDownloader::OneSettingsMapData()
+{
+    return OneSettingsMap;
+}
+
+
+
+
+
+
+
 
 
 

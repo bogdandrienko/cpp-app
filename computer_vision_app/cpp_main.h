@@ -14,6 +14,8 @@
 #include <string>
 #include <map>
 
+class FileDownloader;
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainClass; }
 QT_END_NAMESPACE
@@ -26,6 +28,8 @@ public:
     MainClass(QWidget *parent = nullptr);
     ~MainClass();
 
+    int counter = 1;
+
 private slots:
     void on_START_btn_clicked();
     void on_STOP_btn_clicked();
@@ -36,33 +40,38 @@ private slots:
     static double startThread(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap);
     void startSync(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap);
 
+    void loadImage();
+
 private:
     Ui::MainClass *ui;
 
     bool Playing;
+
+    FileDownloader* m_pImgCtrl;
+
 };
 
 
 
-class DownloaderClass : public QObject
+class FileDownloader : public QObject
 {
-    Q_OBJECT
-
+Q_OBJECT
 public:
-    DownloaderClass(QObject *parent = nullptr);
-    ~DownloaderClass();
+    explicit FileDownloader(std::map<std::string,std::string> OneSettingsMap, QUrl imageUrl, QObject *parent = 0);
+    virtual ~FileDownloader();
+    QByteArray downloadedData();
+    std::map<std::string,std::string> OneSettingsMapData();
 
-    void startDownload(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap);
+signals:
+    void downloaded();
 
 private slots:
-    void downloadFinished();
+    void fileDownloaded(QNetworkReply* pReply);
 
 private:
-    std::map<std::string, std::string> AllSettingsMap;
-    std::map<std::string, std::string> OneSettingsMap;
-    QNetworkAccessManager manager;
-    QNetworkReply *reply = nullptr;
-
+    QNetworkAccessManager m_WebCtrl;
+    QByteArray m_DownloadedData;
+    std::map<std::string,std::string> OneSettingsMap;
 };
 
 
