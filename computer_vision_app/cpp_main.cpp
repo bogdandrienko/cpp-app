@@ -266,13 +266,16 @@ void MainClass::start()
 //            QCoreApplication::processEvents();
 //        }
 
-        MultiThreadClass::start(AllSettingsMap, AllSettingsVector);
+//        MultiThreadClass::start(AllSettingsMap, AllSettingsVector);
 
-//        QCoreApplication::processEvents();
-//        Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
-//        if (Playing){
-//            on_START_btn_clicked();
-//        }
+        while (Playing) {
+            QCoreApplication::processEvents();
+            if (Playing){
+                MultiThreadClass::start(AllSettingsMap, AllSettingsVector);
+            }
+            Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
+            QCoreApplication::processEvents();
+        }
     }
 }
 
@@ -498,11 +501,14 @@ MultiThreadClass::MultiThreadClass(std::map<std::string, std::string> AllSetting
                                    std::map<std::string,std::string> OneSettingsMap,
                                    QWidget *parent) : QObject(parent)
 {
-    UtilitesClass::PrintValueToConsole("object created");
+//    UtilitesClass::PrintValueToConsole("object created");
+
+    AllSettings = AllSettingsMap;
+    OneSettings = OneSettingsMap;
 
     connect(&manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(downloadFinished(QNetworkReply*)));
-    QUrl url = QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap ,UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam")));
-    UtilitesClass::PrintValueToConsole(url.toString().toStdString());
+    QUrl url = QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap, UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam")));
+//    UtilitesClass::PrintValueToConsole(url.toString().toStdString());
     url.setUserName(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "login_cam")));
     url.setPassword(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "password_cam")));
     QNetworkRequest request(url);
@@ -517,20 +523,60 @@ MultiThreadClass::~MultiThreadClass()
 void MultiThreadClass::start(std::map<std::string, std::string> AllSettingsMap,
                              std::vector<std::map<std::string,std::string>> AllSettingsVector)
 {
-    UtilitesClass::PrintValueToConsole("MultiThreadClass started");
+//    UtilitesClass::PrintValueToConsole("MultiThreadClass started");
 
     for (auto& OneSettingsMap : AllSettingsVector)
     {
         MultiThreadClass* obj = new MultiThreadClass(AllSettingsMap, OneSettingsMap);
-
     }
+
 }
 
 void MultiThreadClass::downloadFinished(QNetworkReply *reply)
 {
-    UtilitesClass::PrintValueToConsole("Download finished");
+//    UtilitesClass::PrintValueToConsole("Download finished");
 
+    emit QByteArray data = reply->readAll();
 
+    cv::Mat image_source;
+    QPixmap qPixmap;
+    if (qPixmap.loadFromData(data,"JPG")) {
+        QImage qImage = qPixmap.toImage();
+        image_source = cv::Mat(qImage.height(), qImage.width(), CV_8UC4, const_cast<uchar*>(qImage.bits()), static_cast<size_t>(qImage.bytesPerLine()));
+        cv::Mat mask = cv::imread(UtilitesClass::GetValueFromMap(OneSettings, "mask_cam"), 0);
+        cv::Mat bitwise_and;
+        cv::bitwise_and(image_source, image_source, bitwise_and, mask);
+        cv::Mat cvtcolor;
+        cv::cvtColor(bitwise_and, cvtcolor, cv::COLOR_BGR2HSV);
+        cv::Mat inrange;
+        cv::inRange(cvtcolor, cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_1_1")),
+                                         std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_1_2")),
+                                         std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_1_3"))),
+                    cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_2_1")),
+                               std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_2_2")),
+                               std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_2_3"))), inrange);
+        inrange.setTo(std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "InRangeSetTo")), inrange >= std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "InRangeSetFrom")));
+        double result = double(cv::countNonZero(inrange > std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "CountNotZero")))) / double(cv::countNonZero(mask)) * 100 * std::stod(UtilitesClass::GetValueFromMap(OneSettings, "CorrectCoefficient"));
+        if (result > 100)
+        {
+            result = 100.0;
+        }
+        else if(result < 0)
+        {
+            result = 0.0;
+        }
+        else
+        {
+            float pow_10 = pow(10.0f, (float)2);
+            result = round(result * pow_10) / pow_10;
+        }
+        if (result > std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel"))){
+            UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam").substr(3), result, 1);
+        } else {
+            UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam").substr(3), result, 0);
+        }
+        UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam") + " IS : " + std::to_string(result) + "%" + " | " + UtilitesClass::GetLocalTime());
+    }
 }
 
 
@@ -597,7 +643,7 @@ void UtilitesClass::SetValuesToSQL(std::string device_row, double value_row, boo
     QSqlDatabase qdb = QSqlDatabase::addDatabase(connectionDriver);
     qdb.setDatabaseName(QString::fromStdString(connectionString));
     if (qdb.open()) {
-        UtilitesClass::PrintValueToConsole("good to open sql");
+//        UtilitesClass::PrintValueToConsole("good to open sql");
         QSqlQuery query(qdb);
         query.prepare("UPDATE grohot16_now_table "
                       "SET value_row = :value, alarm_row = :alarm, datetime_row =  GETDATE() "
