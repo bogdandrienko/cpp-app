@@ -356,17 +356,14 @@ void MainClass::analyse_from_image()
 
 
 
-void MainClass::showPic(QByteArray& ba, QString& alias)
+DownloaderClass::DownloaderClass(QWidget *parent)
 {
-    QPixmap qPixmap;
-    QByteArray pData = ba;
-    if(qPixmap.loadFromData(pData,"JPG"))
-    {
-        QImage qImage = qPixmap.toImage();
-        cv::Mat mat(qImage.height(), qImage.width(), CV_8UC4, const_cast<uchar*>(qImage.bits()), static_cast<size_t>(qImage.bytesPerLine()));
-        cv::resize(mat, mat, cv::Size(), 0.25, 0.25, cv::INTER_LINEAR);
-        cv::imshow(alias.toStdString(), mat);
-    }
+
+}
+
+DownloaderClass::~DownloaderClass()
+{
+
 }
 
 

@@ -44,6 +44,29 @@ private:
 
 
 
+class DownloaderClass : public QObject
+{
+    Q_OBJECT
+
+public:
+    DownloaderClass(QObject *parent = nullptr);
+    ~DownloaderClass();
+
+    void startDownload(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap);
+
+private slots:
+    void downloadFinished();
+
+private:
+    std::map<std::string, std::string> AllSettingsMap;
+    std::map<std::string, std::string> OneSettingsMap;
+    QNetworkAccessManager manager;
+    QNetworkReply *reply = nullptr;
+
+};
+
+
+
 class ThreadClass : public QObject
 {
     Q_OBJECT
