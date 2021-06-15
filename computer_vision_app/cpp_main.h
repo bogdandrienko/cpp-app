@@ -28,8 +28,6 @@ public:
     MainClass(QWidget *parent = nullptr);
     ~MainClass();
 
-    int counter = 1;
-
 private slots:
     void on_START_btn_clicked();
     void on_STOP_btn_clicked();
@@ -37,61 +35,11 @@ private slots:
 
     void start();
 
-    static double startThread(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap);
-    void startSync(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap);
-
-    void loadImage();
-
 private:
     Ui::MainClass *ui;
-
     bool Playing;
 
-    FileDownloader* m_pImgCtrl;
-
 };
-
-
-
-class FileDownloader : public QObject
-{
-Q_OBJECT
-public:
-    explicit FileDownloader(std::map<std::string,std::string> OneSettingsMap, QUrl imageUrl, QObject *parent = 0);
-    virtual ~FileDownloader();
-    QByteArray downloadedData();
-    std::map<std::string,std::string> OneSettingsMapData();
-
-signals:
-    void downloaded();
-
-private slots:
-    void fileDownloaded(QNetworkReply* pReply);
-
-private:
-    QNetworkAccessManager m_WebCtrl;
-    QByteArray m_DownloadedData;
-    std::map<std::string,std::string> OneSettingsMap;
-};
-
-
-
-class ThreadClass : public QObject
-{
-    Q_OBJECT
-
-public:
-    ThreadClass(QWidget *parent = nullptr);
-    ~ThreadClass();
-
-    static double startThread(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap);
-
-private slots:
-
-private:
-};
-
-
 
 class MultiThreadClass : public QObject
 {
@@ -107,10 +55,10 @@ public:
                       std::vector<std::map<std::string,std::string>> AllSettingsVector);
 
 signals:
-//    void finish();
+    void finish();
 
 private slots:
-    void downloadFinished(QNetworkReply*);
+    void finish(QNetworkReply*);
 
 private:
     QNetworkAccessManager manager;
@@ -120,12 +68,12 @@ private:
 
 };
 
-
-
 class UtilitesClass{
 public:
 
     static void PrintValueToConsole(std::string Value);
+
+    static void RenderCvImage(cv::Mat Image, double renderSize, std::string name);
 
     static std::vector<std::vector<std::string>> GetValuesFromSQL(std::string sqlQuery = "SELECT * FROM grohot16_now_table;", std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:192.168.15.87\\DESKTOP-SM7K050\\COMPUTER_VISION,1433;DATABASE=analiz_16grohot;UID=computer_vision;PWD=vision12345678", QString connectionDriver = "QODBC");
 
@@ -147,4 +95,5 @@ public:
 
 private:
 };
+
 #endif // MAINCLASS_H
