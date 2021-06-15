@@ -72,7 +72,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideMiddle</enum>
@@ -6866,7 +6866,7 @@ p, li { white-space: pre-wrap; }
                <double>100.000000000000000</double>
               </property>
               <property name="value">
-               <double>0.100000000000000</double>
+               <double>1.000000000000000</double>
               </property>
              </widget>
             </item>

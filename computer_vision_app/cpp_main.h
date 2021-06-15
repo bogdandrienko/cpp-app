@@ -45,17 +45,19 @@ class MultiThreadClass : public QObject
 {
 Q_OBJECT
 public:
-    explicit MultiThreadClass(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap, QWidget *parent = nullptr);
+    explicit MultiThreadClass(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap, Ui::MainClass ui, QWidget *parent = nullptr);
     virtual ~MultiThreadClass();
 
     std::map<std::string,std::string> AllSettings;
     std::map<std::string,std::string> OneSettings;
 
     static void start(std::map<std::string, std::string> AllSettingsMap,
-                      std::vector<std::map<std::string,std::string>> AllSettingsVector);
+                      std::vector<std::map<std::string,std::string>> AllSettingsVector,
+                      Ui::MainClass ui);
 
+    double getResult();
 signals:
-    void finish();
+
 
 private slots:
     void finish(QNetworkReply*);
@@ -65,6 +67,8 @@ private:
     QNetworkReply* reply;
     QEventLoop* loop;
     QByteArray* data;
+    double result;
+    Ui::MainClass *Gui;
 
 };
 
