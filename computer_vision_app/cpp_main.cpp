@@ -57,7 +57,6 @@ void MainClass::on_START_btn_clicked()
     on_STOP_btn_clicked();
     Playing = true;
     ui->Playing_radioButton->setChecked(Playing);
-
     while (Playing) {
         try {
                 QCoreApplication::processEvents();
@@ -79,9 +78,9 @@ void MainClass::on_START_btn_clicked()
                 std::vector<std::map<std::string,std::string>> AllSettingsVector =
                 {
                     {
-                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_1) },
-                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_1) },
-                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_1) },
+                        { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_1) },
+                        { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_1) },
+                        { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_1) },
                         { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_1) },
                         { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_1) },
                         { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_1) },
@@ -95,9 +94,9 @@ void MainClass::on_START_btn_clicked()
                         { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_1) },
                     },
                     {
-                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_2) },
-                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_2) },
-                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_2) },
+                        { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_2) },
+                        { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_2) },
+                        { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_2) },
                         { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_2) },
                         { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_2) },
                         { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_2) },
@@ -111,9 +110,9 @@ void MainClass::on_START_btn_clicked()
                         { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_2) },
                     },
                     {
-                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_3) },
-                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_3) },
-                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_3) },
+                        { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_3) },
+                        { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_3) },
+                        { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_3) },
                         { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_3) },
                         { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_3) },
                         { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_3) },
@@ -127,9 +126,9 @@ void MainClass::on_START_btn_clicked()
                         { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_3) },
                     },
                     {
-                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_4) },
-                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_4) },
-                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_4) },
+                        { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_4) },
+                        { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_4) },
+                        { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_4) },
                         { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_4) },
                         { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_4) },
                         { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_4) },
@@ -143,9 +142,9 @@ void MainClass::on_START_btn_clicked()
                         { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_4) },
                     },
                     {
-                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_5) },
-                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_5) },
-                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_5) },
+                        { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_5) },
+                        { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_5) },
+                        { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_5) },
                         { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_5) },
                         { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_5) },
                         { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_5) },
@@ -159,9 +158,9 @@ void MainClass::on_START_btn_clicked()
                         { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_5) },
                     },
                     {
-                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_6) },
-                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_6) },
-                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_6) },
+                        { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_6) },
+                        { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_6) },
+                        { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_6) },
                         { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_6) },
                         { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_6) },
                         { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_6) },
@@ -175,9 +174,9 @@ void MainClass::on_START_btn_clicked()
                         { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_6) },
                     },
                     {
-                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_7) },
-                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_7) },
-                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_7) },
+                        { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_7) },
+                        { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_7) },
+                        { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_7) },
                         { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_7) },
                         { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_7) },
                         { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_7) },
@@ -191,9 +190,9 @@ void MainClass::on_START_btn_clicked()
                         { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_7) },
                     },
                     {
-                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_8) },
-                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_8) },
-                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_8) },
+                        { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_8) },
+                        { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_8) },
+                        { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_8) },
                         { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_8) },
                         { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_8) },
                         { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_8) },
@@ -207,9 +206,9 @@ void MainClass::on_START_btn_clicked()
                         { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_8) },
                     },
                     {
-                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_9) },
-                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_9) },
-                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_9) },
+                        { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_9) },
+                        { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_9) },
+                        { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_9) },
                         { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_9) },
                         { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_9) },
                         { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_9) },
@@ -223,9 +222,9 @@ void MainClass::on_START_btn_clicked()
                         { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_9) },
                     },
                     {
-                        { "alias_cam", UtilitesClass::GetConvertedQt_obj(ui->alias_cam_textEdit_10) },
-                        { "ip_cam", UtilitesClass::GetConvertedQt_obj(ui->ip_cam_textEdit_10) },
-                        { "mask_cam", UtilitesClass::GetConvertedQt_obj(ui->mask_cam_textEdit_10) },
+                        { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_10) },
+                        { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_10) },
+                        { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_10) },
                         { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_10) },
                         { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_10) },
                         { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_10) },
@@ -310,11 +309,10 @@ MultiThreadClass::MultiThreadClass(std::map<std::string, std::string> AllSetting
         AllSettings = AllSettingsMap;
         OneSettings = OneSettingsMap;
         Gui = &ui;
-
         connect(&manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finish(QNetworkReply*)));
-        QUrl url = QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap, UtilitesClass::GetValueFromMap(OneSettingsMap, "ip_cam")));
-        url.setUserName(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "login_cam")));
-        url.setPassword(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "password_cam")));
+        QUrl url = QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap, UtilitesClass::GetValueFromMap(OneSettingsMap, "IpCam")));
+        url.setUserName(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "LoginCam")));
+        url.setPassword(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordCam")));
         QNetworkRequest request(url);
         manager.get(request);
     }  catch (std::string error) {
@@ -354,14 +352,13 @@ void MultiThreadClass::finish(QNetworkReply *reply)
 //    UtilitesClass::PrintValueToConsole("Download finished");
 
     try {
-        emit QByteArray data = reply->readAll();
-
+        QByteArray data = reply->readAll();
         cv::Mat image_source;
         QPixmap qPixmap;
         if (qPixmap.loadFromData(data, "JPG")) {
             QImage qImage = qPixmap.toImage();
             image_source = cv::Mat(qImage.height(), qImage.width(), CV_8UC4, const_cast<uchar*>(qImage.bits()), static_cast<size_t>(qImage.bytesPerLine()));
-            cv::Mat mask = cv::imread(UtilitesClass::GetValueFromMap(OneSettings, "mask_cam"), 0);
+            cv::Mat mask = cv::imread(UtilitesClass::GetValueFromMap(OneSettings, "MaskCam"), 0);
             cv::Mat bitwise_and;
             cv::bitwise_and(image_source, image_source, bitwise_and, mask);
             cv::Mat cvtcolor;
@@ -389,51 +386,51 @@ void MultiThreadClass::finish(QNetworkReply *reply)
                 result = round(result * pow_10) / pow_10;
             }
             if (result > std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel"))){
-                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam").substr(3), result, 1);
+                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 1);
             } else {
-                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "alias_cam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam").substr(3), result, 0);
+                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0);
             }
 
             if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "none") {
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") ==  "source") {
-                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"));
+                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "final") {
                 cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
-                cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
                 }
                 else {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
                 }
-                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final" + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"));
+                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "extended") {
-                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"));
+                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
                 cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
-                cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
                 }
                 else {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
                 }
-                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final" + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"));
+                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "all") {
-                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"));
-                UtilitesClass::RenderCvImage(mask, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "mask " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"));
+                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                UtilitesClass::RenderCvImage(mask, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "mask " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
                 cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
-                cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
                 }
                 else {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
                 }
-                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final" + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"));
+                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             }
             if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToWidget") == "true") {
                 Gui->Time_label->setText(QString::fromStdString(UtilitesClass::GetLocalTime()));
-                Gui->Info_label->setText(QString::fromStdString(UtilitesClass::GetValueFromMap(OneSettings, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam")));
+                Gui->Info_label->setText(QString::fromStdString(UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam")));
                 Gui->Result_progressBar->setValue(result);
                 Gui->LcdNumber->display(result);
                 if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
@@ -446,7 +443,7 @@ void MultiThreadClass::finish(QNetworkReply *reply)
                 }
             }
             if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToText") == "true") {
-                UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam") + " IS : " + std::to_string(result) + "%" + " | " + UtilitesClass::GetLocalTime());
+                UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam") + " IS : " + std::to_string(result) + "%" + " | " + UtilitesClass::GetLocalTime());
             }
         }
     }  catch (std::string error) {
@@ -542,8 +539,7 @@ std::string UtilitesClass::GetValueFromMap(std::map <std::string, std::string> M
 std::string UtilitesClass::GetUrlFromIp(std::map <std::string, std::string> Map, std::string Ip)
 {
     std::string url = "";
-
-    if (UtilitesClass::GetValueFromMap(Map, "protocol_type") == "http") {
+    if (UtilitesClass::GetValueFromMap(Map, "ProtocolCam") == "http") {
 //        "http://192.168.15.203:80/ISAPI/Streaming/channels/101/picture?snapShotImageType=JPEG";
         url = UtilitesClass::GetValueFromMap(Map, "ProtocolCam") + "://192.168." + Ip + ":" +
                 UtilitesClass::GetValueFromMap(Map, "PortCam") + "/ISAPI/Streaming/channels/101/picture?snapShotImageType=JPEG";
@@ -560,11 +556,8 @@ std::string UtilitesClass::GetUrlFromIp(std::map <std::string, std::string> Map,
 };
 
 std::string UtilitesClass::GetLocalTime(){
-//    time_t now = time(0);
-//    std::string(ctime(&now));
-
     QDateTime time;
-    return time.toLocalTime().toString().toStdString();
+    return time.currentDateTime().toString().toStdString();
 };
 
 std::string UtilitesClass::GetConvertedQt_obj(QCheckBox *value) {
@@ -588,6 +581,3 @@ std::string UtilitesClass::GetConvertedQt_obj(QComboBox *value) {
 std::string UtilitesClass::GetConvertedQt_obj(QSlider *value) {
     return std::to_string(value->value());
 };
-
-
-

@@ -72,7 +72,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideMiddle</enum>
@@ -485,7 +485,7 @@
              </widget>
             </item>
             <item row="5" column="7">
-             <widget class="QTextEdit" name="mask_cam_textEdit_7">
+             <widget class="QTextEdit" name="MaskCam_textEdit_7">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -517,7 +517,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="3" column="7">
-             <widget class="QTextEdit" name="alias_cam_textEdit_7">
+             <widget class="QTextEdit" name="AliasCam_textEdit_7">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -549,7 +549,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="3" column="5">
-             <widget class="QTextEdit" name="alias_cam_textEdit_5">
+             <widget class="QTextEdit" name="AliasCam_textEdit_5">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -802,7 +802,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="4" column="1">
-             <widget class="QTextEdit" name="ip_cam_textEdit_1">
+             <widget class="QTextEdit" name="IpCam_textEdit_1">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1004,7 +1004,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="5" column="6">
-             <widget class="QTextEdit" name="mask_cam_textEdit_6">
+             <widget class="QTextEdit" name="MaskCam_textEdit_6">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1151,7 +1151,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="3" column="2">
-             <widget class="QTextEdit" name="alias_cam_textEdit_2">
+             <widget class="QTextEdit" name="AliasCam_textEdit_2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1183,7 +1183,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="4" column="7">
-             <widget class="QTextEdit" name="ip_cam_textEdit_7">
+             <widget class="QTextEdit" name="IpCam_textEdit_7">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1342,7 +1342,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="3" column="6">
-             <widget class="QTextEdit" name="alias_cam_textEdit_6">
+             <widget class="QTextEdit" name="AliasCam_textEdit_6">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1554,7 +1554,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QTextEdit" name="alias_cam_textEdit_1">
+             <widget class="QTextEdit" name="AliasCam_textEdit_1">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1746,7 +1746,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="5" column="2">
-             <widget class="QTextEdit" name="mask_cam_textEdit_2">
+             <widget class="QTextEdit" name="MaskCam_textEdit_2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1818,7 +1818,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="5" column="5">
-             <widget class="QTextEdit" name="mask_cam_textEdit_5">
+             <widget class="QTextEdit" name="MaskCam_textEdit_5">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1918,7 +1918,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="5" column="3">
-             <widget class="QTextEdit" name="mask_cam_textEdit_3">
+             <widget class="QTextEdit" name="MaskCam_textEdit_3">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1987,7 +1987,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="4" column="5">
-             <widget class="QTextEdit" name="ip_cam_textEdit_5">
+             <widget class="QTextEdit" name="IpCam_textEdit_5">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -2134,7 +2134,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="5" column="1">
-             <widget class="QTextEdit" name="mask_cam_textEdit_1">
+             <widget class="QTextEdit" name="MaskCam_textEdit_1">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -2308,7 +2308,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="3" column="3">
-             <widget class="QTextEdit" name="alias_cam_textEdit_3">
+             <widget class="QTextEdit" name="AliasCam_textEdit_3">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -2526,7 +2526,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="4" column="4">
-             <widget class="QTextEdit" name="ip_cam_textEdit_4">
+             <widget class="QTextEdit" name="IpCam_textEdit_4">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -2791,7 +2791,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="4" column="3">
-             <widget class="QTextEdit" name="ip_cam_textEdit_3">
+             <widget class="QTextEdit" name="IpCam_textEdit_3">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -3043,7 +3043,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="3" column="9">
-             <widget class="QTextEdit" name="alias_cam_textEdit_9">
+             <widget class="QTextEdit" name="AliasCam_textEdit_9">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -3143,7 +3143,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="3" column="4">
-             <widget class="QTextEdit" name="alias_cam_textEdit_4">
+             <widget class="QTextEdit" name="AliasCam_textEdit_4">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -3420,7 +3420,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="5" column="4">
-             <widget class="QTextEdit" name="mask_cam_textEdit_4">
+             <widget class="QTextEdit" name="MaskCam_textEdit_4">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -3452,7 +3452,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="3" column="8">
-             <widget class="QTextEdit" name="alias_cam_textEdit_8">
+             <widget class="QTextEdit" name="AliasCam_textEdit_8">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -3518,7 +3518,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="4" column="6">
-             <widget class="QTextEdit" name="ip_cam_textEdit_6">
+             <widget class="QTextEdit" name="IpCam_textEdit_6">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -3550,7 +3550,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="4" column="2">
-             <widget class="QTextEdit" name="ip_cam_textEdit_2">
+             <widget class="QTextEdit" name="IpCam_textEdit_2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -3625,7 +3625,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="3" column="10">
-             <widget class="QTextEdit" name="alias_cam_textEdit_10">
+             <widget class="QTextEdit" name="AliasCam_textEdit_10">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -3657,7 +3657,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="4" column="8">
-             <widget class="QTextEdit" name="ip_cam_textEdit_8">
+             <widget class="QTextEdit" name="IpCam_textEdit_8">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -3689,7 +3689,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="5" column="8">
-             <widget class="QTextEdit" name="mask_cam_textEdit_8">
+             <widget class="QTextEdit" name="MaskCam_textEdit_8">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -3721,7 +3721,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="5" column="9">
-             <widget class="QTextEdit" name="mask_cam_textEdit_9">
+             <widget class="QTextEdit" name="MaskCam_textEdit_9">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -3753,7 +3753,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="4" column="9">
-             <widget class="QTextEdit" name="ip_cam_textEdit_9">
+             <widget class="QTextEdit" name="IpCam_textEdit_9">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -3785,7 +3785,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="4" column="10">
-             <widget class="QTextEdit" name="ip_cam_textEdit_10">
+             <widget class="QTextEdit" name="IpCam_textEdit_10">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -3817,7 +3817,7 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item row="5" column="10">
-             <widget class="QTextEdit" name="mask_cam_textEdit_10">
+             <widget class="QTextEdit" name="MaskCam_textEdit_10">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -6835,7 +6835,7 @@ p, li { white-space: pre-wrap; }
                <double>100.000000000000000</double>
               </property>
               <property name="value">
-               <double>1.000000000000000</double>
+               <double>2.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -7422,7 +7422,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;image.jpg&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;15_8.jpg&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="placeholderText">
                <string>image.jpg</string>
