@@ -819,17 +819,13 @@ void MultiThreadClass::start(std::map<std::string, std::string> AllSettingsMap,
         try {
             if (UtilitesClass::GetValueFromMap(OneSettingsMap, "ActiveCam") == "true"){
                 MultiThreadClass* obj = new MultiThreadClass(AllSettingsMap, OneSettingsMap, ui);
+                Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
                 obj->deleteLater();
             }
         }  catch (std::string error) {
             UtilitesClass::PrintValueToConsole(error);
         }
     }
-}
-
-double MultiThreadClass::getResult()
-{
-    return result;
 }
 
 void MultiThreadClass::finish(QNetworkReply *reply)
@@ -856,7 +852,7 @@ void MultiThreadClass::finish(QNetworkReply *reply)
                                    std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_2_2")),
                                    std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_2_3"))), final);
             final.setTo(std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "InRangeSetTo")), final >= std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "InRangeSetFrom")));
-            result = double(cv::countNonZero(final > std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "CountNotZero")))) / double(cv::countNonZero(mask)) * 100 * std::stod(UtilitesClass::GetValueFromMap(OneSettings, "CorrectCoefficient"));
+            double result = double(cv::countNonZero(final > std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "CountNotZero")))) / double(cv::countNonZero(mask)) * 100 * std::stod(UtilitesClass::GetValueFromMap(OneSettings, "CorrectCoefficient"));
             if (result > 100)
             {
                 result = 100.0;
@@ -943,21 +939,21 @@ void MultiThreadClass::finish(QNetworkReply *reply)
     }  catch (std::string error) {
         UtilitesClass::PrintValueToConsole(error);
     }
-
+    manager.deleteLater();
+    reply->deleteLater();
 }
-
-void UtilitesClass::PrintValueToConsole(std::string Value)
-{
-    std::cout << Value << std::endl;
-};
 
 void UtilitesClass::RenderCvImage(cv::Mat Image, double RenderSize, std::string name)
 {
-    cv::Mat source = Image.clone();
-    cv::resize(source, source, cv::Size(), RenderSize, RenderSize, cv::INTER_LINEAR);
-    cv::namedWindow(name, cv::WINDOW_AUTOSIZE);
-    cv::imshow(name, source);
-    cv::waitKey(1);
+    try {
+        cv::Mat source = Image.clone();
+        cv::resize(source, source, cv::Size(), RenderSize, RenderSize, cv::INTER_LINEAR);
+        cv::namedWindow(name, cv::WINDOW_AUTOSIZE);
+        cv::imshow(name, source);
+        cv::waitKey(1);
+    }  catch (std::string error) {
+        UtilitesClass::PrintValueToConsole(error);
+    }
 };
 
 std::vector<std::vector<std::string>> UtilitesClass::GetValuesFromSQL(std::string sqlQuery, std::string connectionString, QString connectionDriver)
@@ -1000,60 +996,68 @@ std::vector<std::vector<std::string>> UtilitesClass::GetValuesFromSQL(std::strin
 
 void UtilitesClass::UpdateValuesToSQL(std::string device_row, double value_row, bool alarm_row, std::map<std::string, std::string> AllSettingsMap, QString connectionDriver)
 {
-    QSqlDatabase qdb = QSqlDatabase::addDatabase(connectionDriver);
-    std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
-                                   UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
-                                   UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") + "," +
-                                   UtilitesClass::GetValueFromMap(AllSettingsMap, "PortSqlServer") +
-                                   ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
-                                   ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
-                                   ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
-    qdb.setDatabaseName(QString::fromStdString(connectionString));
-    if (qdb.open()) {
-//        UtilitesClass::PrintValueToConsole("good to open sql");
-        QSqlQuery query(qdb);
-        query.prepare("UPDATE " + QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "TableNowSql")) + " SET " +
-                      QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsNowSql_2")) + " = :value, " +
-                      QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsNowSql_3")) + " = :alarm, " +
-                      QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsNowSql_4")) + " = GETDATE() WHERE " +
-                      QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsNowSql_1")) + " = :device");
-        query.bindValue(":value", value_row);
-        query.bindValue(":alarm", alarm_row);
-        query.bindValue(":device", QString::fromStdString(device_row));
-        query.exec();
-        qdb.close();
-    } else {
-        UtilitesClass::PrintValueToConsole("error to open sql");
+    try {
+        QSqlDatabase qdb = QSqlDatabase::addDatabase(connectionDriver);
+        std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
+                                       UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
+                                       UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") + "," +
+                                       UtilitesClass::GetValueFromMap(AllSettingsMap, "PortSqlServer") +
+                                       ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
+                                       ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
+                                       ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
+        qdb.setDatabaseName(QString::fromStdString(connectionString));
+        if (qdb.open()) {
+    //        UtilitesClass::PrintValueToConsole("good to open sql");
+            QSqlQuery query(qdb);
+            query.prepare("UPDATE " + QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "TableNowSql")) + " SET " +
+                          QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsNowSql_2")) + " = :value, " +
+                          QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsNowSql_3")) + " = :alarm, " +
+                          QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsNowSql_4")) + " = GETDATE() WHERE " +
+                          QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsNowSql_1")) + " = :device");
+            query.bindValue(":value", value_row);
+            query.bindValue(":alarm", alarm_row);
+            query.bindValue(":device", QString::fromStdString(device_row));
+            query.exec();
+            qdb.close();
+        } else {
+            UtilitesClass::PrintValueToConsole("error to open sql");
+        }
+    }  catch (std::string error) {
+        UtilitesClass::PrintValueToConsole(error);
     }
 }
 
 void UtilitesClass::InsertValuesToSQL(std::string device_row, double value_row, bool alarm_row, std::map<std::string, std::string> AllSettingsMap, QString connectionDriver)
 {
-    QSqlDatabase qdb = QSqlDatabase::addDatabase(connectionDriver);
-    std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
-                                   UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
-                                   UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") + "," +
-                                   UtilitesClass::GetValueFromMap(AllSettingsMap, "PortSqlServer") +
-                                   ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
-                                   ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
-                                   ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
-    qdb.setDatabaseName(QString::fromStdString(connectionString));
-    if (qdb.open()) {
-//        UtilitesClass::PrintValueToConsole("good to open sql");
-        QSqlQuery query(qdb);
-        query.prepare("INSERT INTO " + QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "TableDataSql")) + " (" +
-                      QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsDataSql_1")) + ", " +
-                      QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsDataSql_2")) + ", " +
-                      QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsDataSql_3")) + ", " +
-                      QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsDataSql_4")) + ") " +
-                      "VALUES (:device, :value, :alarm, GETDATE())");
-        query.bindValue(":device", QString::fromStdString(device_row));
-        query.bindValue(":value", value_row);
-        query.bindValue(":alarm", alarm_row);
-        query.exec();
-        qdb.close();
-    } else {
-        UtilitesClass::PrintValueToConsole("error to open sql");
+    try {
+        QSqlDatabase qdb = QSqlDatabase::addDatabase(connectionDriver);
+        std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
+                                       UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
+                                       UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") + "," +
+                                       UtilitesClass::GetValueFromMap(AllSettingsMap, "PortSqlServer") +
+                                       ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
+                                       ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
+                                       ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
+        qdb.setDatabaseName(QString::fromStdString(connectionString));
+        if (qdb.open()) {
+    //        UtilitesClass::PrintValueToConsole("good to open sql");
+            QSqlQuery query(qdb);
+            query.prepare("INSERT INTO " + QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "TableDataSql")) + " (" +
+                          QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsDataSql_1")) + ", " +
+                          QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsDataSql_2")) + ", " +
+                          QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsDataSql_3")) + ", " +
+                          QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsDataSql_4")) + ") " +
+                          "VALUES (:device, :value, :alarm, GETDATE())");
+            query.bindValue(":device", QString::fromStdString(device_row));
+            query.bindValue(":value", value_row);
+            query.bindValue(":alarm", alarm_row);
+            query.exec();
+            qdb.close();
+        } else {
+            UtilitesClass::PrintValueToConsole("error to open sql");
+        }
+    }  catch (std::string error) {
+        UtilitesClass::PrintValueToConsole(error);
     }
 }
 
@@ -1084,6 +1088,11 @@ std::string UtilitesClass::GetUrlFromIp(std::map <std::string, std::string> Map,
         url = "http://via.placeholder.com/1000.jpg";
     }
     return url;
+};
+
+void UtilitesClass::PrintValueToConsole(std::string Value)
+{
+    std::cout << Value << std::endl;
 };
 
 std::string UtilitesClass::GetLocalTime(){
