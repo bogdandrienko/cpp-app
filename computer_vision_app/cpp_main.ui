@@ -6395,6 +6395,9 @@ p, li { white-space: pre-wrap; }
               <property name="text">
                <string>WriteDataSql</string>
               </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item row="7" column="0" colspan="5">
@@ -6463,6 +6466,9 @@ p, li { white-space: pre-wrap; }
               </property>
               <property name="text">
                <string>WriteNowSql</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -7312,7 +7318,7 @@ p, li { white-space: pre-wrap; }
                <double>100.000000000000000</double>
               </property>
               <property name="value">
-               <double>2.000000000000000</double>
+               <double>3.000000000000000</double>
               </property>
              </widget>
             </item>
