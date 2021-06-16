@@ -33,9 +33,13 @@ private slots:
     void on_STOP_btn_clicked();
     void on_QUIT_btn_clicked();
     void on_CamShot_pushButton_clicked();
+    void on_ExportSettings_pushButton_clicked();
+    void on_ImportSettings_pushButton_clicked();
 
     void AutoImport();
     void AutoPlay();
+
+
 
 private:
     Ui::MainClass *ui;
@@ -98,7 +102,12 @@ public:
     static std::string GetConvertedQt_obj(QComboBox *value);
     static std::string GetConvertedQt_obj(QSlider *value);
 
-
+    static void SetConvertedQt_obj(QCheckBox *value, QString text);
+    static void SetConvertedQt_obj(QSpinBox *value, QString text);
+    static void SetConvertedQt_obj(QDoubleSpinBox *value, QString text);
+    static void SetConvertedQt_obj(QTextEdit *value, QString text);
+    static void SetConvertedQt_obj(QComboBox *value, QString text);
+    static void SetConvertedQt_obj(QSlider *value, QString text);
 private:
 };
 
