@@ -56,26 +56,8 @@ void MainClass::on_START_btn_clicked()
 {
     on_STOP_btn_clicked();
     Playing = true;
-    ui->playing_radioButton->setChecked(Playing);
-    start();
-}
+    ui->Playing_radioButton->setChecked(Playing);
 
-void MainClass::on_STOP_btn_clicked()
-{
-    Playing = false;
-    cv::destroyAllWindows();
-    ui->playing_radioButton->setChecked(Playing);
-}
-
-void MainClass::on_QUIT_btn_clicked()
-{
-    on_STOP_btn_clicked();
-    this->close();
-}
-
-
-void MainClass::start()
-{
     while (Playing) {
         try {
                 QCoreApplication::processEvents();
@@ -88,10 +70,10 @@ void MainClass::start()
                     { "RenderType", UtilitesClass::GetConvertedQt_obj(ui->RenderType_comboBox) },
                     { "TimeDelay", UtilitesClass::GetConvertedQt_obj(ui->TimeDelay_doubleSpinBox) },
 
-                    { "protocol_type", UtilitesClass::GetConvertedQt_obj(ui->protocol_type_textEdit) },
-                    { "port_cam", UtilitesClass::GetConvertedQt_obj(ui->port_cam_spinBox) },
-                    { "login_cam", UtilitesClass::GetConvertedQt_obj(ui->login_cam_textEdit) },
-                    { "password_cam", UtilitesClass::GetConvertedQt_obj(ui->password_cam_textEdit) },
+                    { "ProtocolCam", UtilitesClass::GetConvertedQt_obj(ui->ProtocolCam_textEdit) },
+                    { "PortCam", UtilitesClass::GetConvertedQt_obj(ui->PortCam_spinBox) },
+                    { "LoginCam", UtilitesClass::GetConvertedQt_obj(ui->LoginCam_textEdit) },
+                    { "PasswordCam", UtilitesClass::GetConvertedQt_obj(ui->PasswordCam_textEdit) },
                 };
                 QCoreApplication::processEvents();
                 std::vector<std::map<std::string,std::string>> AllSettingsVector =
@@ -272,6 +254,52 @@ void MainClass::start()
     }
 }
 
+void MainClass::on_STOP_btn_clicked()
+{
+    Playing = false;
+    cv::destroyAllWindows();
+    ui->Playing_radioButton->setChecked(Playing);
+}
+
+void MainClass::on_QUIT_btn_clicked()
+{
+    on_STOP_btn_clicked();
+    this->close();
+}
+
+void MainClass::on_CamShot_pushButton_clicked()
+{
+    std::map <std::string,std::string> CamShotSettingsMap = {
+        { "IpCamShot", UtilitesClass::GetConvertedQt_obj(ui->IpCamShot_textEdit) },
+        { "PortCamShot", UtilitesClass::GetConvertedQt_obj(ui->PortCamShot_textEdit) },
+        { "LoginCamShot", UtilitesClass::GetConvertedQt_obj(ui->LoginCamShot_textEdit) },
+        { "PasswordCamShot", UtilitesClass::GetConvertedQt_obj(ui->PasswordCamShot_textEdit) },
+        { "ImageNameShot", UtilitesClass::GetConvertedQt_obj(ui->ImageNameShot_textEdit) },
+    };
+    QUrl url = QString::fromStdString("http://192.168." +
+                                      UtilitesClass::GetValueFromMap(CamShotSettingsMap, "IpCamShot") + ":" +
+                                      UtilitesClass::GetValueFromMap(CamShotSettingsMap, "PortCamShot") +
+                                      "/ISAPI/Streaming/channels/101/picture?snapShotImageType=JPEG");
+    url.setUserName(QString::fromStdString(UtilitesClass::GetValueFromMap(CamShotSettingsMap, "LoginCamShot")));
+    url.setPassword(QString::fromStdString(UtilitesClass::GetValueFromMap(CamShotSettingsMap, "PasswordCamShot")));
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkReply* reply = manager->get(QNetworkRequest(url));
+    QEventLoop loop;
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+    emit QByteArray data = reply->readAll();
+    cv::Mat image_source;
+    QPixmap qPixmap;
+    if (qPixmap.loadFromData(data, "JPG")) {
+        QImage qImage = qPixmap.toImage();
+        image_source = cv::Mat(qImage.height(), qImage.width(), CV_8UC4, const_cast<uchar*>(qImage.bits()), static_cast<size_t>(qImage.bytesPerLine()));
+        cv::imwrite(UtilitesClass::GetValueFromMap(CamShotSettingsMap, "ImageNameShot"), image_source);
+    }
+    reply->deleteLater();
+    manager->deleteLater();
+
+}
+
 MultiThreadClass::MultiThreadClass(std::map<std::string, std::string> AllSettingsMap,
                                    std::map<std::string,std::string> OneSettingsMap, Ui::MainClass ui,
                                    QWidget *parent) : QObject(parent)
@@ -309,6 +337,7 @@ void MultiThreadClass::start(std::map<std::string, std::string> AllSettingsMap,
     {
         try {
             MultiThreadClass* obj = new MultiThreadClass(AllSettingsMap, OneSettingsMap, ui);
+            obj->deleteLater();
         }  catch (std::string error) {
             UtilitesClass::PrintValueToConsole(error);
         }
@@ -403,17 +432,17 @@ void MultiThreadClass::finish(QNetworkReply *reply)
                 UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final" + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam"));
             }
             if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToWidget") == "true") {
-                Gui->label_time->setText(QString::fromStdString(UtilitesClass::GetLocalTime()));
-                Gui->label_info->setText(QString::fromStdString(UtilitesClass::GetValueFromMap(OneSettings, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam")));
-                Gui->progressBar->setValue(result);
-                Gui->lcdNumber->display(result);
+                Gui->Time_label->setText(QString::fromStdString(UtilitesClass::GetLocalTime()));
+                Gui->Info_label->setText(QString::fromStdString(UtilitesClass::GetValueFromMap(OneSettings, "ip_cam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "alias_cam")));
+                Gui->Result_progressBar->setValue(result);
+                Gui->LcdNumber->display(result);
                 if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
                     QString danger = "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #FF0350,stop: 0.4999 #FF0020,stop: 0.5 #FF0019,stop: 1 #FF0000 );border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;border: .px solid black;}";
-                    Gui->progressBar->setStyleSheet(danger);
+                    Gui->Result_progressBar->setStyleSheet(danger);
                 }
                 else {
                     QString safe= "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #78d,stop: 0.4999 #46a,stop: 0.5 #45a,stop: 1 #238 );border-bottom-right-radius: 7px;border-bottom-left-radius: 7px;border: 1px solid black;}";
-                    Gui->progressBar->setStyleSheet(safe);
+                    Gui->Result_progressBar->setStyleSheet(safe);
                 }
             }
             if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToText") == "true") {
@@ -516,23 +545,26 @@ std::string UtilitesClass::GetUrlFromIp(std::map <std::string, std::string> Map,
 
     if (UtilitesClass::GetValueFromMap(Map, "protocol_type") == "http") {
 //        "http://192.168.15.203:80/ISAPI/Streaming/channels/101/picture?snapShotImageType=JPEG";
-        url = UtilitesClass::GetValueFromMap(Map, "protocol_type") + "://192.168." + Ip + ":" +
-                UtilitesClass::GetValueFromMap(Map, "port_cam") + "/ISAPI/Streaming/channels/101/picture?snapShotImageType=JPEG";
+        url = UtilitesClass::GetValueFromMap(Map, "ProtocolCam") + "://192.168." + Ip + ":" +
+                UtilitesClass::GetValueFromMap(Map, "PortCam") + "/ISAPI/Streaming/channels/101/picture?snapShotImageType=JPEG";
     }
-    if (UtilitesClass::GetValueFromMap(Map, "protocol_type") == "rtsp") {
+    if (UtilitesClass::GetValueFromMap(Map, "ProtocolCam") == "rtsp") {
 //        "rtsp://admin:q1234567@192.168.15.203:554";
-        url = UtilitesClass::GetValueFromMap(Map, "protocol_type") + "://" + UtilitesClass::GetValueFromMap(Map, "login_cam") + ":" +
-                UtilitesClass::GetValueFromMap(Map, "password_cam") + "@" + "192.168." + Ip + ":" + UtilitesClass::GetValueFromMap(Map, "port_cam");
+        url = UtilitesClass::GetValueFromMap(Map, "ProtocolCam") + "://" + UtilitesClass::GetValueFromMap(Map, "LoginCam") + ":" +
+                UtilitesClass::GetValueFromMap(Map, "PasswordCam") + "@" + "192.168." + Ip + ":" + UtilitesClass::GetValueFromMap(Map, "PortCam");
     }
-    if (UtilitesClass::GetValueFromMap(Map, "protocol_type") == "test") {
+    if (UtilitesClass::GetValueFromMap(Map, "ProtocolCam") == "test") {
         url = "http://via.placeholder.com/1000.jpg";
     }
     return url;
 };
 
 std::string UtilitesClass::GetLocalTime(){
-    time_t now = time(0);
-    return std::string(ctime(&now));
+//    time_t now = time(0);
+//    std::string(ctime(&now));
+
+    QDateTime time;
+    return time.toLocalTime().toString().toStdString();
 };
 
 std::string UtilitesClass::GetConvertedQt_obj(QCheckBox *value) {
@@ -556,3 +588,6 @@ std::string UtilitesClass::GetConvertedQt_obj(QComboBox *value) {
 std::string UtilitesClass::GetConvertedQt_obj(QSlider *value) {
     return std::to_string(value->value());
 };
+
+
+

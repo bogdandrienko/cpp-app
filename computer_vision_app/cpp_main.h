@@ -32,11 +32,10 @@ private slots:
     void on_START_btn_clicked();
     void on_STOP_btn_clicked();
     void on_QUIT_btn_clicked();
+    void on_CamShot_pushButton_clicked();
 
     void AutoImport();
     void AutoPlay();
-
-    void start();
 
 private:
     Ui::MainClass *ui;
