@@ -57,9 +57,7 @@ public:
     std::map<std::string,std::string> AllSettings;
     std::map<std::string,std::string> OneSettings;
 
-    static void start(std::map<std::string, std::string> AllSettingsMap,
-                      std::vector<std::map<std::string,std::string>> AllSettingsVector,
-                      Ui::MainClass ui);
+    static void start(std::map<std::string, std::string> AllSettingsMap, std::vector<std::map<std::string,std::string>> AllSettingsVector, Ui::MainClass ui);
 
     double getResult();
 signals:
@@ -87,7 +85,9 @@ public:
 
     static std::vector<std::vector<std::string>> GetValuesFromSQL(std::string sqlQuery = "SELECT * FROM grohot16_now_table;", std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:192.168.15.87\\DESKTOP-SM7K050\\COMPUTER_VISION,1433;DATABASE=analiz_16grohot;UID=computer_vision;PWD=vision12345678", QString connectionDriver = "QODBC");
 
-    static void SetValuesToSQL(std::string device_row = "16/1", double value_row = 100.0, bool alarm_row = 1, std::string sqlQuery = "", std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:192.168.15.87\\DESKTOP-SM7K050\\COMPUTER_VISION,1433;DATABASE=analiz_16grohot;UID=computer_vision;PWD=vision12345678", QString connectionDriver = "QODBC");
+    static void UpdateValuesToSQL(std::string device_row, double value_row, bool alarm_row, std::map<std::string, std::string> AllSettingsMap, QString connectionDriver = "QODBC");
+
+    static void InsertValuesToSQL(std::string device_row, double value_row, bool alarm_row, std::map<std::string, std::string> AllSettingsMap, QString connectionDriver = "QODBC");
 
     static std::string GetValueFromMap(std::map <std::string, std::string> Map, std::string Key);
 

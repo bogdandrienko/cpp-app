@@ -41,9 +41,17 @@ MainClass::~MainClass()
 
 void MainClass::AutoImport()
 {
-    if (UtilitesClass::GetConvertedQt_obj(ui->AutoImport_checkBox) == "true") {
-        Sleep(500);
-        on_ImportSettings_pushButton_clicked();
+    QFile file("settings.json");
+    if (!file.open( QIODevice::ReadOnly)) {
+        std::cerr << "Error: unable to open a file" << std::endl;
+    } else {
+        QByteArray data = file.readAll();
+        QJsonDocument document;
+        document = document.fromJson(data);
+        if (document.object()["AutoImport"].toString() == "true") {
+            Sleep(500);
+            on_ImportSettings_pushButton_clicked();
+        }
     }
 }
 
@@ -76,6 +84,25 @@ void MainClass::on_START_btn_clicked()
                     { "PortCam", UtilitesClass::GetConvertedQt_obj(ui->PortCam_spinBox) },
                     { "LoginCam", UtilitesClass::GetConvertedQt_obj(ui->LoginCam_textEdit) },
                     { "PasswordCam", UtilitesClass::GetConvertedQt_obj(ui->PasswordCam_textEdit) },
+
+                    { "IpSqlServer", UtilitesClass::GetConvertedQt_obj(ui->IpSqlServer_textEdit) },
+                    { "ServerNameSql", UtilitesClass::GetConvertedQt_obj(ui->ServerNameSql_textEdit) },
+                    { "PortSqlServer", UtilitesClass::GetConvertedQt_obj(ui->PortSqlServer_spinBox) },
+                    { "DatabaseSql", UtilitesClass::GetConvertedQt_obj(ui->DatabaseSql_textEdit) },
+                    { "UserSql", UtilitesClass::GetConvertedQt_obj(ui->UserSql_textEdit) },
+                    { "PasswordSql", UtilitesClass::GetConvertedQt_obj(ui->PasswordSql_textEdit) },
+                    { "WriteNowSql", UtilitesClass::GetConvertedQt_obj(ui->WriteNowSql_checkBox) },
+                    { "TableNowSql", UtilitesClass::GetConvertedQt_obj(ui->TableNowSql_textEdit) },
+                    { "RowsNowSql_1", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_1) },
+                    { "RowsNowSql_2", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_2) },
+                    { "RowsNowSql_3", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_3) },
+                    { "RowsNowSql_4", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_4) },
+                    { "WriteDataSql", UtilitesClass::GetConvertedQt_obj(ui->WriteDataSql_checkBox) },
+                    { "TableDataSql", UtilitesClass::GetConvertedQt_obj(ui->TableDataSql_textEdit) },
+                    { "RowsDataSql_1", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_1) },
+                    { "RowsDataSql_2", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_2) },
+                    { "RowsDataSql_3", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_3) },
+                    { "RowsDataSql_4", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_4) },
                 };
                 QCoreApplication::processEvents();
                 std::vector<std::map<std::string,std::string>> AllSettingsVector =
@@ -314,7 +341,7 @@ void MainClass::on_CamShot_pushButton_clicked()
 
 void MainClass::on_ExportSettings_pushButton_clicked()
 {
-    UtilitesClass::PrintValueToConsole("export settings");
+//    UtilitesClass::PrintValueToConsole("export settings");
 
     std::map <std::string,std::string> AllSettingsMap = {
         { "AutoPlay", UtilitesClass::GetConvertedQt_obj(ui->AutoPlay_checkBox) },
@@ -329,6 +356,25 @@ void MainClass::on_ExportSettings_pushButton_clicked()
         { "PortCam", UtilitesClass::GetConvertedQt_obj(ui->PortCam_spinBox) },
         { "LoginCam", UtilitesClass::GetConvertedQt_obj(ui->LoginCam_textEdit) },
         { "PasswordCam", UtilitesClass::GetConvertedQt_obj(ui->PasswordCam_textEdit) },
+
+        { "IpSqlServer", UtilitesClass::GetConvertedQt_obj(ui->IpSqlServer_textEdit) },
+        { "ServerNameSql", UtilitesClass::GetConvertedQt_obj(ui->ServerNameSql_textEdit) },
+        { "PortSqlServer", UtilitesClass::GetConvertedQt_obj(ui->PortSqlServer_spinBox) },
+        { "DatabaseSql", UtilitesClass::GetConvertedQt_obj(ui->DatabaseSql_textEdit) },
+        { "UserSql", UtilitesClass::GetConvertedQt_obj(ui->UserSql_textEdit) },
+        { "PasswordSql", UtilitesClass::GetConvertedQt_obj(ui->PasswordSql_textEdit) },
+        { "WriteNowSql", UtilitesClass::GetConvertedQt_obj(ui->WriteNowSql_checkBox) },
+        { "TableNowSql", UtilitesClass::GetConvertedQt_obj(ui->TableNowSql_textEdit) },
+        { "RowsNowSql_1", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_1) },
+        { "RowsNowSql_2", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_2) },
+        { "RowsNowSql_3", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_3) },
+        { "RowsNowSql_4", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_4) },
+        { "WriteDataSql", UtilitesClass::GetConvertedQt_obj(ui->WriteDataSql_checkBox) },
+        { "TableDataSql", UtilitesClass::GetConvertedQt_obj(ui->TableDataSql_textEdit) },
+        { "RowsDataSql_1", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_1) },
+        { "RowsDataSql_2", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_2) },
+        { "RowsDataSql_3", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_3) },
+        { "RowsDataSql_4", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_4) },
 
         { "ActiveCam_1", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_1) },
         { "AliasCam_1", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_1) },
@@ -507,7 +553,9 @@ void MainClass::on_ExportSettings_pushButton_clicked()
 
 void MainClass::on_ImportSettings_pushButton_clicked()
 {
-    UtilitesClass::PrintValueToConsole("import settings");
+//    UtilitesClass::PrintValueToConsole("import settings");
+
+
 
     QFile file("settings.json");
     if (!file.open( QIODevice::ReadOnly)) {
@@ -517,6 +565,9 @@ void MainClass::on_ImportSettings_pushButton_clicked()
     QJsonDocument document;
     document = document.fromJson(data);
     std::map<std::string, QCheckBox*> QCheckBoxMap = {
+        { "WriteNowSql", ui->WriteNowSql_checkBox },
+        { "WriteDataSql", ui->WriteDataSql_checkBox },
+
         { "AutoPlay", ui->AutoPlay_checkBox },
         { "AutoImport", ui->AutoImport_checkBox },
         { "WriteToWidget", ui->WriteToWidget_checkBox },
@@ -538,6 +589,8 @@ void MainClass::on_ImportSettings_pushButton_clicked()
     }
     std::map<std::string, QSpinBox*> QSpinBoxMap = {
         { "PortCam", ui->PortCam_spinBox },
+
+        { "PortSqlServer", ui->PortSqlServer_spinBox },
 
         { "AlarmLevel_1", ui->AlarmLevel_spinBox_1 },
         { "AlarmLevel_2", ui->AlarmLevel_spinBox_2 },
@@ -664,6 +717,22 @@ void MainClass::on_ImportSettings_pushButton_clicked()
         { "ProtocolCam", ui->ProtocolCam_textEdit },
         { "LoginCam", ui->LoginCam_textEdit },
         { "PasswordCam", ui->PasswordCam_textEdit },
+
+        { "IpSqlServer", ui->IpSqlServer_textEdit },
+        { "ServerNameSql", ui->ServerNameSql_textEdit },
+        { "DatabaseSql", ui->DatabaseSql_textEdit },
+        { "UserSql", ui->UserSql_textEdit },
+        { "PasswordSql", ui->PasswordSql_textEdit },
+        { "TableNowSql", ui->TableNowSql_textEdit },
+        { "RowsNowSql_1", ui->RowsNowSql_textEdit_1 },
+        { "RowsNowSql_2", ui->RowsNowSql_textEdit_2 },
+        { "RowsNowSql_3", ui->RowsNowSql_textEdit_3 },
+        { "RowsNowSql_4", ui->RowsNowSql_textEdit_4 },
+        { "TableDataSql", ui->TableDataSql_textEdit },
+        { "RowsDataSql_1", ui->RowsDataSql_textEdit_1 },
+        { "RowsDataSql_2", ui->RowsDataSql_textEdit_2 },
+        { "RowsDataSql_3", ui->RowsDataSql_textEdit_3 },
+        { "RowsDataSql_4", ui->RowsDataSql_textEdit_4 },
 
         { "AliasCam_1", ui->AliasCam_textEdit_1 },
         { "AliasCam_2", ui->AliasCam_textEdit_2 },
@@ -802,11 +871,20 @@ void MultiThreadClass::finish(QNetworkReply *reply)
                 result = round(result * pow_10) / pow_10;
             }
             if (result > std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel"))){
-                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 1);
+                if (UtilitesClass::GetValueFromMap(AllSettings, "WriteNowSql") == "true"){
+                    UtilitesClass::UpdateValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 1, AllSettings);
+                }
+                if (UtilitesClass::GetValueFromMap(AllSettings, "WriteDataSql") == "true"){
+                    UtilitesClass::InsertValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
+                }
             } else {
-                UtilitesClass::SetValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0);
+                if (UtilitesClass::GetValueFromMap(AllSettings, "WriteNowSql") == "true"){
+                    UtilitesClass::UpdateValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
+                }
+                if (UtilitesClass::GetValueFromMap(AllSettings, "WriteDataSql") == "true"){
+                    UtilitesClass::InsertValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
+                }
             }
-
             if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "none") {
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") ==  "source") {
                 UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
@@ -819,7 +897,7 @@ void MultiThreadClass::finish(QNetworkReply *reply)
                 else {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
                 }
-                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "extended") {
                 UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
                 cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
@@ -830,7 +908,7 @@ void MultiThreadClass::finish(QNetworkReply *reply)
                 else {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
                 }
-                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "all") {
                 UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
                 UtilitesClass::RenderCvImage(mask, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "mask " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
@@ -842,7 +920,7 @@ void MultiThreadClass::finish(QNetworkReply *reply)
                 else {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
                 }
-                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             }
             if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToWidget") == "true") {
                 Gui->Time_label->setText(QString::fromStdString(UtilitesClass::GetLocalTime()));
@@ -920,20 +998,58 @@ std::vector<std::vector<std::string>> UtilitesClass::GetValuesFromSQL(std::strin
     }
 }
 
-void UtilitesClass::SetValuesToSQL(std::string device_row, double value_row, bool alarm_row, std::string sqlQuery, std::string connectionString, QString connectionDriver)
+void UtilitesClass::UpdateValuesToSQL(std::string device_row, double value_row, bool alarm_row, std::map<std::string, std::string> AllSettingsMap, QString connectionDriver)
 {
     QSqlDatabase qdb = QSqlDatabase::addDatabase(connectionDriver);
+    std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
+                                   UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
+                                   UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") + "," +
+                                   UtilitesClass::GetValueFromMap(AllSettingsMap, "PortSqlServer") +
+                                   ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
+                                   ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
+                                   ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
     qdb.setDatabaseName(QString::fromStdString(connectionString));
     if (qdb.open()) {
 //        UtilitesClass::PrintValueToConsole("good to open sql");
         QSqlQuery query(qdb);
-        query.prepare("UPDATE grohot16_now_table "
-                      "SET value_row = :value, alarm_row = :alarm, datetime_row =  GETDATE() "
-                      "WHERE device_row = :device");
+        query.prepare("UPDATE " + QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "TableNowSql")) + " SET " +
+                      QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsNowSql_2")) + " = :value, " +
+                      QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsNowSql_3")) + " = :alarm, " +
+                      QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsNowSql_4")) + " = GETDATE() WHERE " +
+                      QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsNowSql_1")) + " = :device");
         query.bindValue(":value", value_row);
         query.bindValue(":alarm", alarm_row);
         query.bindValue(":device", QString::fromStdString(device_row));
+        query.exec();
+        qdb.close();
+    } else {
+        UtilitesClass::PrintValueToConsole("error to open sql");
+    }
+}
 
+void UtilitesClass::InsertValuesToSQL(std::string device_row, double value_row, bool alarm_row, std::map<std::string, std::string> AllSettingsMap, QString connectionDriver)
+{
+    QSqlDatabase qdb = QSqlDatabase::addDatabase(connectionDriver);
+    std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
+                                   UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
+                                   UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") + "," +
+                                   UtilitesClass::GetValueFromMap(AllSettingsMap, "PortSqlServer") +
+                                   ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
+                                   ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
+                                   ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
+    qdb.setDatabaseName(QString::fromStdString(connectionString));
+    if (qdb.open()) {
+//        UtilitesClass::PrintValueToConsole("good to open sql");
+        QSqlQuery query(qdb);
+        query.prepare("INSERT INTO " + QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "TableDataSql")) + " (" +
+                      QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsDataSql_1")) + ", " +
+                      QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsDataSql_2")) + ", " +
+                      QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsDataSql_3")) + ", " +
+                      QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsDataSql_4")) + ") " +
+                      "VALUES (:device, :value, :alarm, GETDATE())");
+        query.bindValue(":device", QString::fromStdString(device_row));
+        query.bindValue(":value", value_row);
+        query.bindValue(":alarm", alarm_row);
         query.exec();
         qdb.close();
     } else {
