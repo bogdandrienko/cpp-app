@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2017 The Qt Company Ltd.
+** Copyright (C) 2020 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
 **
 ** This file is part of the examples of the Qt Toolkit.
@@ -48,37 +48,54 @@
 **
 ****************************************************************************/
 
-#include <QCoreApplication>
-#include <QStringList>
+#include "httpwindow.h"
+#include "ui_authenticationdialog.h"
 
-#include "downloadmanager.h"
+#include <QtCore>
+#include <QtWidgets>
+#include <QtNetwork>
 
-#include <cstdio>
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-    using namespace std;
+    QApplication app(argc, argv);
+    HttpWindow httpWin;
+    return app.exec();
+}
 
-    QCoreApplication app(argc, argv);
-//    QStringList arguments = app.arguments();
-    QStringList arguments = {{}, {"http://via.placeholder.com/1000.jpg"}, {"http://via.placeholder.com/800.jpg"}, {"http://via.placeholder.com/600.jpg"}, {"http://via.placeholder.com/400.jpg"}};
-    arguments.takeFirst();      // remove the first argument, which is the program's name
+HttpWindow::HttpWindow(QWidget *parent)
+{
+    startRequest();
+}
 
+HttpWindow::~HttpWindow() = default;
 
-    if (arguments.isEmpty()) {
-        printf("Qt Download example\n"
-               "Usage: downloadmanager url1 [url2... urlN]\n"
-               "\n"
-               "Downloads the URLs passed in the command-line to the local directory\n"
-               "If the target file already exists, a .0, .1, .2, etc. is appended to\n"
-               "differentiate.\n");
-        return 0;
+void HttpWindow::startRequest()
+{
+    url = "http://via.placeholder.com/1000.jpg";
+    url.setUserName("admin");
+    url.setPassword("q1234567");
+    reply.reset(qnam.get(QNetworkRequest(url)));
+    connect(reply.get(), &QNetworkReply::finished, this, &HttpWindow::httpFinished);
+}
+
+void HttpWindow::httpFinished()
+{
+    QString fileName = url.fileName();
+    QString downloadDirectory = QDir::cleanPath("C:\\");
+    bool useDirectory = !downloadDirectory.isEmpty() && QFileInfo(downloadDirectory).isDir();
+    if (useDirectory)
+        fileName.prepend(downloadDirectory + '/');
+    std::unique_ptr<QFile> file = std::make_unique<QFile>(fileName);
+    if (!file->open(QIODevice::WriteOnly)) {
+        file = nullptr;
     }
-
-    DownloadManager manager;
-    manager.append(arguments);
-
-    QObject::connect(&manager, &DownloadManager::finished,
-                     &app, &QCoreApplication::quit);
-    app.exec();
+    if (!file){
+        return;
+    }
+    if (file){
+        file->write(reply->readAll());
+        file->close();
+        file.reset();
+    }
 }

@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2017 The Qt Company Ltd.
+** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
 **
 ** This file is part of the examples of the Qt Toolkit.
@@ -48,60 +48,44 @@
 **
 ****************************************************************************/
 
-#include "textprogressbar.h"
+#include <QApplication>
+#include <QDir>
+#include <QScreen>
 
-#include <QByteArray>
+#include "httpwindow.h"
+#ifdef REQUEST_PERMISSIONS_ON_ANDROID
+#include <QtAndroid>
 
-#include <cstdio>
+bool requestStoragePermission() {
+    using namespace QtAndroid;
 
-using namespace std;
-
-void TextProgressBar::clear()
-{
-    printf("\n");
-    fflush(stdout);
-
-    value = 0;
-    maximum = -1;
-    iteration = 0;
-}
-
-void TextProgressBar::update()
-{
-    ++iteration;
-
-    if (maximum > 0) {
-        // we know the maximum
-        // draw a progress bar
-        int percent = value * 100 / maximum;
-        int hashes = percent / 2;
-
-        QByteArray progressbar(hashes, '#');
-        if (percent % 2)
-            progressbar += '>';
-
-        printf("\r[%-50s] %3d%% %s     ",
-               progressbar.constData(),
-               percent,
-               qPrintable(message));
-    } else {
-        // we don't know the maximum, so we can't draw a progress bar
-        int center = (iteration % 48) + 1; // 50 spaces, minus 2
-        QByteArray before(qMax(center - 2, 0), ' ');
-        QByteArray after(qMin(center + 2, 50), ' ');
-
-        printf("\r[%s###%s]      %s      ",
-               before.constData(), after.constData(), qPrintable(message));
+    QString permission = QStringLiteral("android.permission.WRITE_EXTERNAL_STORAGE");
+    const QHash<QString, PermissionResult> results = requestPermissionsSync(QStringList({permission}));
+    if (!results.contains(permission) || results[permission] == PermissionResult::Denied) {
+        qWarning() << "Couldn't get permission: " << permission;
+        return false;
     }
-}
 
-void TextProgressBar::setMessage(const QString &m)
-{
-    message = m;
+    return true;
 }
+#endif
 
-void TextProgressBar::setStatus(qint64 val, qint64 max)
+int main(int argc, char *argv[])
 {
-    value = val;
-    maximum = max;
+    QApplication app(argc, argv);
+#ifdef REQUEST_PERMISSIONS_ON_ANDROID
+    if (!requestStoragePermission())
+        return -1;
+#endif
+    HttpWindow httpWin;
+    const QRect availableSize = httpWin.screen()->availableGeometry();
+    httpWin.resize(availableSize.width() / 5, availableSize.height() / 5);
+    httpWin.move((availableSize.width() - httpWin.width()) / 2, (availableSize.height() - httpWin.height()) / 2);
+#ifdef Q_OS_ANDROID
+    httpWin.showMaximized();
+#else
+    httpWin.show();
+#endif
+
+    return app.exec();
 }
