@@ -38,6 +38,9 @@ private slots:
 
     void AutoImport();
     void AutoPlay();
+    void startAnalyse(std::map<std::string, std::string> AllSettingsMap,
+                      std::vector<std::map<std::string,std::string>> AllSettingsVector,
+                      Ui::MainClass *ui);
 
 private:
     Ui::MainClass *ui;
@@ -49,12 +52,11 @@ class SyncThreadClass : public QObject
 {
     Q_OBJECT
 public:
-    explicit SyncThreadClass(QWidget *parent = nullptr);
+    explicit SyncThreadClass(std::map<std::string, std::string> AllSettingsMap,
+                             std::map<std::string,std::string> OneSettingsMap,
+                             Ui::MainClass *ui,
+                             QWidget *parent = nullptr);
     virtual ~SyncThreadClass();
-
-    static void start(std::map<std::string, std::string> AllSettingsMap, std::vector<std::map<std::string,std::string>> AllSettingsVector);
-    void loadImage(std::map<std::string, std::string> AllSettingsMap, std::map<std::string, std::string> OneSettingsMap);
-    void analyseImage(QByteArray data);
 
 signals:
 
@@ -63,6 +65,7 @@ private slots:
 private:
     std::map<std::string,std::string> AllSettings;
     std::map<std::string,std::string> OneSettings;
+    Ui::MainClass *Gui;
 };
 
 class AsyncThreadClass : public QObject
@@ -70,44 +73,11 @@ class AsyncThreadClass : public QObject
     Q_OBJECT
 
 public:
-    explicit AsyncThreadClass(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap, QWidget *parent = nullptr);
+    explicit AsyncThreadClass(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap, Ui::MainClass *, QWidget *parent = nullptr);
     virtual ~AsyncThreadClass();
-
-    static void start(std::map<std::string, std::string> AllSettingsMap, std::vector<std::map<std::string,std::string>> AllSettingsVector);
-    void startDownload();
 
 private slots:
     void finishDownload();
-
-private:
-    std::map<std::string,std::string> AllSettings;
-    std::map<std::string,std::string> OneSettings;
-    QUrl url;
-    QNetworkAccessManager qnam;
-    QScopedPointer<QNetworkReply, QScopedPointerDeleteLater> reply;
-};
-
-
-
-
-
-
-
-
-
-class MultiThreadClass : public QObject
-{
-Q_OBJECT
-public:
-    explicit MultiThreadClass(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap, Ui::MainClass ui, QWidget *parent = nullptr);
-    virtual ~MultiThreadClass();
-
-    static void start(std::map<std::string, std::string> AllSettingsMap, std::vector<std::map<std::string,std::string>> AllSettingsVector, Ui::MainClass ui);
-
-signals:
-
-private slots:
-    void finish();
 
 private:
     std::map<std::string,std::string> AllSettings;
@@ -116,30 +86,7 @@ private:
 
     QNetworkAccessManager manager;
     QScopedPointer<QNetworkReply, QScopedPointerDeleteLater> reply;
-
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -147,8 +94,6 @@ private:
 
 class UtilitesClass{
 public:
-
-    static void PrintValueToConsole(std::string Value);
 
     static void RenderCvImage(cv::Mat Image, double renderSize, std::string name);
 
@@ -161,6 +106,8 @@ public:
     static std::string GetValueFromMap(std::map <std::string, std::string> Map, std::string Key);
 
     static std::string GetUrlFromIp(std::map <std::string, std::string> Map, std::string Ip);
+
+    static void PrintValueToConsole(std::string Value);
 
     static std::string GetLocalTime();
 
