@@ -29,7 +29,6 @@ MainClass::MainClass(QWidget *parent)
     , ui(new Ui::MainClass)
 {
     ui->setupUi(this);
-
     AutoImport();
     AutoPlay();
 }
@@ -68,7 +67,6 @@ void MainClass::on_START_btn_clicked()
     on_STOP_btn_clicked();
     Playing = true;
     ui->Playing_radioButton->setChecked(Playing);
-
     std::map <std::string,std::string> AllSettingsMap = {
         { "AutoPlay", UtilitesClass::GetConvertedQt_obj(ui->AutoPlay_checkBox) },
         { "AutoImport", UtilitesClass::GetConvertedQt_obj(ui->AutoImport_checkBox) },
@@ -276,16 +274,45 @@ void MainClass::on_START_btn_clicked()
             { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_10) },
         },
     };
-    while (Playing) {
+//    while (Playing) {
+//        try {
+//            QCoreApplication::processEvents();
+//            if (Playing){
+//                QCoreApplication::processEvents();
+////                ThreadClass::start(AllSettingsMap, AllSettingsVector);
+//                MultiThreadClass::start(AllSettingsMap, AllSettingsVector, *ui);
+//                QCoreApplication::processEvents();
+//            }
+//            QCoreApplication::processEvents();
+//            Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
+//            QCoreApplication::processEvents();
+//        }  catch (std::string error) {
+//            UtilitesClass::PrintValueToConsole(error);
+//        }
+//    }
+
+    if (Playing) {
         try {
             QCoreApplication::processEvents();
             if (Playing){
                 QCoreApplication::processEvents();
-                MultiThreadClass::start(AllSettingsMap, AllSettingsVector, *ui);
+                for (auto& OneSettingsMap : AllSettingsVector)
+                {
+                    try {
+                        if (UtilitesClass::GetValueFromMap(OneSettingsMap, "ActiveCam") == "true"){
+                            HttpWindow* obj = new HttpWindow(AllSettingsMap, OneSettingsMap);
+                        }
+                    }  catch (std::string error) {
+                        UtilitesClass::PrintValueToConsole(error);
+                    }
+                }
                 QCoreApplication::processEvents();
             }
             QCoreApplication::processEvents();
             Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
+            if (Playing){
+                on_START_btn_clicked();
+            }
             QCoreApplication::processEvents();
         }  catch (std::string error) {
             UtilitesClass::PrintValueToConsole(error);
@@ -341,7 +368,7 @@ void MainClass::on_CamShot_pushButton_clicked()
 
 void MainClass::on_ExportSettings_pushButton_clicked()
 {
-//    UtilitesClass::PrintValueToConsole("export settings");
+    //    UtilitesClass::PrintValueToConsole("export settings");
 
     std::map <std::string,std::string> AllSettingsMap = {
         { "AutoPlay", UtilitesClass::GetConvertedQt_obj(ui->AutoPlay_checkBox) },
@@ -544,16 +571,16 @@ void MainClass::on_ExportSettings_pushButton_clicked()
     document.setObject(json);
     QFile file("settings.json");
     if (!file.open(QIODevice::WriteOnly)) {
-     std::cerr << "Error: unable to open a file" << std::endl;
+        std::cerr << "Error: unable to open a file" << std::endl;
     }
     if (!file.write(document.toJson())) {
-     std::cerr << "Error: unable to write a file" << std::endl;
+        std::cerr << "Error: unable to write a file" << std::endl;
     }
 }
 
 void MainClass::on_ImportSettings_pushButton_clicked()
 {
-//    UtilitesClass::PrintValueToConsole("import settings");
+    //    UtilitesClass::PrintValueToConsole("import settings");
 
 
 
@@ -782,21 +809,56 @@ void MainClass::on_ImportSettings_pushButton_clicked()
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
 MultiThreadClass::MultiThreadClass(std::map<std::string, std::string> AllSettingsMap,
                                    std::map<std::string,std::string> OneSettingsMap, Ui::MainClass ui,
                                    QWidget *parent) : QObject(parent)
 {
-//    UtilitesClass::PrintValueToConsole("object created");
+        UtilitesClass::PrintValueToConsole("MultiThreadClass created");
 
     try {
-        AllSettings = AllSettingsMap;
-        OneSettings = OneSettingsMap;
-        Gui = &ui;
-        connect(&manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finish(QNetworkReply*)));
-        QUrl url = QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap, UtilitesClass::GetValueFromMap(OneSettingsMap, "IpCam")));
-        url.setUserName(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "LoginCam")));
-        url.setPassword(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordCam")));
-        manager.get(QNetworkRequest(url));
+//        AllSettings = AllSettingsMap;
+//        OneSettings = OneSettingsMap;
+//        Gui = &ui;
+//        connect(&manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finish(QNetworkReply*)));
+//        QUrl url = QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettingsMap, UtilitesClass::GetValueFromMap(OneSettingsMap, "IpCam")));
+//        url.setUserName(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "LoginCam")));
+//        url.setPassword(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordCam")));
+//        manager.get(QNetworkRequest(url));
+
+        QUrl url = QString("http://192.168.15.203:80/ISAPI/Streaming/channels/101/picture?snapShotImageType=JPEG");;
+        url.setUserName("admin");
+        url.setPassword("q1234567");
+//        url.setUserName(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "LoginCam")));
+//        url.setPassword(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordCam")));
+        QNetworkAccessManager qnam;
+        QScopedPointer<QNetworkReply, QScopedPointerDeleteLater> reply;
+
+
+
+//        reply.reset(qnam.get(QNetworkRequest(url)));
+//        connect(reply.get(), &QNetworkReply::finished, this, &MultiThreadClass::finish);
+
+        url = "http://192.168.15.203:80/ISAPI/Streaming/channels/101/picture?snapShotImageType=JPEG";
+        url.setUserName("admin");
+        url.setPassword("q1234567");
+        reply.reset(qnam.get(QNetworkRequest(url)));
+        connect(reply.get(), &QNetworkReply::finished, this, &MultiThreadClass::finish);
+
+//        connect(&qnam, SIGNAL(finished()), this, SLOT(MultiThreadClass::finish()));
+//        qnam.get(QNetworkRequest(url));
+
     }  catch (std::string error) {
         UtilitesClass::PrintValueToConsole(error);
     }
@@ -804,21 +866,20 @@ MultiThreadClass::MultiThreadClass(std::map<std::string, std::string> AllSetting
 
 MultiThreadClass::~MultiThreadClass()
 {
-
+    UtilitesClass::PrintValueToConsole("MultiThreadClass deleted");
 }
 
 void MultiThreadClass::start(std::map<std::string, std::string> AllSettingsMap,
                              std::vector<std::map<std::string,std::string>> AllSettingsVector,
                              Ui::MainClass ui)
 {
-//    UtilitesClass::PrintValueToConsole("MultiThreadClass started");
+        UtilitesClass::PrintValueToConsole("MultiThreadClass start");
 
     for (auto& OneSettingsMap : AllSettingsVector)
     {
         try {
             if (UtilitesClass::GetValueFromMap(OneSettingsMap, "ActiveCam") == "true"){
                 MultiThreadClass* obj = new MultiThreadClass(AllSettingsMap, OneSettingsMap, ui);
-//                obj->deleteLater();
             }
         }  catch (std::string error) {
             UtilitesClass::PrintValueToConsole(error);
@@ -826,9 +887,9 @@ void MultiThreadClass::start(std::map<std::string, std::string> AllSettingsMap,
     }
 }
 
-void MultiThreadClass::finish(QNetworkReply *reply)
+void MultiThreadClass::finish()
 {
-//    UtilitesClass::PrintValueToConsole("Download finished");
+    UtilitesClass::PrintValueToConsole("MultiThreadClass finish");
 
     try {
         QByteArray data = reply->readAll();
@@ -937,9 +998,459 @@ void MultiThreadClass::finish(QNetworkReply *reply)
     }  catch (std::string error) {
         UtilitesClass::PrintValueToConsole(error);
     }
-//    manager.deleteLater();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ThreadClass::ThreadClass(QWidget *parent) : QObject(parent)
+{
+        UtilitesClass::PrintValueToConsole("object created");
+}
+
+ThreadClass::~ThreadClass()
+{
+        UtilitesClass::PrintValueToConsole("object deleted");
+}
+
+void ThreadClass::start(std::map<std::string, std::string> AllSettingsMap, std::vector<std::map<std::string, std::string> > AllSettingsVector)
+{
+    UtilitesClass::PrintValueToConsole("start");
+
+//    HttpWindow* httpWin = new HttpWindow;
+//    httpWin->startRequest();
+
+//    ThreadClass objs[10];
+//    for (auto& OneSettingsMap : AllSettingsVector)
+//    {
+//        try {
+//            if (UtilitesClass::GetValueFromMap(OneSettingsMap, "ActiveCam") == "true"){
+//                int index = find(AllSettingsVector.begin(), AllSettingsVector.end(), OneSettingsMap) - AllSettingsVector.begin();
+//                objs[index].loadImage(AllSettingsMap, OneSettingsMap);
+//            }
+//        }  catch (std::string error) {
+//            UtilitesClass::PrintValueToConsole(error);
+//        }
+//    }
+}
+
+void ThreadClass::loadImage(std::map<std::string, std::string> AllSettingsMap, std::map<std::string, std::string> OneSettingsMap)
+{
+    UtilitesClass::PrintValueToConsole("loadImage");
+
+    try {
+        AllSettings = AllSettingsMap;
+        OneSettings = OneSettingsMap;
+
+
+        url = QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettings, UtilitesClass::GetValueFromMap(OneSettings, "IpCam")));
+        url.setUserName(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettings, "LoginCam")));
+        url.setPassword(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettings, "PasswordCam")));
+
+
+//        obj.startRequest(url);
+//        QNetworkReply* reply = manager.get(QNetworkRequest(url));
+//        QEventLoop loop;
+//        connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+//        loop.exec();
+//        QByteArray data = reply->readAll();
+//        analyseImage(data);
+//        QNetworkReply* reply = manager.get(QNetworkRequest(url));
+//        reply->deleteLater();
+//        manager.deleteLater();
+
+//        reply.reset(manager.get(QNetworkRequest(url)));
+//        connect(reply.get(), &QNetworkReply::finished, this, &ThreadClass::analyseData);
+
+//        QNetworkReply* _reply = manager.get(QNetworkRequest(url));
+//        connect(&manager, &QNetworkAccessManager::authenticationRequired, this, &ThreadClass::analyseData);
+//        connect(_reply, &QNetworkReply::downloadProgress, this, &ThreadClass::analyseData);
+//        connect(_reply, &QNetworkReply::readyRead, this, &ThreadClass::analyseData);
+//        connect(_reply, &QNetworkReply::finished, this, &ThreadClass::analyseData);
+
+    }  catch (std::string error) {
+        UtilitesClass::PrintValueToConsole(error);
+    }
+}
+
+void ThreadClass::analyseImage(QByteArray data)
+{
+    UtilitesClass::PrintValueToConsole("analyseImage");
+
+    try {
+//        QByteArray data = reply->readAll();
+        cv::Mat image_source;
+        QPixmap qPixmap;
+        if (qPixmap.loadFromData(data, "JPG")) {
+            QImage qImage = qPixmap.toImage();
+            image_source = cv::Mat(qImage.height(), qImage.width(), CV_8UC4, const_cast<uchar*>(qImage.bits()), static_cast<size_t>(qImage.bytesPerLine()));
+            cv::Mat mask = cv::imread(UtilitesClass::GetValueFromMap(OneSettings, "MaskCam"), 0);
+            cv::Mat bitwise_and;
+            cv::bitwise_and(image_source, image_source, bitwise_and, mask);
+            cv::Mat cvtcolor;
+            cv::cvtColor(bitwise_and, cvtcolor, cv::COLOR_BGR2HSV);
+            cv::Mat final;
+            cv::inRange(cvtcolor, cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_1_1")),
+                                             std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_1_2")),
+                                             std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_1_3"))),
+                        cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_2_1")),
+                                   std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_2_2")),
+                                   std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_2_3"))), final);
+            final.setTo(std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "InRangeSetTo")), final >= std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "InRangeSetFrom")));
+            double result = double(cv::countNonZero(final > std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "CountNotZero")))) / double(cv::countNonZero(mask)) * 100 * std::stod(UtilitesClass::GetValueFromMap(OneSettings, "CorrectCoefficient"));
+            if (result > 100)
+            {
+                result = 100.0;
+            }
+            else if(result < 0)
+            {
+                result = 0.0;
+            }
+            else
+            {
+                float pow_10 = pow(10.0f, (float)2);
+                result = round(result * pow_10) / pow_10;
+            }
+            if (result > std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel"))){
+                if (UtilitesClass::GetValueFromMap(AllSettings, "WriteNowSql") == "true"){
+                    UtilitesClass::UpdateValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 1, AllSettings);
+                }
+                if (UtilitesClass::GetValueFromMap(AllSettings, "WriteDataSql") == "true"){
+                    UtilitesClass::InsertValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
+                }
+            } else {
+                if (UtilitesClass::GetValueFromMap(AllSettings, "WriteNowSql") == "true"){
+                    UtilitesClass::UpdateValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
+                }
+                if (UtilitesClass::GetValueFromMap(AllSettings, "WriteDataSql") == "true"){
+                    UtilitesClass::InsertValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
+                }
+            }
+            if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "none") {
+            } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") ==  "source") {
+                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+            } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "final") {
+                cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
+                }
+                else {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
+                }
+                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+            } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "extended") {
+                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
+                }
+                else {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
+                }
+                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+            } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "all") {
+                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                UtilitesClass::RenderCvImage(mask, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "mask " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
+                }
+                else {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
+                }
+                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+            }
+            if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToText") == "true") {
+                UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam") + " IS : " + std::to_string(result) + "%" + " | " + UtilitesClass::GetLocalTime());
+            }
+        }
+    }  catch (std::string error) {
+        UtilitesClass::PrintValueToConsole(error);
+    }
+}
+
+void ThreadClass::analyseData()
+{
+    UtilitesClass::PrintValueToConsole("analyseImage");
+
+    try {
+        QByteArray data = reply->readAll();
+        cv::Mat image_source;
+        QPixmap qPixmap;
+        if (qPixmap.loadFromData(data, "JPG")) {
+            QImage qImage = qPixmap.toImage();
+            image_source = cv::Mat(qImage.height(), qImage.width(), CV_8UC4, const_cast<uchar*>(qImage.bits()), static_cast<size_t>(qImage.bytesPerLine()));
+            cv::Mat mask = cv::imread(UtilitesClass::GetValueFromMap(OneSettings, "MaskCam"), 0);
+            cv::Mat bitwise_and;
+            cv::bitwise_and(image_source, image_source, bitwise_and, mask);
+            cv::Mat cvtcolor;
+            cv::cvtColor(bitwise_and, cvtcolor, cv::COLOR_BGR2HSV);
+            cv::Mat final;
+            cv::inRange(cvtcolor, cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_1_1")),
+                                             std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_1_2")),
+                                             std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_1_3"))),
+                        cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_2_1")),
+                                   std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_2_2")),
+                                   std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_2_3"))), final);
+            final.setTo(std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "InRangeSetTo")), final >= std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "InRangeSetFrom")));
+            double result = double(cv::countNonZero(final > std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "CountNotZero")))) / double(cv::countNonZero(mask)) * 100 * std::stod(UtilitesClass::GetValueFromMap(OneSettings, "CorrectCoefficient"));
+            if (result > 100)
+            {
+                result = 100.0;
+            }
+            else if(result < 0)
+            {
+                result = 0.0;
+            }
+            else
+            {
+                float pow_10 = pow(10.0f, (float)2);
+                result = round(result * pow_10) / pow_10;
+            }
+            if (result > std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel"))){
+                if (UtilitesClass::GetValueFromMap(AllSettings, "WriteNowSql") == "true"){
+                    UtilitesClass::UpdateValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 1, AllSettings);
+                }
+                if (UtilitesClass::GetValueFromMap(AllSettings, "WriteDataSql") == "true"){
+                    UtilitesClass::InsertValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
+                }
+            } else {
+                if (UtilitesClass::GetValueFromMap(AllSettings, "WriteNowSql") == "true"){
+                    UtilitesClass::UpdateValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
+                }
+                if (UtilitesClass::GetValueFromMap(AllSettings, "WriteDataSql") == "true"){
+                    UtilitesClass::InsertValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
+                }
+            }
+            if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "none") {
+            } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") ==  "source") {
+                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+            } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "final") {
+                cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
+                }
+                else {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
+                }
+                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+            } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "extended") {
+                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
+                }
+                else {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
+                }
+                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+            } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "all") {
+                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                UtilitesClass::RenderCvImage(mask, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "mask " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
+                }
+                else {
+                    cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
+                }
+                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+            }
+            if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToText") == "true") {
+                UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam") + " IS : " + std::to_string(result) + "%" + " | " + UtilitesClass::GetLocalTime());
+            }
+        }
+    }  catch (std::string error) {
+        UtilitesClass::PrintValueToConsole(error);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+HttpWindow::HttpWindow(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap, QWidget *parent)
+{
+    UtilitesClass::PrintValueToConsole("create object");
+    AllSettings = AllSettingsMap;
+    OneSettings = OneSettingsMap;
+    startRequest();
+}
+
+HttpWindow::~HttpWindow()
+{
+    UtilitesClass::PrintValueToConsole("delete object");
+
+//    url.clear();
+//    qnam.deleteLater();
 //    reply->deleteLater();
 }
+
+void HttpWindow::startRequest()
+{
+    UtilitesClass::PrintValueToConsole("startRequest");
+
+    url = QString::fromStdString(UtilitesClass::GetUrlFromIp(AllSettings, UtilitesClass::GetValueFromMap(OneSettings, "IpCam")));
+    url.setUserName(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettings, "LoginCam")));
+    url.setPassword(QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettings, "PasswordCam")));
+    reply.reset(qnam.get(QNetworkRequest(url)));
+    connect(reply.get(), &QNetworkReply::finished, this, &HttpWindow::httpFinished);
+}
+
+void HttpWindow::httpFinished()
+{
+    UtilitesClass::PrintValueToConsole("httpFinished");
+
+        try {
+            QByteArray data = reply->readAll();
+            cv::Mat image_source;
+            QPixmap qPixmap;
+            if (qPixmap.loadFromData(data, "JPG")) {
+                QImage qImage = qPixmap.toImage();
+                image_source = cv::Mat(qImage.height(), qImage.width(), CV_8UC4, const_cast<uchar*>(qImage.bits()), static_cast<size_t>(qImage.bytesPerLine()));
+                cv::Mat mask = cv::imread(UtilitesClass::GetValueFromMap(OneSettings, "MaskCam"), 0);
+                cv::Mat bitwise_and;
+                cv::bitwise_and(image_source, image_source, bitwise_and, mask);
+                cv::Mat cvtcolor;
+                cv::cvtColor(bitwise_and, cvtcolor, cv::COLOR_BGR2HSV);
+                cv::Mat final;
+                cv::inRange(cvtcolor, cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_1_1")),
+                                                 std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_1_2")),
+                                                 std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_1_3"))),
+                            cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_2_1")),
+                                       std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_2_2")),
+                                       std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "Point_2_3"))), final);
+                final.setTo(std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "InRangeSetTo")), final >= std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "InRangeSetFrom")));
+                double result = double(cv::countNonZero(final > std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "CountNotZero")))) / double(cv::countNonZero(mask)) * 100 * std::stod(UtilitesClass::GetValueFromMap(OneSettings, "CorrectCoefficient"));
+                if (result > 100)
+                {
+                    result = 100.0;
+                }
+                else if(result < 0)
+                {
+                    result = 0.0;
+                }
+                else
+                {
+                    float pow_10 = pow(10.0f, (float)2);
+                    result = round(result * pow_10) / pow_10;
+                }
+                if (result > std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel"))){
+                    if (UtilitesClass::GetValueFromMap(AllSettings, "WriteNowSql") == "true"){
+                        UtilitesClass::UpdateValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 1, AllSettings);
+                    }
+                    if (UtilitesClass::GetValueFromMap(AllSettings, "WriteDataSql") == "true"){
+                        UtilitesClass::InsertValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
+                    }
+                } else {
+                    if (UtilitesClass::GetValueFromMap(AllSettings, "WriteNowSql") == "true"){
+                        UtilitesClass::UpdateValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
+                    }
+                    if (UtilitesClass::GetValueFromMap(AllSettings, "WriteDataSql") == "true"){
+                        UtilitesClass::InsertValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
+                    }
+                }
+                if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "none") {
+                } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") ==  "source") {
+                    UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "final") {
+                    cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                    cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                    if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
+                        cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
+                    }
+                    else {
+                        cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
+                    }
+                    UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "extended") {
+                    UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                    cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                    cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                    if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
+                        cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
+                    }
+                    else {
+                        cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
+                    }
+                    UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "all") {
+                    UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                    UtilitesClass::RenderCvImage(mask, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "mask " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                    cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                    cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+                    if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
+                        cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
+                    }
+                    else {
+                        cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
+                    }
+                    UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                }
+//                if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToWidget") == "true") {
+//                    Gui->Time_label->setText(QString::fromStdString(UtilitesClass::GetLocalTime()));
+//                    Gui->Info_label->setText(QString::fromStdString(UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam")));
+//                    Gui->Result_progressBar->setValue(result);
+//                    Gui->LcdNumber->display(result);
+//                    if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
+//                        QString danger = "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #FF0350,stop: 0.4999 #FF0020,stop: 0.5 #FF0019,stop: 1 #FF0000 );border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;border: .px solid black;}";
+//                        Gui->Result_progressBar->setStyleSheet(danger);
+//                    }
+//                    else {
+//                        QString safe= "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #78d,stop: 0.4999 #46a,stop: 0.5 #45a,stop: 1 #238 );border-bottom-right-radius: 7px;border-bottom-left-radius: 7px;border: 1px solid black;}";
+//                        Gui->Result_progressBar->setStyleSheet(safe);
+//                    }
+//                }
+                if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToText") == "true") {
+                    UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam") + " IS : " + std::to_string(result) + "%" + " | " + UtilitesClass::GetLocalTime());
+                }
+            }
+        }  catch (std::string error) {
+            UtilitesClass::PrintValueToConsole(error);
+        }
+    delete this;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void UtilitesClass::RenderCvImage(cv::Mat Image, double RenderSize, std::string name)
 {
@@ -997,15 +1508,15 @@ void UtilitesClass::UpdateValuesToSQL(std::string device_row, double value_row, 
     try {
         QSqlDatabase qdb = QSqlDatabase::addDatabase(connectionDriver);
         std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
-                                       UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
-                                       UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") + "," +
-                                       UtilitesClass::GetValueFromMap(AllSettingsMap, "PortSqlServer") +
-                                       ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
-                                       ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
-                                       ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
+                UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
+                UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") + "," +
+                UtilitesClass::GetValueFromMap(AllSettingsMap, "PortSqlServer") +
+                ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
+                ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
+                ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
         qdb.setDatabaseName(QString::fromStdString(connectionString));
         if (qdb.open()) {
-    //        UtilitesClass::PrintValueToConsole("good to open sql");
+            //        UtilitesClass::PrintValueToConsole("good to open sql");
             QSqlQuery query(qdb);
             query.prepare("UPDATE " + QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "TableNowSql")) + " SET " +
                           QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsNowSql_2")) + " = :value, " +
@@ -1030,15 +1541,15 @@ void UtilitesClass::InsertValuesToSQL(std::string device_row, double value_row, 
     try {
         QSqlDatabase qdb = QSqlDatabase::addDatabase(connectionDriver);
         std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
-                                       UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
-                                       UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") + "," +
-                                       UtilitesClass::GetValueFromMap(AllSettingsMap, "PortSqlServer") +
-                                       ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
-                                       ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
-                                       ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
+                UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
+                UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") + "," +
+                UtilitesClass::GetValueFromMap(AllSettingsMap, "PortSqlServer") +
+                ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
+                ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
+                ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
         qdb.setDatabaseName(QString::fromStdString(connectionString));
         if (qdb.open()) {
-    //        UtilitesClass::PrintValueToConsole("good to open sql");
+            //        UtilitesClass::PrintValueToConsole("good to open sql");
             QSqlQuery query(qdb);
             query.prepare("INSERT INTO " + QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "TableDataSql")) + " (" +
                           QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsDataSql_1")) + ", " +
@@ -1073,12 +1584,12 @@ std::string UtilitesClass::GetUrlFromIp(std::map <std::string, std::string> Map,
 {
     std::string url = "";
     if (UtilitesClass::GetValueFromMap(Map, "ProtocolCam") == "http") {
-//        "http://192.168.15.203:80/ISAPI/Streaming/channels/101/picture?snapShotImageType=JPEG";
+        //        "http://192.168.15.203:80/ISAPI/Streaming/channels/101/picture?snapShotImageType=JPEG";
         url = UtilitesClass::GetValueFromMap(Map, "ProtocolCam") + "://192.168." + Ip + ":" +
                 UtilitesClass::GetValueFromMap(Map, "PortCam") + "/ISAPI/Streaming/channels/101/picture?snapShotImageType=JPEG";
     }
     if (UtilitesClass::GetValueFromMap(Map, "ProtocolCam") == "rtsp") {
-//        "rtsp://admin:q1234567@192.168.15.203:554";
+        //        "rtsp://admin:q1234567@192.168.15.203:554";
         url = UtilitesClass::GetValueFromMap(Map, "ProtocolCam") + "://" + UtilitesClass::GetValueFromMap(Map, "LoginCam") + ":" +
                 UtilitesClass::GetValueFromMap(Map, "PasswordCam") + "@" + "192.168." + Ip + ":" + UtilitesClass::GetValueFromMap(Map, "PortCam");
     }

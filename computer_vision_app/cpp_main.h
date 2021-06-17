@@ -45,6 +45,16 @@ private:
 
 };
 
+
+
+
+
+
+
+
+
+
+
 class MultiThreadClass : public QObject
 {
 Q_OBJECT
@@ -57,7 +67,7 @@ public:
 signals:
 
 private slots:
-    void finish(QNetworkReply*);
+    void finish();
 
 private:
     std::map<std::string,std::string> AllSettings;
@@ -65,9 +75,79 @@ private:
     Ui::MainClass *Gui;
 
     QNetworkAccessManager manager;
-    QNetworkReply* reply;
+    QScopedPointer<QNetworkReply, QScopedPointerDeleteLater> reply;
 
 };
+
+
+
+
+
+
+
+class ThreadClass : public QObject
+{
+Q_OBJECT
+public:
+    explicit ThreadClass(QWidget *parent = nullptr);
+    virtual ~ThreadClass();
+
+    static void start(std::map<std::string, std::string> AllSettingsMap, std::vector<std::map<std::string,std::string>> AllSettingsVector);
+    void loadImage(std::map<std::string, std::string> AllSettingsMap, std::map<std::string, std::string> OneSettingsMap);
+    void analyseImage(QByteArray data);
+
+signals:
+
+private slots:
+    void analyseData();
+
+private:
+    std::map<std::string,std::string> AllSettings;
+    std::map<std::string,std::string> OneSettings;
+    QNetworkAccessManager manager;
+
+    QUrl url;
+    QNetworkAccessManager qnam;
+    QScopedPointer<QNetworkReply, QScopedPointerDeleteLater> reply;
+};
+
+
+
+
+
+
+class HttpWindow : public QObject
+{
+    Q_OBJECT
+
+public:
+    explicit HttpWindow(std::map<std::string,std::string> AllSettingsMap, std::map<std::string,std::string> OneSettingsMap, QWidget *parent = nullptr);
+    virtual ~HttpWindow();
+
+    void startRequest();
+
+private slots:
+    void httpFinished();
+
+private:
+    std::map<std::string,std::string> AllSettings;
+    std::map<std::string,std::string> OneSettings;
+    QUrl url;
+    QNetworkAccessManager qnam;
+    QScopedPointer<QNetworkReply, QScopedPointerDeleteLater> reply;
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
 class UtilitesClass{
 public:
