@@ -107,6 +107,8 @@ public:
 
     static std::string GetUrlFromIp(std::map <std::string, std::string> Map, std::string Ip);
 
+    static void PrintTextErrorToLogFile(std::string Text);
+
     static void PrintValueToConsole(std::string Value);
 
     static std::string GetLocalTime();
