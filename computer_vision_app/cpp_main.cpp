@@ -833,8 +833,48 @@ void MainClass::startAnalyse(std::map<std::string, std::string> AllSettingsMap,
     UtilitesClass::PrintValueToConsole("MainClass startAnalyse");
 
     try {
-        QCoreApplication::processEvents();
-        if (Playing) {
+
+
+
+
+
+//        if (Playing) {
+//            for (auto& OneSettingsMap : AllSettingsVector)
+//            {
+//                QCoreApplication::processEvents();
+//                try {
+//                    if (UtilitesClass::GetValueFromMap(OneSettingsMap, "ActiveCam") == "true") {
+//                        QCoreApplication::processEvents();
+//                        if (UtilitesClass::GetConvertedQt_obj(ui->ComputeType_comboBox) == "sync") {
+//                            SyncThreadClass objs(AllSettingsMap, OneSettingsMap, ui);
+////                            SyncThreadClass objs[10];
+////                            int index = find(AllSettingsVector.begin(), AllSettingsVector.end(), OneSettingsMap) - AllSettingsVector.begin();
+////                            objs[index].finishDownload(AllSettingsMap, OneSettingsMap, ui);
+//                        }
+//                        QCoreApplication::processEvents();
+//                        if (UtilitesClass::GetConvertedQt_obj(ui->ComputeType_comboBox) == "async") {
+//                            AsyncThreadClass* obj = new AsyncThreadClass(AllSettingsMap, OneSettingsMap, ui);
+//                        }
+//                        QCoreApplication::processEvents();
+//                    }
+//                QCoreApplication::processEvents();
+//                }  catch (std::string error) {
+//                    UtilitesClass::PrintTextErrorToLogFile(error);
+//                }
+//            }
+//            QCoreApplication::processEvents();
+//            Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
+//            QCoreApplication::processEvents();
+//            if (Playing){
+//                startAnalyse(AllSettingsMap, AllSettingsVector, ui);
+//            }
+//        }
+
+
+
+
+
+        while (Playing) {
             for (auto& OneSettingsMap : AllSettingsVector)
             {
                 QCoreApplication::processEvents();
@@ -861,10 +901,12 @@ void MainClass::startAnalyse(std::map<std::string, std::string> AllSettingsMap,
             QCoreApplication::processEvents();
             Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
             QCoreApplication::processEvents();
-            if (Playing){
-                startAnalyse(AllSettingsMap, AllSettingsVector, ui);
-            }
         }
+
+
+
+
+
     }  catch (std::string error) {
         UtilitesClass::PrintTextErrorToLogFile(error);
     }
@@ -1297,7 +1339,7 @@ void UtilitesClass::InsertValuesToSQL(std::string device_row, double value_row, 
 
 std::string UtilitesClass::GetValueFromMap(std::map <std::string, std::string> Map, std::string Key)
 {
-    UtilitesClass::PrintValueToConsole("UtilitesClass GetValueFromMap");
+//    UtilitesClass::PrintValueToConsole("UtilitesClass GetValueFromMap");
 
     try {
         std::string value = "";
@@ -1314,7 +1356,7 @@ std::string UtilitesClass::GetValueFromMap(std::map <std::string, std::string> M
 
 std::string UtilitesClass::GetUrlFromIp(std::map <std::string, std::string> Map, std::string Ip)
 {
-    UtilitesClass::PrintValueToConsole("UtilitesClass GetUrlFromIp");
+//    UtilitesClass::PrintValueToConsole("UtilitesClass GetUrlFromIp");
 
     try {
         std::string url = "";
@@ -1349,6 +1391,7 @@ void UtilitesClass::PrintTextErrorToLogFile(std::string Text)
             QTextStream stream(&logFile);
             QDateTime time;
             std::string text = "console : " + time.currentDateTime().toString().toStdString() + " " + Text;
+            std::cout << text << std::endl;
             stream << QString::fromStdString(text) << '\n';
             logFile.close();
         }
@@ -1374,7 +1417,7 @@ void UtilitesClass::PrintValueToConsole(std::string Value)
 
 std::string UtilitesClass::GetLocalTime()
 {
-    std::cout << "UtilitesClass GetLocalTime" << std::endl;
+//    std::cout << "UtilitesClass GetLocalTime" << std::endl;
 
     try {
         QDateTime time;
@@ -1387,7 +1430,7 @@ std::string UtilitesClass::GetLocalTime()
 
 std::string UtilitesClass::GetConvertedQt_obj(QCheckBox *value)
 {
-    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
+//    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
 
     try {
         if (value->isChecked() == 1) {
@@ -1401,7 +1444,7 @@ std::string UtilitesClass::GetConvertedQt_obj(QCheckBox *value)
 };
 std::string UtilitesClass::GetConvertedQt_obj(QSpinBox *value)
 {
-    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
+//    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
 
     try {
         return std::to_string(value->value());
@@ -1412,7 +1455,7 @@ std::string UtilitesClass::GetConvertedQt_obj(QSpinBox *value)
 };
 std::string UtilitesClass::GetConvertedQt_obj(QDoubleSpinBox *value)
 {
-    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
+//    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
 
     try {
         return std::to_string(value->value());
@@ -1423,7 +1466,7 @@ std::string UtilitesClass::GetConvertedQt_obj(QDoubleSpinBox *value)
 };
 std::string UtilitesClass::GetConvertedQt_obj(QTextEdit *value)
 {
-    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
+//    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
 
     try {
         return value->toPlainText().trimmed().toStdString();
@@ -1434,7 +1477,7 @@ std::string UtilitesClass::GetConvertedQt_obj(QTextEdit *value)
 };
 std::string UtilitesClass::GetConvertedQt_obj(QComboBox *value)
 {
-    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
+//    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
 
     try {
         return value->currentText().toStdString();
@@ -1445,7 +1488,7 @@ std::string UtilitesClass::GetConvertedQt_obj(QComboBox *value)
 };
 std::string UtilitesClass::GetConvertedQt_obj(QSlider *value)
 {
-    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
+//    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
 
     try {
         return std::to_string(value->value());
@@ -1457,7 +1500,7 @@ std::string UtilitesClass::GetConvertedQt_obj(QSlider *value)
 
 void UtilitesClass::SetConvertedQt_obj(QCheckBox *value, QString text)
 {
-    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
+//    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
 
     try {
         if (text == "true") {
@@ -1471,7 +1514,7 @@ void UtilitesClass::SetConvertedQt_obj(QCheckBox *value, QString text)
 }
 void UtilitesClass::SetConvertedQt_obj(QSpinBox *value, QString text)
 {
-    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
+//    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
 
     try {
         value->setValue(std::stoi(text.toStdString()));
@@ -1481,7 +1524,7 @@ void UtilitesClass::SetConvertedQt_obj(QSpinBox *value, QString text)
 }
 void UtilitesClass::SetConvertedQt_obj(QDoubleSpinBox *value, QString text)
 {
-    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
+//    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
 
     try {
         value->setValue(std::stod(text.toStdString()));
@@ -1491,7 +1534,7 @@ void UtilitesClass::SetConvertedQt_obj(QDoubleSpinBox *value, QString text)
 }
 void UtilitesClass::SetConvertedQt_obj(QTextEdit *value, QString text)
 {
-    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
+//    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
 
     try {
         value->setText(text);
@@ -1501,7 +1544,7 @@ void UtilitesClass::SetConvertedQt_obj(QTextEdit *value, QString text)
 }
 void UtilitesClass::SetConvertedQt_obj(QComboBox *value, QString text)
 {
-    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
+//    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
 
     try {
         value->setCurrentText(text);
@@ -1511,7 +1554,7 @@ void UtilitesClass::SetConvertedQt_obj(QComboBox *value, QString text)
 }
 void UtilitesClass::SetConvertedQt_obj(QSlider *value, QString text)
 {
-    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
+//    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
 
     try {
         value->setValue(std::stoi(text.toStdString()));
