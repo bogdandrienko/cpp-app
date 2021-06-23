@@ -8,13 +8,12 @@
 #include <QtConcurrent>
 
 #include <opencv2/opencv.hpp>
-
 #include <memory>
 #include <iostream>
 #include <string>
 #include <map>
 
-class FileDownloader;
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainClass; }
@@ -51,6 +50,7 @@ private:
 class SyncThreadClass : public QObject
 {
     Q_OBJECT
+
 public:
     explicit SyncThreadClass(std::map<std::string, std::string> AllSettingsMap,
                              std::map<std::string,std::string> OneSettingsMap,
@@ -88,10 +88,6 @@ private:
     QScopedPointer<QNetworkReply, QScopedPointerDeleteLater> reply;
 };
 
-
-
-
-
 class UtilitesClass{
 public:
 
@@ -107,9 +103,11 @@ public:
 
     static std::string GetUrlFromIp(std::map <std::string, std::string> Map, std::string Ip);
 
-    static void PrintTextErrorToLogFile(std::string Text);
-
     static void PrintValueToConsole(std::string Value);
+
+    static void WriteResultToTextFile(std::string Result);
+
+    static void WriteTextErrorToLogFile(std::string Text);
 
     static std::string GetLocalTime();
 

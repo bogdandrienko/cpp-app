@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
         w.show();
         return a.exec();
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 
@@ -42,7 +42,7 @@ MainClass::MainClass(QWidget *parent)
         AutoImport();
         AutoPlay();
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 
@@ -53,7 +53,7 @@ MainClass::~MainClass()
     try {
         delete ui;
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 
@@ -68,10 +68,12 @@ void MainClass::on_START_btn_clicked()
         std::map <std::string,std::string> AllSettingsMap = {
             { "AutoPlay", UtilitesClass::GetConvertedQt_obj(ui->AutoPlay_checkBox) },
             { "AutoImport", UtilitesClass::GetConvertedQt_obj(ui->AutoImport_checkBox) },
-            { "WriteToWidget", UtilitesClass::GetConvertedQt_obj(ui->WriteToWidget_checkBox) },
+            { "WriteToConsole", UtilitesClass::GetConvertedQt_obj(ui->WriteToConsole_checkBox) },
             { "WriteToText", UtilitesClass::GetConvertedQt_obj(ui->WriteToText_checkBox) },
+            { "WriteToWidget", UtilitesClass::GetConvertedQt_obj(ui->WriteToWidget_checkBox) },
             { "RenderSize", UtilitesClass::GetConvertedQt_obj(ui->RenderSize_horizontalSlider) },
             { "RenderType", UtilitesClass::GetConvertedQt_obj(ui->RenderType_comboBox) },
+            { "ComputeType", UtilitesClass::GetConvertedQt_obj(ui->ComputeType_comboBox) },
             { "TimeDelay", UtilitesClass::GetConvertedQt_obj(ui->TimeDelay_doubleSpinBox) },
 
             { "ProtocolCam", UtilitesClass::GetConvertedQt_obj(ui->ProtocolCam_textEdit) },
@@ -274,7 +276,7 @@ void MainClass::on_START_btn_clicked()
         };
         startAnalyse(AllSettingsMap, AllSettingsVector, ui);
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 
@@ -287,7 +289,7 @@ void MainClass::on_STOP_btn_clicked()
         cv::destroyAllWindows();
         ui->Playing_radioButton->setChecked(Playing);
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 
@@ -299,7 +301,7 @@ void MainClass::on_QUIT_btn_clicked()
         on_STOP_btn_clicked();
         this->close();
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 
@@ -337,7 +339,7 @@ void MainClass::on_CamShot_pushButton_clicked()
         reply->deleteLater();
         manager->deleteLater();
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 
@@ -349,10 +351,12 @@ void MainClass::on_ExportSettings_pushButton_clicked()
         std::map <std::string,std::string> AllSettingsMap = {
             { "AutoPlay", UtilitesClass::GetConvertedQt_obj(ui->AutoPlay_checkBox) },
             { "AutoImport", UtilitesClass::GetConvertedQt_obj(ui->AutoImport_checkBox) },
-            { "WriteToWidget", UtilitesClass::GetConvertedQt_obj(ui->WriteToWidget_checkBox) },
+            { "WriteToConsole", UtilitesClass::GetConvertedQt_obj(ui->WriteToConsole_checkBox) },
             { "WriteToText", UtilitesClass::GetConvertedQt_obj(ui->WriteToText_checkBox) },
+            { "WriteToWidget", UtilitesClass::GetConvertedQt_obj(ui->WriteToWidget_checkBox) },
             { "RenderSize", UtilitesClass::GetConvertedQt_obj(ui->RenderSize_horizontalSlider) },
             { "RenderType", UtilitesClass::GetConvertedQt_obj(ui->RenderType_comboBox) },
+            { "ComputeType", UtilitesClass::GetConvertedQt_obj(ui->ComputeType_comboBox) },
             { "TimeDelay", UtilitesClass::GetConvertedQt_obj(ui->TimeDelay_doubleSpinBox) },
 
             { "ProtocolCam", UtilitesClass::GetConvertedQt_obj(ui->ProtocolCam_textEdit) },
@@ -553,7 +557,7 @@ void MainClass::on_ExportSettings_pushButton_clicked()
             std::cerr << "Error: unable to write a file" << std::endl;
         }
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 
@@ -575,8 +579,9 @@ void MainClass::on_ImportSettings_pushButton_clicked()
 
             { "AutoPlay", ui->AutoPlay_checkBox },
             { "AutoImport", ui->AutoImport_checkBox },
-            { "WriteToWidget", ui->WriteToWidget_checkBox },
+            { "WriteToConsole", ui->WriteToConsole_checkBox },
             { "WriteToText", ui->WriteToText_checkBox },
+            { "WriteToWidget", ui->WriteToWidget_checkBox },
 
             { "ActiveCam_1", ui->ActiveCam_checkBox_1 },
             { "ActiveCam_2", ui->ActiveCam_checkBox_2 },
@@ -775,6 +780,7 @@ void MainClass::on_ImportSettings_pushButton_clicked()
         }
         std::map<std::string, QComboBox*> QComboBoxMap = {
             { "RenderType", ui->RenderType_comboBox },
+            { "ComputeType", ui->ComputeType_comboBox },
         };
         for (auto& elem : QComboBoxMap){
             UtilitesClass::SetConvertedQt_obj(elem.second, document.object()[QString::fromStdString(elem.first)].toString());
@@ -786,7 +792,7 @@ void MainClass::on_ImportSettings_pushButton_clicked()
             UtilitesClass::SetConvertedQt_obj(elem.second, document.object()[QString::fromStdString(elem.first)].toString());
         }
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 
@@ -808,7 +814,7 @@ void MainClass::AutoImport()
             }
         }
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 
@@ -822,7 +828,7 @@ void MainClass::AutoPlay()
             on_START_btn_clicked();
         }
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 
@@ -836,8 +842,6 @@ void MainClass::startAnalyse(std::map<std::string, std::string> AllSettingsMap,
 
 
 
-
-
 //        if (Playing) {
 //            for (auto& OneSettingsMap : AllSettingsVector)
 //            {
@@ -845,14 +849,14 @@ void MainClass::startAnalyse(std::map<std::string, std::string> AllSettingsMap,
 //                try {
 //                    if (UtilitesClass::GetValueFromMap(OneSettingsMap, "ActiveCam") == "true") {
 //                        QCoreApplication::processEvents();
-//                        if (UtilitesClass::GetConvertedQt_obj(ui->ComputeType_comboBox) == "sync") {
+//                        if (UtilitesClass::GetValueFromMap(AllSettingsMap, "ComputeType") == == "sync") {
 //                            SyncThreadClass objs(AllSettingsMap, OneSettingsMap, ui);
 ////                            SyncThreadClass objs[10];
 ////                            int index = find(AllSettingsVector.begin(), AllSettingsVector.end(), OneSettingsMap) - AllSettingsVector.begin();
 ////                            objs[index].finishDownload(AllSettingsMap, OneSettingsMap, ui);
 //                        }
 //                        QCoreApplication::processEvents();
-//                        if (UtilitesClass::GetConvertedQt_obj(ui->ComputeType_comboBox) == "async") {
+//                        if (UtilitesClass::GetValueFromMap(AllSettingsMap, "ComputeType") == == "async") {
 //                            AsyncThreadClass* obj = new AsyncThreadClass(AllSettingsMap, OneSettingsMap, ui);
 //                        }
 //                        QCoreApplication::processEvents();
@@ -872,8 +876,6 @@ void MainClass::startAnalyse(std::map<std::string, std::string> AllSettingsMap,
 
 
 
-
-
         while (Playing) {
             for (auto& OneSettingsMap : AllSettingsVector)
             {
@@ -881,21 +883,22 @@ void MainClass::startAnalyse(std::map<std::string, std::string> AllSettingsMap,
                 try {
                     if (UtilitesClass::GetValueFromMap(OneSettingsMap, "ActiveCam") == "true") {
                         QCoreApplication::processEvents();
-                        if (UtilitesClass::GetConvertedQt_obj(ui->ComputeType_comboBox) == "sync") {
+                        if (UtilitesClass::GetValueFromMap(AllSettingsMap, "ComputeType") == "sync") {
                             SyncThreadClass objs(AllSettingsMap, OneSettingsMap, ui);
 //                            SyncThreadClass objs[10];
 //                            int index = find(AllSettingsVector.begin(), AllSettingsVector.end(), OneSettingsMap) - AllSettingsVector.begin();
 //                            objs[index].finishDownload(AllSettingsMap, OneSettingsMap, ui);
                         }
+
                         QCoreApplication::processEvents();
-                        if (UtilitesClass::GetConvertedQt_obj(ui->ComputeType_comboBox) == "async") {
+                        if (UtilitesClass::GetValueFromMap(AllSettingsMap, "ComputeType") == "async") {
                             AsyncThreadClass* obj = new AsyncThreadClass(AllSettingsMap, OneSettingsMap, ui);
                         }
                         QCoreApplication::processEvents();
                     }
                 QCoreApplication::processEvents();
                 }  catch (std::string error) {
-                    UtilitesClass::PrintTextErrorToLogFile(error);
+                    UtilitesClass::WriteTextErrorToLogFile(error);
                 }
             }
             QCoreApplication::processEvents();
@@ -905,10 +908,8 @@ void MainClass::startAnalyse(std::map<std::string, std::string> AllSettingsMap,
 
 
 
-
-
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 
@@ -936,7 +937,6 @@ SyncThreadClass::SyncThreadClass(std::map<std::string, std::string> AllSettingsM
         QEventLoop loop;
         connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
         loop.exec();
-
         QByteArray data = reply->readAll();
         cv::Mat image_source;
         QPixmap qPixmap;
@@ -1022,6 +1022,9 @@ SyncThreadClass::SyncThreadClass(std::map<std::string, std::string> AllSettingsM
                 }
                 UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             }
+            if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToConsole") == "true") {
+                UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam") + " IS : " + std::to_string(result) + "%");
+            }
             if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToWidget") == "true") {
                 Gui->Time_label->setText(QString::fromStdString(UtilitesClass::GetLocalTime()));
                 Gui->Info_label->setText(QString::fromStdString(UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam")));
@@ -1037,13 +1040,13 @@ SyncThreadClass::SyncThreadClass(std::map<std::string, std::string> AllSettingsM
                 }
             }
             if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToText") == "true") {
-                UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam") + " IS : " + std::to_string(result) + "%" + " | " + UtilitesClass::GetLocalTime());
+                UtilitesClass::WriteResultToTextFile("RESULT " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam") + " IS : " + std::to_string(result) + "%");
             }
             reply->deleteLater();
             manager.deleteLater();
         }
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 
@@ -1079,7 +1082,7 @@ AsyncThreadClass::AsyncThreadClass(std::map<std::string,std::string> AllSettings
 //        void AsyncThreadClass::finishDownload(QNetworkReply *reply)
 //        delete this;
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 
@@ -1178,6 +1181,9 @@ void AsyncThreadClass::finishDownload()
                 }
                 UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             }
+            if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToConsole") == "true") {
+                UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam") + " IS : " + std::to_string(result) + "%");
+            }
             if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToWidget") == "true") {
                 Gui->Time_label->setText(QString::fromStdString(UtilitesClass::GetLocalTime()));
                 Gui->Info_label->setText(QString::fromStdString(UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam")));
@@ -1193,11 +1199,11 @@ void AsyncThreadClass::finishDownload()
                 }
             }
             if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToText") == "true") {
-                UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam") + " IS : " + std::to_string(result) + "%" + " | " + UtilitesClass::GetLocalTime());
+                UtilitesClass::WriteResultToTextFile("RESULT " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam") + " IS : " + std::to_string(result) + "%");
             }
         }
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
     delete this;
 }
@@ -1217,7 +1223,7 @@ void UtilitesClass::RenderCvImage(cv::Mat Image, double RenderSize, std::string 
         cv::imshow(name, source);
         cv::waitKey(1);
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 };
 
@@ -1261,7 +1267,7 @@ std::vector<std::vector<std::string>> UtilitesClass::GetValuesFromSQL(std::strin
             return global_vector;
         }
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
         return {"", ""};
     }
 }
@@ -1292,12 +1298,13 @@ void UtilitesClass::UpdateValuesToSQL(std::string device_row, double value_row, 
             query.bindValue(":alarm", alarm_row);
             query.bindValue(":device", QString::fromStdString(device_row));
             query.exec();
-            qdb.close();
+//            qdb.close();
+            qdb.removeDatabase(qdb.databaseName());
         } else {
             UtilitesClass::PrintValueToConsole("error to open sql");
         }
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 
@@ -1329,11 +1336,12 @@ void UtilitesClass::InsertValuesToSQL(std::string device_row, double value_row, 
             query.bindValue(":alarm", alarm_row);
             query.exec();
             qdb.close();
+//            qdb.removeDatabase(qdb.databaseName());
         } else {
             UtilitesClass::PrintValueToConsole("error to open sql");
         }
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 
@@ -1349,7 +1357,7 @@ std::string UtilitesClass::GetValueFromMap(std::map <std::string, std::string> M
             }
         return value;
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
         return "";
     }
 };
@@ -1375,15 +1383,47 @@ std::string UtilitesClass::GetUrlFromIp(std::map <std::string, std::string> Map,
         }
         return url;
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
         return "";
     }
 
 }
 
-void UtilitesClass::PrintTextErrorToLogFile(std::string Text)
+void UtilitesClass::PrintValueToConsole(std::string Value)
 {
-//    UtilitesClass::PrintValueToConsole("UtilitesClass PrintTextErrorToLogFile");
+//    std::cout << "UtilitesClass PrintValueToConsole" << std::endl;
+
+    try {
+        QDateTime time;
+        std::string text = "console : " + time.currentDateTime().toString().toStdString() + " " + Value;
+        std::cout << text << std::endl;
+    }  catch (std::string error) {
+        QDateTime time;
+        std::cout << time.currentDateTime().toString().toStdString() + error << std::endl;
+    }
+};
+
+void UtilitesClass::WriteResultToTextFile(std::string Result) {
+    UtilitesClass::PrintValueToConsole("UtilitesClass PrintResultToTextFile");
+
+    try {
+        QFile logFile("./result.txt");
+        if  (logFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+            QTextStream stream(&logFile);
+            QDateTime time;
+            std::string text = "console : " + time.currentDateTime().toString().toStdString() + " " + Result;
+            std::cout << text << std::endl;
+            stream << QString::fromStdString(text) << '\n';
+            logFile.close();
+        }
+    }  catch (std::string error) {
+        UtilitesClass::PrintValueToConsole(error);
+    }
+}
+
+void UtilitesClass::WriteTextErrorToLogFile(std::string Text)
+{
+    UtilitesClass::PrintValueToConsole("UtilitesClass PrintTextErrorToLogFile");
 
     try {
         QFile logFile("./log.txt");
@@ -1400,20 +1440,7 @@ void UtilitesClass::PrintTextErrorToLogFile(std::string Text)
     }
 };
 
-void UtilitesClass::PrintValueToConsole(std::string Value)
-{
-//    std::cout << "UtilitesClass PrintValueToConsole" << std::endl;
 
-    try {
-        QDateTime time;
-        std::string text = "console : " + time.currentDateTime().toString().toStdString() + " " + Value;
-        std::cout << text << std::endl;
-        UtilitesClass::PrintTextErrorToLogFile(text);
-    }  catch (std::string error) {
-        QDateTime time;
-        std::cout << time.currentDateTime().toString().toStdString() + error << std::endl;
-    }
-};
 
 std::string UtilitesClass::GetLocalTime()
 {
@@ -1423,7 +1450,7 @@ std::string UtilitesClass::GetLocalTime()
         QDateTime time;
         return time.currentDateTime().toString().toStdString();
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
         return "";
     }
 };
@@ -1438,7 +1465,7 @@ std::string UtilitesClass::GetConvertedQt_obj(QCheckBox *value)
         }
         return "false";
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
         return "";
     }
 };
@@ -1449,7 +1476,7 @@ std::string UtilitesClass::GetConvertedQt_obj(QSpinBox *value)
     try {
         return std::to_string(value->value());
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
         return "";
     }
 };
@@ -1460,7 +1487,7 @@ std::string UtilitesClass::GetConvertedQt_obj(QDoubleSpinBox *value)
     try {
         return std::to_string(value->value());
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
         return "";
     }
 };
@@ -1471,7 +1498,7 @@ std::string UtilitesClass::GetConvertedQt_obj(QTextEdit *value)
     try {
         return value->toPlainText().trimmed().toStdString();
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
         return "";
     }
 };
@@ -1482,7 +1509,7 @@ std::string UtilitesClass::GetConvertedQt_obj(QComboBox *value)
     try {
         return value->currentText().toStdString();
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
         return "";
     }
 };
@@ -1493,7 +1520,7 @@ std::string UtilitesClass::GetConvertedQt_obj(QSlider *value)
     try {
         return std::to_string(value->value());
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
         return "";
     }
 }
@@ -1509,7 +1536,7 @@ void UtilitesClass::SetConvertedQt_obj(QCheckBox *value, QString text)
             value->setChecked(false);
         }
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 void UtilitesClass::SetConvertedQt_obj(QSpinBox *value, QString text)
@@ -1519,7 +1546,7 @@ void UtilitesClass::SetConvertedQt_obj(QSpinBox *value, QString text)
     try {
         value->setValue(std::stoi(text.toStdString()));
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 void UtilitesClass::SetConvertedQt_obj(QDoubleSpinBox *value, QString text)
@@ -1529,7 +1556,7 @@ void UtilitesClass::SetConvertedQt_obj(QDoubleSpinBox *value, QString text)
     try {
         value->setValue(std::stod(text.toStdString()));
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 void UtilitesClass::SetConvertedQt_obj(QTextEdit *value, QString text)
@@ -1539,7 +1566,7 @@ void UtilitesClass::SetConvertedQt_obj(QTextEdit *value, QString text)
     try {
         value->setText(text);
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 void UtilitesClass::SetConvertedQt_obj(QComboBox *value, QString text)
@@ -1549,7 +1576,7 @@ void UtilitesClass::SetConvertedQt_obj(QComboBox *value, QString text)
     try {
         value->setCurrentText(text);
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
 void UtilitesClass::SetConvertedQt_obj(QSlider *value, QString text)
@@ -1559,6 +1586,6 @@ void UtilitesClass::SetConvertedQt_obj(QSlider *value, QString text)
     try {
         value->setValue(std::stoi(text.toStdString()));
     }  catch (std::string error) {
-        UtilitesClass::PrintTextErrorToLogFile(error);
+        UtilitesClass::WriteTextErrorToLogFile(error);
     }
 };

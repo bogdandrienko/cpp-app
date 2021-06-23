@@ -72,7 +72,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideMiddle</enum>
@@ -7276,7 +7276,7 @@ p, li { white-space: pre-wrap; }
                <string>AUTOIMPORT</string>
               </property>
               <property name="checked">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -7521,34 +7521,6 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
-             <widget class="QCheckBox" name="WriteToWidget_checkBox">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>3840</width>
-                <height>2160</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>WRITE TO WIDGET</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
             <item row="5" column="2" colspan="2">
              <widget class="QDoubleSpinBox" name="TimeDelay_doubleSpinBox">
               <property name="sizePolicy">
@@ -7576,7 +7548,7 @@ p, li { white-space: pre-wrap; }
                <double>100.000000000000000</double>
               </property>
               <property name="value">
-               <double>3.000000000000000</double>
+               <double>2.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -7655,34 +7627,6 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
-            <item row="3" column="2">
-             <widget class="QCheckBox" name="WriteToText_checkBox">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>3840</width>
-                <height>2160</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>WRITE TO TEXT</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
             <item row="12" column="3">
              <widget class="QLabel" name="ImageNameShot_label">
               <property name="sizePolicy">
@@ -7737,6 +7681,69 @@ p, li { white-space: pre-wrap; }
                 <string>multiprocess</string>
                </property>
               </item>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QCheckBox" name="WriteToConsole_checkBox">
+              <property name="text">
+               <string>WRITE TO CONSOLE</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2">
+             <widget class="QCheckBox" name="WriteToWidget_checkBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>3840</width>
+                <height>2160</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>WRITE TO WIDGET</string>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3">
+             <widget class="QCheckBox" name="WriteToText_checkBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>3840</width>
+                <height>2160</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>WRITE TO TEXT</string>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
+              </property>
              </widget>
             </item>
            </layout>
