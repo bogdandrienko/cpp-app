@@ -1232,7 +1232,12 @@ std::vector<std::vector<std::string>> UtilitesClass::GetValuesFromSQL(std::strin
     UtilitesClass::PrintValueToConsole("UtilitesClass GetValuesFromSQL");
 
     try {
-        QSqlDatabase qdb = QSqlDatabase::addDatabase(connectionDriver);
+        QSqlDatabase qdb;
+        if (QSqlDatabase::database().isOpen()) {
+            qdb = QSqlDatabase::database();
+        } else {
+            qdb = QSqlDatabase::addDatabase(connectionDriver);
+        }
         qdb.setDatabaseName(QString::fromStdString(connectionString));
         if (qdb.open()) {
             UtilitesClass::PrintValueToConsole("good to open sql");
@@ -1277,7 +1282,12 @@ void UtilitesClass::UpdateValuesToSQL(std::string device_row, double value_row, 
     UtilitesClass::PrintValueToConsole("UtilitesClass UpdateValuesToSQL");
 
     try {
-        QSqlDatabase qdb = QSqlDatabase::addDatabase(connectionDriver);
+        QSqlDatabase qdb;
+        if (QSqlDatabase::database().isOpen()) {
+            qdb = QSqlDatabase::database();
+        } else {
+            qdb = QSqlDatabase::addDatabase(connectionDriver);
+        }
         std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
                 UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
                 UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") + "," +
@@ -1298,8 +1308,9 @@ void UtilitesClass::UpdateValuesToSQL(std::string device_row, double value_row, 
             query.bindValue(":alarm", alarm_row);
             query.bindValue(":device", QString::fromStdString(device_row));
             query.exec();
-//            qdb.close();
-            qdb.removeDatabase(qdb.databaseName());
+            qdb.close();
+//            qdb.removeDatabase(qdb.databaseName());
+//            QSqlDatabase::removeDatabase(qdb.databaseName());
         } else {
             UtilitesClass::PrintValueToConsole("error to open sql");
         }
@@ -1313,7 +1324,12 @@ void UtilitesClass::InsertValuesToSQL(std::string device_row, double value_row, 
     UtilitesClass::PrintValueToConsole("UtilitesClass InsertValuesToSQL");
 
     try {
-        QSqlDatabase qdb = QSqlDatabase::addDatabase(connectionDriver);
+        QSqlDatabase qdb;
+        if (QSqlDatabase::database().isOpen()) {
+            qdb = QSqlDatabase::database();
+        } else {
+            qdb = QSqlDatabase::addDatabase(connectionDriver);
+        }
         std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
                 UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
                 UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") + "," +
@@ -1337,6 +1353,7 @@ void UtilitesClass::InsertValuesToSQL(std::string device_row, double value_row, 
             query.exec();
             qdb.close();
 //            qdb.removeDatabase(qdb.databaseName());
+//            QSqlDatabase::removeDatabase(qdb.databaseName());
         } else {
             UtilitesClass::PrintValueToConsole("error to open sql");
         }
