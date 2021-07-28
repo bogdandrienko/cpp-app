@@ -1544,13 +1544,14 @@ void UtilitesClass::InsertValuesToSQL(std::string device_row, double value_row, 
         } else {
             qdb = QSqlDatabase::addDatabase(connectionDriver);
         }
-        std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
-                UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
-                UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") + "," +
-                UtilitesClass::GetValueFromMap(AllSettingsMap, "PortSqlServer") +
-                ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
-                ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
-                ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
+//        std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
+//                UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
+//                UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") + "," +
+//                UtilitesClass::GetValueFromMap(AllSettingsMap, "PortSqlServer") +
+//                ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
+//                ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
+//                ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
+        std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:192.168.15.122,49279\\WINCC;DATABASE=KM_Fabrika;UID=computer_vision;PWD=vision12345678;";
         qdb.setDatabaseName(QString::fromStdString(connectionString));
         if (qdb.open()) {
             //        UtilitesClass::PrintValueToConsole("good to open sql");
