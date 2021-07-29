@@ -65,216 +65,10 @@ void MainClass::on_START_btn_clicked()
         on_STOP_btn_clicked();
         Playing = true;
         ui->Playing_radioButton->setChecked(Playing);
-        std::map <std::string,std::string> AllSettingsMap = {
-            { "AutoPlay", UtilitesClass::GetConvertedQt_obj(ui->AutoPlay_checkBox) },
-            { "AutoImport", UtilitesClass::GetConvertedQt_obj(ui->AutoImport_checkBox) },
-            { "WriteToConsole", UtilitesClass::GetConvertedQt_obj(ui->WriteToConsole_checkBox) },
-            { "WriteToText", UtilitesClass::GetConvertedQt_obj(ui->WriteToText_checkBox) },
-            { "WriteToWidget", UtilitesClass::GetConvertedQt_obj(ui->WriteToWidget_checkBox) },
-            { "RenderSize", UtilitesClass::GetConvertedQt_obj(ui->RenderSize_horizontalSlider) },
-            { "RenderType", UtilitesClass::GetConvertedQt_obj(ui->RenderType_comboBox) },
-            { "ComputeType", UtilitesClass::GetConvertedQt_obj(ui->ComputeType_comboBox) },
-            { "TimeDelay", UtilitesClass::GetConvertedQt_obj(ui->TimeDelay_doubleSpinBox) },
-
-            { "ProtocolCam", UtilitesClass::GetConvertedQt_obj(ui->ProtocolCam_textEdit) },
-            { "PortCam", UtilitesClass::GetConvertedQt_obj(ui->PortCam_spinBox) },
-            { "LoginCam", UtilitesClass::GetConvertedQt_obj(ui->LoginCam_textEdit) },
-            { "PasswordCam", UtilitesClass::GetConvertedQt_obj(ui->PasswordCam_textEdit) },
-
-            { "IpSqlServer", UtilitesClass::GetConvertedQt_obj(ui->IpSqlServer_textEdit) },
-            { "ServerNameSql", UtilitesClass::GetConvertedQt_obj(ui->ServerNameSql_textEdit) },
-            { "PortSqlServer", UtilitesClass::GetConvertedQt_obj(ui->PortSqlServer_spinBox) },
-            { "DatabaseSql", UtilitesClass::GetConvertedQt_obj(ui->DatabaseSql_textEdit) },
-            { "UserSql", UtilitesClass::GetConvertedQt_obj(ui->UserSql_textEdit) },
-            { "PasswordSql", UtilitesClass::GetConvertedQt_obj(ui->PasswordSql_textEdit) },
-            { "WriteNowSql", UtilitesClass::GetConvertedQt_obj(ui->WriteNowSql_checkBox) },
-            { "TableNowSql", UtilitesClass::GetConvertedQt_obj(ui->TableNowSql_textEdit) },
-            { "RowsNowSql_1", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_1) },
-            { "RowsNowSql_2", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_2) },
-            { "RowsNowSql_3", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_3) },
-            { "RowsNowSql_4", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_4) },
-            { "WriteDataSql", UtilitesClass::GetConvertedQt_obj(ui->WriteDataSql_checkBox) },
-            { "TableDataSql", UtilitesClass::GetConvertedQt_obj(ui->TableDataSql_textEdit) },
-            { "RowsDataSql_1", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_1) },
-            { "RowsDataSql_2", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_2) },
-            { "RowsDataSql_3", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_3) },
-            { "RowsDataSql_4", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_4) },
-        };
         QCoreApplication::processEvents();
-        std::vector<std::map<std::string,std::string>> AllSettingsVector =
-        {
-            {
-                { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_1) },
-                { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_1) },
-                { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_1) },
-                { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_1) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_1) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_1) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_1) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_1) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_1) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_1) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_1) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_1) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_1) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_1) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_1) },
-            },
-            {
-                { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_2) },
-                { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_2) },
-                { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_2) },
-                { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_2) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_2) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_2) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_2) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_2) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_2) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_2) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_2) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_2) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_2) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_2) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_2) },
-            },
-            {
-                { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_3) },
-                { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_3) },
-                { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_3) },
-                { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_3) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_3) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_3) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_3) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_3) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_3) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_3) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_3) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_3) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_3) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_3) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_3) },
-            },
-            {
-                { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_4) },
-                { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_4) },
-                { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_4) },
-                { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_4) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_4) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_4) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_4) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_4) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_4) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_4) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_4) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_4) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_4) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_4) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_4) },
-            },
-            {
-                { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_5) },
-                { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_5) },
-                { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_5) },
-                { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_5) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_5) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_5) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_5) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_5) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_5) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_5) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_5) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_5) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_5) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_5) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_5) },
-            },
-            {
-                { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_6) },
-                { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_6) },
-                { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_6) },
-                { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_6) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_6) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_6) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_6) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_6) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_6) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_6) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_6) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_6) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_6) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_6) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_6) },
-            },
-            {
-                { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_7) },
-                { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_7) },
-                { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_7) },
-                { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_7) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_7) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_7) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_7) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_7) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_7) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_7) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_7) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_7) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_7) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_7) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_7) },
-            },
-            {
-                { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_8) },
-                { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_8) },
-                { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_8) },
-                { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_8) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_8) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_8) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_8) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_8) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_8) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_8) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_8) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_8) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_8) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_8) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_8) },
-            },
-            {
-                { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_9) },
-                { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_9) },
-                { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_9) },
-                { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_9) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_9) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_9) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_9) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_9) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_9) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_9) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_9) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_9) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_9) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_9) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_9) },
-            },
-            {
-                { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_10) },
-                { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_10) },
-                { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_10) },
-                { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_10) },
-                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_10) },
-                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_10) },
-                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_10) },
-                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_10) },
-                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_10) },
-                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_10) },
-                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_10) },
-                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_10) },
-                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_10) },
-                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_10) },
-                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_10) },
-            },
-        };
-        startAnalyse(AllSettingsMap, AllSettingsVector, ui);
+        std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> SettingsPair = GetMapsFromSettings();
+        QCoreApplication::processEvents();
+        startAnalyse(SettingsPair.first, SettingsPair.second, ui);
     }  catch (std::string error) {
         UtilitesClass::WriteTextErrorToLogFile(error);
     }
@@ -348,201 +142,18 @@ void MainClass::on_ExportSettings_pushButton_clicked()
     UtilitesClass::PrintValueToConsole("MainClass on_ExportSettings_pushButton_clicked");
 
     try {
-        std::map <std::string,std::string> AllSettingsMap = {
-            { "AutoPlay", UtilitesClass::GetConvertedQt_obj(ui->AutoPlay_checkBox) },
-            { "AutoImport", UtilitesClass::GetConvertedQt_obj(ui->AutoImport_checkBox) },
-            { "WriteToConsole", UtilitesClass::GetConvertedQt_obj(ui->WriteToConsole_checkBox) },
-            { "WriteToText", UtilitesClass::GetConvertedQt_obj(ui->WriteToText_checkBox) },
-            { "WriteToWidget", UtilitesClass::GetConvertedQt_obj(ui->WriteToWidget_checkBox) },
-            { "RenderSize", UtilitesClass::GetConvertedQt_obj(ui->RenderSize_horizontalSlider) },
-            { "RenderType", UtilitesClass::GetConvertedQt_obj(ui->RenderType_comboBox) },
-            { "ComputeType", UtilitesClass::GetConvertedQt_obj(ui->ComputeType_comboBox) },
-            { "TimeDelay", UtilitesClass::GetConvertedQt_obj(ui->TimeDelay_doubleSpinBox) },
-
-            { "ProtocolCam", UtilitesClass::GetConvertedQt_obj(ui->ProtocolCam_textEdit) },
-            { "PortCam", UtilitesClass::GetConvertedQt_obj(ui->PortCam_spinBox) },
-            { "LoginCam", UtilitesClass::GetConvertedQt_obj(ui->LoginCam_textEdit) },
-            { "PasswordCam", UtilitesClass::GetConvertedQt_obj(ui->PasswordCam_textEdit) },
-
-            { "IpSqlServer", UtilitesClass::GetConvertedQt_obj(ui->IpSqlServer_textEdit) },
-            { "ServerNameSql", UtilitesClass::GetConvertedQt_obj(ui->ServerNameSql_textEdit) },
-            { "PortSqlServer", UtilitesClass::GetConvertedQt_obj(ui->PortSqlServer_spinBox) },
-            { "DatabaseSql", UtilitesClass::GetConvertedQt_obj(ui->DatabaseSql_textEdit) },
-            { "UserSql", UtilitesClass::GetConvertedQt_obj(ui->UserSql_textEdit) },
-            { "PasswordSql", UtilitesClass::GetConvertedQt_obj(ui->PasswordSql_textEdit) },
-            { "WriteNowSql", UtilitesClass::GetConvertedQt_obj(ui->WriteNowSql_checkBox) },
-            { "TableNowSql", UtilitesClass::GetConvertedQt_obj(ui->TableNowSql_textEdit) },
-            { "RowsNowSql_1", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_1) },
-            { "RowsNowSql_2", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_2) },
-            { "RowsNowSql_3", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_3) },
-            { "RowsNowSql_4", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_4) },
-            { "WriteDataSql", UtilitesClass::GetConvertedQt_obj(ui->WriteDataSql_checkBox) },
-            { "TableDataSql", UtilitesClass::GetConvertedQt_obj(ui->TableDataSql_textEdit) },
-            { "RowsDataSql_1", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_1) },
-            { "RowsDataSql_2", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_2) },
-            { "RowsDataSql_3", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_3) },
-            { "RowsDataSql_4", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_4) },
-
-            { "ActiveCam_1", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_1) },
-            { "AliasCam_1", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_1) },
-            { "IpCam_1", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_1) },
-            { "MaskCam_1", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_1) },
-            { "AlarmLevel_1", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_1) },
-            { "CorrectCoefficient_1", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_1) },
-            { "InRangeSetFrom_1", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_1) },
-            { "InRangeSetTo_1", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_1) },
-            { "CountNotZero_1", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_1) },
-            { "Point_1_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_1) },
-            { "Point_1_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_1) },
-            { "Point_1_3_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_1) },
-            { "Point_2_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_1) },
-            { "Point_2_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_1) },
-            { "Point_2_3_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_1) },
-
-            { "ActiveCam_2", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_2) },
-            { "AliasCam_2", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_2) },
-            { "IpCam_2", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_2) },
-            { "MaskCam_2", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_2) },
-            { "AlarmLevel_2", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_2) },
-            { "CorrectCoefficient_2", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_2) },
-            { "InRangeSetFrom_2", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_2) },
-            { "InRangeSetTo_2", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_2) },
-            { "CountNotZero_2", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_2) },
-            { "Point_1_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_2) },
-            { "Point_1_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_2) },
-            { "Point_1_3_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_2) },
-            { "Point_2_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_2) },
-            { "Point_2_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_2) },
-            { "Point_2_3_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_2) },
-
-            { "ActiveCam_3", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_3) },
-            { "AliasCam_3", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_3) },
-            { "IpCam_3", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_3) },
-            { "MaskCam_3", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_3) },
-            { "AlarmLevel_3", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_3) },
-            { "CorrectCoefficient_3", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_3) },
-            { "InRangeSetFrom_3", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_3) },
-            { "InRangeSetTo_3", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_3) },
-            { "CountNotZero_3", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_3) },
-            { "Point_1_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_3) },
-            { "Point_1_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_3) },
-            { "Point_1_3_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_3) },
-            { "Point_2_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_3) },
-            { "Point_2_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_3) },
-            { "Point_2_3_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_3) },
-
-            { "ActiveCam_4", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_4) },
-            { "AliasCam_4", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_4) },
-            { "IpCam_4", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_4) },
-            { "MaskCam_4", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_4) },
-            { "AlarmLevel_4", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_4) },
-            { "CorrectCoefficient_4", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_4) },
-            { "InRangeSetFrom_4", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_4) },
-            { "InRangeSetTo_4", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_4) },
-            { "CountNotZero_4", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_4) },
-            { "Point_1_1_4", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_4) },
-            { "Point_1_2_4", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_4) },
-            { "Point_1_3_4", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_4) },
-            { "Point_2_1_4", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_4) },
-            { "Point_2_2_4", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_4) },
-            { "Point_2_3_4", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_4) },
-
-            { "ActiveCam_5", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_5) },
-            { "AliasCam_5", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_5) },
-            { "IpCam_5", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_5) },
-            { "MaskCam_5", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_5) },
-            { "AlarmLevel_5", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_5) },
-            { "CorrectCoefficient_5", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_5) },
-            { "InRangeSetFrom_5", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_5) },
-            { "InRangeSetTo_5", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_5) },
-            { "CountNotZero_5", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_5) },
-            { "Point_1_1_5", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_5) },
-            { "Point_1_2_5", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_5) },
-            { "Point_1_3_5", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_5) },
-            { "Point_2_1_5", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_5) },
-            { "Point_2_2_5", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_5) },
-            { "Point_2_3_5", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_5) },
-
-            { "ActiveCam_6", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_6) },
-            { "AliasCam_6", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_6) },
-            { "IpCam_6", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_6) },
-            { "MaskCam_6", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_6) },
-            { "AlarmLevel_6", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_6) },
-            { "CorrectCoefficient_6", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_6) },
-            { "InRangeSetFrom_6", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_6) },
-            { "InRangeSetTo_6", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_6) },
-            { "CountNotZero_6", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_6) },
-            { "Point_1_1_6", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_6) },
-            { "Point_1_2_6", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_6) },
-            { "Point_1_3_6", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_6) },
-            { "Point_2_1_6", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_6) },
-            { "Point_2_2_6", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_6) },
-            { "Point_2_3_6", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_6) },
-
-            { "ActiveCam_7", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_7) },
-            { "AliasCam_7", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_7) },
-            { "IpCam_7", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_7) },
-            { "MaskCam_7", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_7) },
-            { "AlarmLevel_7", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_7) },
-            { "CorrectCoefficient_7", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_7) },
-            { "InRangeSetFrom_7", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_7) },
-            { "InRangeSetTo_7", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_7) },
-            { "CountNotZero_7", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_7) },
-            { "Point_1_1_7", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_7) },
-            { "Point_1_2_7", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_7) },
-            { "Point_1_3_7", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_7) },
-            { "Point_2_1_7", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_7) },
-            { "Point_2_2_7", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_7) },
-            { "Point_2_3_7", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_7) },
-
-            { "ActiveCam_8", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_8) },
-            { "AliasCam_8", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_8) },
-            { "IpCam_8", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_8) },
-            { "MaskCam_8", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_8) },
-            { "AlarmLevel_8", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_8) },
-            { "CorrectCoefficient_8", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_8) },
-            { "InRangeSetFrom_8", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_8) },
-            { "InRangeSetTo_8", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_8) },
-            { "CountNotZero_8", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_8) },
-            { "Point_1_1_8", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_8) },
-            { "Point_1_2_8", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_8) },
-            { "Point_1_3_8", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_8) },
-            { "Point_2_1_8", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_8) },
-            { "Point_2_2_8", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_8) },
-            { "Point_2_3_8", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_8) },
-
-            { "ActiveCam_9", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_9) },
-            { "AliasCam_9", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_9) },
-            { "IpCam_9", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_9) },
-            { "MaskCam_9", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_9) },
-            { "AlarmLevel_9", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_9) },
-            { "CorrectCoefficient_9", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_9) },
-            { "InRangeSetFrom_9", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_9) },
-            { "InRangeSetTo_9", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_9) },
-            { "CountNotZero_9", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_9) },
-            { "Point_1_1_9", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_9) },
-            { "Point_1_2_9", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_9) },
-            { "Point_1_3_9", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_9) },
-            { "Point_2_1_9", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_9) },
-            { "Point_2_2_9", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_9) },
-            { "Point_2_3_9", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_9) },
-
-            { "ActiveCam_10", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_10) },
-            { "AliasCam_10", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_10) },
-            { "IpCam_10", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_10) },
-            { "MaskCam_10", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_10) },
-            { "AlarmLevel_10", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_10) },
-            { "CorrectCoefficient_10", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_10) },
-            { "InRangeSetFrom_10", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_10) },
-            { "InRangeSetTo_10", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_10) },
-            { "CountNotZero_10", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_10) },
-            { "Point_1_1_10", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_10) },
-            { "Point_1_2_10", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_10) },
-            { "Point_1_3_10", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_10) },
-            { "Point_2_1_10", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_10) },
-            { "Point_2_2_10", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_10) },
-            { "Point_2_3_10", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_10) },
-        };
+        std::map <std::string,std::string> AllSettingsMap;
+        std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> SettingsPair = GetMapsFromSettings();
+        for (auto& OneSettings : SettingsPair.first) {
+            AllSettingsMap[OneSettings.first] = OneSettings.second;
+        }
+        int loop = 0;
+        for (auto& OneVector : SettingsPair.second) {
+            loop++;
+            for (auto& OneSettings : OneVector) {
+                AllSettingsMap[OneSettings.first+"_"+std::to_string(loop)] = OneSettings.second;
+            }
+        }
         QJsonObject json;
         for (auto& elem : AllSettingsMap)
             json[QString::fromStdString(elem.first)] = QString::fromStdString(elem.second);
@@ -582,6 +193,8 @@ void MainClass::on_ImportSettings_pushButton_clicked()
             { "WriteToConsole", ui->WriteToConsole_checkBox },
             { "WriteToText", ui->WriteToText_checkBox },
             { "WriteToWidget", ui->WriteToWidget_checkBox },
+            { "RuntimeUpdateParams", ui->RuntimeUpdateParams_checkBox },
+            { "UseSQLPort", ui->UseSQLPort_checkBox },
 
             { "ActiveCam_1", ui->ActiveCam_checkBox_1 },
             { "ActiveCam_2", ui->ActiveCam_checkBox_2 },
@@ -796,6 +409,221 @@ void MainClass::on_ImportSettings_pushButton_clicked()
     }
 }
 
+std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> MainClass::GetMapsFromSettings() {
+    std::map <std::string,std::string> AllSettingsMap = {
+        { "AutoPlay", UtilitesClass::GetConvertedQt_obj(ui->AutoPlay_checkBox) },
+        { "AutoImport", UtilitesClass::GetConvertedQt_obj(ui->AutoImport_checkBox) },
+        { "WriteToConsole", UtilitesClass::GetConvertedQt_obj(ui->WriteToConsole_checkBox) },
+        { "WriteToText", UtilitesClass::GetConvertedQt_obj(ui->WriteToText_checkBox) },
+        { "WriteToWidget", UtilitesClass::GetConvertedQt_obj(ui->WriteToWidget_checkBox) },
+        { "RenderSize", UtilitesClass::GetConvertedQt_obj(ui->RenderSize_horizontalSlider) },
+        { "RenderType", UtilitesClass::GetConvertedQt_obj(ui->RenderType_comboBox) },
+        { "ComputeType", UtilitesClass::GetConvertedQt_obj(ui->ComputeType_comboBox) },
+        { "TimeDelay", UtilitesClass::GetConvertedQt_obj(ui->TimeDelay_doubleSpinBox) },
+        { "RuntimeUpdateParams", UtilitesClass::GetConvertedQt_obj(ui->RuntimeUpdateParams_checkBox) },
+        { "UseSQLPort", UtilitesClass::GetConvertedQt_obj(ui->UseSQLPort_checkBox) },
+
+        { "ProtocolCam", UtilitesClass::GetConvertedQt_obj(ui->ProtocolCam_textEdit) },
+        { "PortCam", UtilitesClass::GetConvertedQt_obj(ui->PortCam_spinBox) },
+        { "LoginCam", UtilitesClass::GetConvertedQt_obj(ui->LoginCam_textEdit) },
+        { "PasswordCam", UtilitesClass::GetConvertedQt_obj(ui->PasswordCam_textEdit) },
+
+        { "IpSqlServer", UtilitesClass::GetConvertedQt_obj(ui->IpSqlServer_textEdit) },
+        { "ServerNameSql", UtilitesClass::GetConvertedQt_obj(ui->ServerNameSql_textEdit) },
+        { "PortSqlServer", UtilitesClass::GetConvertedQt_obj(ui->PortSqlServer_spinBox) },
+        { "DatabaseSql", UtilitesClass::GetConvertedQt_obj(ui->DatabaseSql_textEdit) },
+        { "UserSql", UtilitesClass::GetConvertedQt_obj(ui->UserSql_textEdit) },
+        { "PasswordSql", UtilitesClass::GetConvertedQt_obj(ui->PasswordSql_textEdit) },
+        { "WriteNowSql", UtilitesClass::GetConvertedQt_obj(ui->WriteNowSql_checkBox) },
+        { "TableNowSql", UtilitesClass::GetConvertedQt_obj(ui->TableNowSql_textEdit) },
+        { "RowsNowSql_1", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_1) },
+        { "RowsNowSql_2", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_2) },
+        { "RowsNowSql_3", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_3) },
+        { "RowsNowSql_4", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_4) },
+        { "WriteDataSql", UtilitesClass::GetConvertedQt_obj(ui->WriteDataSql_checkBox) },
+        { "TableDataSql", UtilitesClass::GetConvertedQt_obj(ui->TableDataSql_textEdit) },
+        { "RowsDataSql_1", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_1) },
+        { "RowsDataSql_2", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_2) },
+        { "RowsDataSql_3", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_3) },
+        { "RowsDataSql_4", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_4) },
+    };
+    std::vector<std::map<std::string,std::string>> AllSettingsVector =
+    {
+        {
+            { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_1) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_1) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_1) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_1) },
+            { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_1) },
+            { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_1) },
+            { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_1) },
+            { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_1) },
+            { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_1) },
+            { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_1) },
+            { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_1) },
+            { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_1) },
+            { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_1) },
+            { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_1) },
+            { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_1) },
+        },
+        {
+            { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_2) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_2) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_2) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_2) },
+            { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_2) },
+            { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_2) },
+            { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_2) },
+            { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_2) },
+            { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_2) },
+            { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_2) },
+            { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_2) },
+            { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_2) },
+            { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_2) },
+            { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_2) },
+            { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_2) },
+        },
+        {
+            { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_3) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_3) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_3) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_3) },
+            { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_3) },
+            { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_3) },
+            { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_3) },
+            { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_3) },
+            { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_3) },
+            { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_3) },
+            { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_3) },
+            { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_3) },
+            { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_3) },
+            { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_3) },
+            { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_3) },
+        },
+        {
+            { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_4) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_4) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_4) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_4) },
+            { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_4) },
+            { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_4) },
+            { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_4) },
+            { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_4) },
+            { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_4) },
+            { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_4) },
+            { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_4) },
+            { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_4) },
+            { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_4) },
+            { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_4) },
+            { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_4) },
+        },
+        {
+            { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_5) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_5) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_5) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_5) },
+            { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_5) },
+            { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_5) },
+            { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_5) },
+            { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_5) },
+            { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_5) },
+            { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_5) },
+            { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_5) },
+            { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_5) },
+            { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_5) },
+            { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_5) },
+            { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_5) },
+        },
+        {
+            { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_6) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_6) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_6) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_6) },
+            { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_6) },
+            { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_6) },
+            { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_6) },
+            { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_6) },
+            { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_6) },
+            { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_6) },
+            { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_6) },
+            { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_6) },
+            { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_6) },
+            { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_6) },
+            { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_6) },
+        },
+        {
+            { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_7) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_7) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_7) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_7) },
+            { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_7) },
+            { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_7) },
+            { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_7) },
+            { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_7) },
+            { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_7) },
+            { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_7) },
+            { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_7) },
+            { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_7) },
+            { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_7) },
+            { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_7) },
+            { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_7) },
+        },
+        {
+            { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_8) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_8) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_8) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_8) },
+            { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_8) },
+            { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_8) },
+            { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_8) },
+            { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_8) },
+            { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_8) },
+            { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_8) },
+            { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_8) },
+            { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_8) },
+            { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_8) },
+            { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_8) },
+            { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_8) },
+        },
+        {
+            { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_9) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_9) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_9) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_9) },
+            { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_9) },
+            { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_9) },
+            { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_9) },
+            { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_9) },
+            { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_9) },
+            { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_9) },
+            { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_9) },
+            { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_9) },
+            { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_9) },
+            { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_9) },
+            { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_9) },
+        },
+        {
+            { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_10) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_10) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_10) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_10) },
+            { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_10) },
+            { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_10) },
+            { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_10) },
+            { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_10) },
+            { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_10) },
+            { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_10) },
+            { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_10) },
+            { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_10) },
+            { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_10) },
+            { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_10) },
+            { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_10) },
+        },
+    };
+
+    return std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>>(AllSettingsMap, AllSettingsVector);
+}
+
 void MainClass::AutoImport()
 {
     UtilitesClass::PrintValueToConsole("MainClass AutoImport");
@@ -837,265 +665,21 @@ void MainClass::startAnalyse(std::map<std::string, std::string> AllSettingsMap,
                              Ui::MainClass *ui)
 {
     UtilitesClass::PrintValueToConsole("MainClass startAnalyse");
-
     try {
-
-
-
-//        if (Playing) {
-//            for (auto& OneSettingsMap : AllSettingsVector)
-//            {
-//                QCoreApplication::processEvents();
-//                try {
-//                    if (UtilitesClass::GetValueFromMap(OneSettingsMap, "ActiveCam") == "true") {
-//                        QCoreApplication::processEvents();
-//                        if (UtilitesClass::GetValueFromMap(AllSettingsMap, "ComputeType") == == "sync") {
-//                            SyncThreadClass objs(AllSettingsMap, OneSettingsMap, ui);
-////                            SyncThreadClass objs[10];
-////                            int index = find(AllSettingsVector.begin(), AllSettingsVector.end(), OneSettingsMap) - AllSettingsVector.begin();
-////                            objs[index].finishDownload(AllSettingsMap, OneSettingsMap, ui);
-//                        }
-//                        QCoreApplication::processEvents();
-//                        if (UtilitesClass::GetValueFromMap(AllSettingsMap, "ComputeType") == == "async") {
-//                            AsyncThreadClass* obj = new AsyncThreadClass(AllSettingsMap, OneSettingsMap, ui);
-//                        }
-//                        QCoreApplication::processEvents();
-//                    }
-//                QCoreApplication::processEvents();
-//                }  catch (std::string error) {
-//                    UtilitesClass::PrintTextErrorToLogFile(error);
-//                }
-//            }
-//            QCoreApplication::processEvents();
-//            Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
-//            QCoreApplication::processEvents();
-//            if (Playing){
-//                startAnalyse(AllSettingsMap, AllSettingsVector, ui);
-//            }
-//        }
-
-
-
-        while (Playing) {
-
-
-
-            std::map <std::string,std::string> AllSettingsMap = {
-                { "AutoPlay", UtilitesClass::GetConvertedQt_obj(ui->AutoPlay_checkBox) },
-                { "AutoImport", UtilitesClass::GetConvertedQt_obj(ui->AutoImport_checkBox) },
-                { "WriteToConsole", UtilitesClass::GetConvertedQt_obj(ui->WriteToConsole_checkBox) },
-                { "WriteToText", UtilitesClass::GetConvertedQt_obj(ui->WriteToText_checkBox) },
-                { "WriteToWidget", UtilitesClass::GetConvertedQt_obj(ui->WriteToWidget_checkBox) },
-                { "RenderSize", UtilitesClass::GetConvertedQt_obj(ui->RenderSize_horizontalSlider) },
-                { "RenderType", UtilitesClass::GetConvertedQt_obj(ui->RenderType_comboBox) },
-                { "ComputeType", UtilitesClass::GetConvertedQt_obj(ui->ComputeType_comboBox) },
-                { "TimeDelay", UtilitesClass::GetConvertedQt_obj(ui->TimeDelay_doubleSpinBox) },
-
-                { "ProtocolCam", UtilitesClass::GetConvertedQt_obj(ui->ProtocolCam_textEdit) },
-                { "PortCam", UtilitesClass::GetConvertedQt_obj(ui->PortCam_spinBox) },
-                { "LoginCam", UtilitesClass::GetConvertedQt_obj(ui->LoginCam_textEdit) },
-                { "PasswordCam", UtilitesClass::GetConvertedQt_obj(ui->PasswordCam_textEdit) },
-
-                { "IpSqlServer", UtilitesClass::GetConvertedQt_obj(ui->IpSqlServer_textEdit) },
-                { "ServerNameSql", UtilitesClass::GetConvertedQt_obj(ui->ServerNameSql_textEdit) },
-                { "PortSqlServer", UtilitesClass::GetConvertedQt_obj(ui->PortSqlServer_spinBox) },
-                { "DatabaseSql", UtilitesClass::GetConvertedQt_obj(ui->DatabaseSql_textEdit) },
-                { "UserSql", UtilitesClass::GetConvertedQt_obj(ui->UserSql_textEdit) },
-                { "PasswordSql", UtilitesClass::GetConvertedQt_obj(ui->PasswordSql_textEdit) },
-                { "WriteNowSql", UtilitesClass::GetConvertedQt_obj(ui->WriteNowSql_checkBox) },
-                { "TableNowSql", UtilitesClass::GetConvertedQt_obj(ui->TableNowSql_textEdit) },
-                { "RowsNowSql_1", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_1) },
-                { "RowsNowSql_2", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_2) },
-                { "RowsNowSql_3", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_3) },
-                { "RowsNowSql_4", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_4) },
-                { "WriteDataSql", UtilitesClass::GetConvertedQt_obj(ui->WriteDataSql_checkBox) },
-                { "TableDataSql", UtilitesClass::GetConvertedQt_obj(ui->TableDataSql_textEdit) },
-                { "RowsDataSql_1", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_1) },
-                { "RowsDataSql_2", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_2) },
-                { "RowsDataSql_3", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_3) },
-                { "RowsDataSql_4", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_4) },
-            };
-            std::vector<std::map<std::string,std::string>> AllSettingsVector =
-            {
-                {
-                    { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_1) },
-                    { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_1) },
-                    { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_1) },
-                    { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_1) },
-                    { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_1) },
-                    { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_1) },
-                    { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_1) },
-                    { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_1) },
-                    { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_1) },
-                    { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_1) },
-                    { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_1) },
-                    { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_1) },
-                    { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_1) },
-                    { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_1) },
-                    { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_1) },
-                },
-                {
-                    { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_2) },
-                    { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_2) },
-                    { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_2) },
-                    { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_2) },
-                    { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_2) },
-                    { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_2) },
-                    { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_2) },
-                    { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_2) },
-                    { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_2) },
-                    { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_2) },
-                    { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_2) },
-                    { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_2) },
-                    { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_2) },
-                    { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_2) },
-                    { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_2) },
-                },
-                {
-                    { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_3) },
-                    { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_3) },
-                    { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_3) },
-                    { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_3) },
-                    { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_3) },
-                    { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_3) },
-                    { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_3) },
-                    { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_3) },
-                    { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_3) },
-                    { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_3) },
-                    { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_3) },
-                    { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_3) },
-                    { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_3) },
-                    { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_3) },
-                    { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_3) },
-                },
-                {
-                    { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_4) },
-                    { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_4) },
-                    { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_4) },
-                    { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_4) },
-                    { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_4) },
-                    { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_4) },
-                    { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_4) },
-                    { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_4) },
-                    { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_4) },
-                    { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_4) },
-                    { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_4) },
-                    { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_4) },
-                    { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_4) },
-                    { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_4) },
-                    { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_4) },
-                },
-                {
-                    { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_5) },
-                    { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_5) },
-                    { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_5) },
-                    { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_5) },
-                    { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_5) },
-                    { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_5) },
-                    { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_5) },
-                    { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_5) },
-                    { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_5) },
-                    { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_5) },
-                    { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_5) },
-                    { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_5) },
-                    { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_5) },
-                    { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_5) },
-                    { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_5) },
-                },
-                {
-                    { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_6) },
-                    { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_6) },
-                    { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_6) },
-                    { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_6) },
-                    { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_6) },
-                    { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_6) },
-                    { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_6) },
-                    { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_6) },
-                    { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_6) },
-                    { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_6) },
-                    { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_6) },
-                    { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_6) },
-                    { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_6) },
-                    { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_6) },
-                    { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_6) },
-                },
-                {
-                    { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_7) },
-                    { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_7) },
-                    { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_7) },
-                    { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_7) },
-                    { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_7) },
-                    { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_7) },
-                    { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_7) },
-                    { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_7) },
-                    { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_7) },
-                    { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_7) },
-                    { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_7) },
-                    { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_7) },
-                    { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_7) },
-                    { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_7) },
-                    { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_7) },
-                },
-                {
-                    { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_8) },
-                    { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_8) },
-                    { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_8) },
-                    { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_8) },
-                    { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_8) },
-                    { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_8) },
-                    { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_8) },
-                    { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_8) },
-                    { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_8) },
-                    { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_8) },
-                    { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_8) },
-                    { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_8) },
-                    { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_8) },
-                    { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_8) },
-                    { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_8) },
-                },
-                {
-                    { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_9) },
-                    { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_9) },
-                    { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_9) },
-                    { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_9) },
-                    { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_9) },
-                    { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_9) },
-                    { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_9) },
-                    { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_9) },
-                    { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_9) },
-                    { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_9) },
-                    { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_9) },
-                    { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_9) },
-                    { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_9) },
-                    { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_9) },
-                    { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_9) },
-                },
-                {
-                    { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_10) },
-                    { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_10) },
-                    { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_10) },
-                    { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_10) },
-                    { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_10) },
-                    { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_10) },
-                    { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_10) },
-                    { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_10) },
-                    { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_spinBox_10) },
-                    { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_spinBox_10) },
-                    { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_spinBox_10) },
-                    { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_spinBox_10) },
-                    { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_spinBox_10) },
-                    { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_spinBox_10) },
-                    { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_spinBox_10) },
-                },
-            };
-
-
-
+        while(Playing) {
+            if (UtilitesClass::GetValueFromMap(AllSettingsMap, "RuntimeUpdateParams") == "true") {
+                std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> SettingsPair = GetMapsFromSettings();
+                AllSettingsMap = SettingsPair.first;
+                AllSettingsVector = SettingsPair.second;
+            }
+            if (not Playing) {
+                break;
+            }
             for (auto& OneSettingsMap : AllSettingsVector)
             {
                 QCoreApplication::processEvents();
                 try {
-                    if (UtilitesClass::GetValueFromMap(OneSettingsMap, "ActiveCam") == "true") {
+                    if (UtilitesClass::GetValueFromMap(OneSettingsMap, "ActiveCam") == "true" and Playing) {
                         QCoreApplication::processEvents();
                         if (UtilitesClass::GetValueFromMap(AllSettingsMap, "ComputeType") == "sync") {
                             SyncThreadClass objs(AllSettingsMap, OneSettingsMap, ui);
@@ -1103,7 +687,6 @@ void MainClass::startAnalyse(std::map<std::string, std::string> AllSettingsMap,
 //                            int index = find(AllSettingsVector.begin(), AllSettingsVector.end(), OneSettingsMap) - AllSettingsVector.begin();
 //                            objs[index].finishDownload(AllSettingsMap, OneSettingsMap, ui);
                         }
-
                         QCoreApplication::processEvents();
                         if (UtilitesClass::GetValueFromMap(AllSettingsMap, "ComputeType") == "async") {
                             AsyncThreadClass* obj = new AsyncThreadClass(AllSettingsMap, OneSettingsMap, ui);
@@ -1115,13 +698,16 @@ void MainClass::startAnalyse(std::map<std::string, std::string> AllSettingsMap,
                     UtilitesClass::WriteTextErrorToLogFile(error);
                 }
             }
+            if (not Playing) {
+                break;
+            }
             QCoreApplication::processEvents();
             Sleep(int (std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "TimeDelay"))*1000));
             QCoreApplication::processEvents();
+            if (not Playing) {
+                break;
+            }
         }
-
-
-
     }  catch (std::string error) {
         UtilitesClass::WriteTextErrorToLogFile(error);
     }
@@ -1502,14 +1088,26 @@ void UtilitesClass::UpdateValuesToSQL(std::string device_row, double value_row, 
         } else {
             qdb = QSqlDatabase::addDatabase(connectionDriver);
         }
-        std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
-                UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
-                UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") + "," +
-                UtilitesClass::GetValueFromMap(AllSettingsMap, "PortSqlServer") +
-                ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
-                ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
-                ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
-        qdb.setDatabaseName(QString::fromStdString(connectionString));
+        if (UtilitesClass::GetValueFromMap(AllSettingsMap, "UseSQLPort") == "true") {
+            std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
+                    UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
+                    UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") + "," +
+                    UtilitesClass::GetValueFromMap(AllSettingsMap, "PortSqlServer") +
+                    ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
+                    ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
+                    ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
+            UtilitesClass::PrintValueToConsole(connectionString);
+            qdb.setDatabaseName(QString::fromStdString(connectionString));
+        } else {
+            std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
+                    UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
+                    UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") +
+                    ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
+                    ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
+                    ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
+            UtilitesClass::PrintValueToConsole(connectionString);
+            qdb.setDatabaseName(QString::fromStdString(connectionString));
+        }
         if (qdb.open()) {
             //        UtilitesClass::PrintValueToConsole("good to open sql");
             QSqlQuery query(qdb);
@@ -1544,15 +1142,26 @@ void UtilitesClass::InsertValuesToSQL(std::string device_row, double value_row, 
         } else {
             qdb = QSqlDatabase::addDatabase(connectionDriver);
         }
-//        std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
-//                UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
-//                UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") + "," +
-//                UtilitesClass::GetValueFromMap(AllSettingsMap, "PortSqlServer") +
-//                ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
-//                ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
-//                ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
-        std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:192.168.15.122,49279\\WINCC;DATABASE=KM_Fabrika;UID=computer_vision;PWD=vision12345678;";
-        qdb.setDatabaseName(QString::fromStdString(connectionString));
+        if (UtilitesClass::GetValueFromMap(AllSettingsMap, "UseSQLPort") == "true") {
+            std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
+                    UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
+                    UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") + "," +
+                    UtilitesClass::GetValueFromMap(AllSettingsMap, "PortSqlServer") +
+                    ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
+                    ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
+                    ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
+            UtilitesClass::PrintValueToConsole(connectionString);
+            qdb.setDatabaseName(QString::fromStdString(connectionString));
+        } else {
+            std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
+                    UtilitesClass::GetValueFromMap(AllSettingsMap, "IpSqlServer") + "\\" +
+                    UtilitesClass::GetValueFromMap(AllSettingsMap, "ServerNameSql") +
+                    ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
+                    ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
+                    ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
+            UtilitesClass::PrintValueToConsole(connectionString);
+            qdb.setDatabaseName(QString::fromStdString(connectionString));
+        }
         if (qdb.open()) {
             //        UtilitesClass::PrintValueToConsole("good to open sql");
             QSqlQuery query(qdb);

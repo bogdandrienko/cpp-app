@@ -72,7 +72,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>1</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideMiddle</enum>
@@ -7078,7 +7078,7 @@ p, li { white-space: pre-wrap; }
                </size>
               </property>
               <property name="text">
-               <string>AUTOPLAY</string>
+               <string>AUTO PLAY</string>
               </property>
               <property name="checked">
                <bool>false</bool>
@@ -7273,7 +7273,7 @@ p, li { white-space: pre-wrap; }
                </size>
               </property>
               <property name="text">
-               <string>AUTOIMPORT</string>
+               <string>AUTO IMPORT</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -7743,6 +7743,23 @@ p, li { white-space: pre-wrap; }
               </property>
               <property name="checked">
                <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3">
+             <widget class="QCheckBox" name="RuntimeUpdateParams_checkBox">
+              <property name="text">
+               <string>RUNTIME UPDATE PARAMS</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4">
+             <widget class="QCheckBox" name="UseSQLPort_checkBox">
+              <property name="text">
+               <string>USE SQL PORT</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
               </property>
              </widget>
             </item>

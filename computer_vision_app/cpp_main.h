@@ -35,6 +35,7 @@ private slots:
     void on_ExportSettings_pushButton_clicked();
     void on_ImportSettings_pushButton_clicked();
 
+    std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> GetMapsFromSettings();
     void AutoImport();
     void AutoPlay();
     void startAnalyse(std::map<std::string, std::string> AllSettingsMap,
