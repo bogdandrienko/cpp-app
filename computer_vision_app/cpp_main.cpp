@@ -225,6 +225,16 @@ void MainClass::on_ImportSettings_pushButton_clicked()
             { "AlarmLevel_8", ui->AlarmLevel_spinBox_8 },
             { "AlarmLevel_9", ui->AlarmLevel_spinBox_9 },
             { "AlarmLevel_10", ui->AlarmLevel_spinBox_10 },
+            { "NullLevel_1", ui->NullLevel_spinBox_1 },
+            { "NullLevel_2", ui->NullLevel_spinBox_2 },
+            { "NullLevel_3", ui->NullLevel_spinBox_3 },
+            { "NullLevel_4", ui->NullLevel_spinBox_4 },
+            { "NullLevel_5", ui->NullLevel_spinBox_5 },
+            { "NullLevel_6", ui->NullLevel_spinBox_6 },
+            { "NullLevel_7", ui->NullLevel_spinBox_7 },
+            { "NullLevel_8", ui->NullLevel_spinBox_8 },
+            { "NullLevel_9", ui->NullLevel_spinBox_9 },
+            { "NullLevel_10", ui->NullLevel_spinBox_10 },
             { "InRangeSetFrom_1", ui->InRangeSetFrom_spinBox_1 },
             { "InRangeSetFrom_2", ui->InRangeSetFrom_spinBox_2 },
             { "InRangeSetFrom_3", ui->InRangeSetFrom_spinBox_3 },
@@ -455,6 +465,7 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
             { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_1) },
             { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_1) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_1) },
+            { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_1) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_1) },
             { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_1) },
             { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_1) },
@@ -472,6 +483,7 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
             { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_2) },
             { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_2) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_2) },
+            { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_2) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_2) },
             { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_2) },
             { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_2) },
@@ -489,6 +501,7 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
             { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_3) },
             { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_3) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_3) },
+            { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_3) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_3) },
             { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_3) },
             { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_3) },
@@ -506,6 +519,7 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
             { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_4) },
             { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_4) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_4) },
+            { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_4) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_4) },
             { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_4) },
             { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_4) },
@@ -523,6 +537,7 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
             { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_5) },
             { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_5) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_5) },
+            { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_5) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_5) },
             { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_5) },
             { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_5) },
@@ -540,6 +555,7 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
             { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_6) },
             { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_6) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_6) },
+            { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_6) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_6) },
             { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_6) },
             { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_6) },
@@ -557,6 +573,7 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
             { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_7) },
             { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_7) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_7) },
+            { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_7) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_7) },
             { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_7) },
             { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_7) },
@@ -574,6 +591,7 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
             { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_8) },
             { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_8) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_8) },
+            { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_8) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_8) },
             { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_8) },
             { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_8) },
@@ -591,6 +609,7 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
             { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_9) },
             { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_9) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_9) },
+            { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_9) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_9) },
             { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_9) },
             { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_9) },
@@ -608,6 +627,7 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
             { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_10) },
             { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_10) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_10) },
+            { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_10) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_10) },
             { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_spinBox_10) },
             { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_spinBox_10) },
@@ -769,6 +789,9 @@ SyncThreadClass::SyncThreadClass(std::map<std::string, std::string> AllSettingsM
             {
                 float pow_10 = pow(10.0f, (float)2);
                 result = round(result * pow_10) / pow_10;
+                if (result < std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "NullLevel"))) {
+                    result = 0.0;
+                }
             }
             if (result > std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel"))){
                 if (UtilitesClass::GetValueFromMap(AllSettings, "WriteNowSql") == "true"){
@@ -928,6 +951,10 @@ void AsyncThreadClass::finishDownload()
             {
                 float pow_10 = pow(10.0f, (float)2);
                 result = round(result * pow_10) / pow_10;
+                UtilitesClass::PrintValueToConsole(std::to_string(std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "NullLevel"))));
+                if (result < std::stod(UtilitesClass::GetValueFromMap(OneSettings, "NullLevel"))) {
+                    result = 0.0;
+                }
             }
             if (result > std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel"))){
                 if (UtilitesClass::GetValueFromMap(AllSettings, "WriteNowSql") == "true"){
@@ -1150,7 +1177,6 @@ void UtilitesClass::InsertValuesToSQL(std::string device_row, double value_row, 
                     ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
                     ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
                     ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
-            UtilitesClass::PrintValueToConsole(connectionString);
             qdb.setDatabaseName(QString::fromStdString(connectionString));
         } else {
             std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
@@ -1159,7 +1185,6 @@ void UtilitesClass::InsertValuesToSQL(std::string device_row, double value_row, 
                     ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
                     ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
                     ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
-            UtilitesClass::PrintValueToConsole(connectionString);
             qdb.setDatabaseName(QString::fromStdString(connectionString));
         }
         if (qdb.open()) {
