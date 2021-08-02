@@ -4154,6 +4154,9 @@ p, li { white-space: pre-wrap; }
                 <height>2160</height>
                </size>
               </property>
+              <property name="inputMethodHints">
+               <set>Qt::ImhMultiLine</set>
+              </property>
               <property name="html">
                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -7769,7 +7772,7 @@ p, li { white-space: pre-wrap; }
             <item row="6" column="2" colspan="2">
              <widget class="QComboBox" name="ComputeType_comboBox">
               <property name="currentText">
-               <string>async</string>
+               <string>sync</string>
               </property>
               <item>
                <property name="text">

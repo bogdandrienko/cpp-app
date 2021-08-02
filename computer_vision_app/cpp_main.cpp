@@ -61,30 +61,91 @@ void MainClass::on_START_btn_clicked()
 {
     UtilitesClass::PrintValueToConsole("MainClass on_START_btn_clicked");
 
-    try {
-        on_STOP_btn_clicked();
-        Playing = true;
-        ui->Playing_radioButton->setChecked(Playing);
-        QCoreApplication::processEvents();
-        std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> SettingsPair = GetMapsFromSettings();
-        QCoreApplication::processEvents();
-        startAnalyse(SettingsPair.first, SettingsPair.second, ui);
-    }  catch (std::string error) {
-        UtilitesClass::WriteTextErrorToLogFile(error);
+    ui->tab_2->setDisabled(false);
+
+
+    QDialog Dialog;
+    Dialog.setWindowTitle("Доступ к системе машинного зрения");
+    Dialog.setWindowIcon(QIcon("://icon.png"));
+
+    QGridLayout *mainLayout = new QGridLayout;
+    mainLayout->setSizeConstraint(QLayout::SetFixedSize);
+
+    QLabel *LabelLogin = new QLabel("логин");
+    mainLayout->addWidget(LabelLogin, 0, 0);
+
+    QTextEdit *TextEditLogin = new QTextEdit();
+    mainLayout->addWidget(TextEditLogin, 0, 1);
+
+    QLabel *LabelPassword = new QLabel("пароль");
+    mainLayout->addWidget(LabelPassword, 1, 0);
+
+    QTextEdit *TextEditPassword = new QTextEdit();
+    mainLayout->addWidget(TextEditPassword, 1, 1);
+
+    QPushButton* okButton = new QPushButton("&Ok");
+    okButton->setDefault(true);
+    QDialogButtonBox* buttonBox = new QDialogButtonBox(this);
+    mainLayout->addWidget(buttonBox, 2, 0);
+    buttonBox->addButton(okButton, QDialogButtonBox::AcceptRole);
+//    connect(okButton, &QPushButton::clicked(), this, );
+
+//    QDialogButtonBox *DialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok, &Dialog);
+//    mainLayout->addWidget(DialogButtonBox, 2, 0);
+//    connect(DialogButtonBox, &QDialogButtonBox::accepted, this, Dialog.close());
+
+    QCheckBox *wholeWordsCheckBox = new QCheckBox(tr("автоаутентификация"));
+    mainLayout->addWidget(wholeWordsCheckBox, 2, 1);
+
+    Dialog.setLayout(mainLayout);
+    mainLayout->setRowStretch(2, 1);
+    if (Dialog.exec() == QDialog::Accepted) {
+        UtilitesClass::PrintValueToConsole("access");
+        if (TextEditLogin->toPlainText() == "admin" and TextEditPassword->toPlainText() == "admin") {
+            UtilitesClass::PrintValueToConsole("admin access denied");
+            Dialog.accept();
+        } if (TextEditLogin->toPlainText() == "user" and TextEditPassword->toPlainText() == "user") {
+            UtilitesClass::PrintValueToConsole("user access denied");
+            Dialog.accept();
+        } else {
+            UtilitesClass::PrintValueToConsole("access not denied");
+        };
+    } else {
+        Dialog.deleteLater();
+        on_QUIT_btn_clicked();
     }
+
+
+
+
+
+
+//    try {
+//        on_STOP_btn_clicked();
+//        Playing = true;
+//        ui->Playing_radioButton->setChecked(Playing);
+//        QCoreApplication::processEvents();
+//        std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> SettingsPair = GetMapsFromSettings();
+//        QCoreApplication::processEvents();
+//        startAnalyse(SettingsPair.first, SettingsPair.second, ui);
+//    }  catch (std::string error) {
+//        UtilitesClass::WriteTextErrorToLogFile(error);
+//    }
 }
 
 void MainClass::on_STOP_btn_clicked()
 {
     UtilitesClass::PrintValueToConsole("MainClass on_STOP_btn_clicked");
 
-    try {
-        Playing = false;
-        cv::destroyAllWindows();
-        ui->Playing_radioButton->setChecked(Playing);
-    }  catch (std::string error) {
-        UtilitesClass::WriteTextErrorToLogFile(error);
-    }
+    ui->tab_2->setDisabled(true);
+
+//    try {
+//        Playing = false;
+//        cv::destroyAllWindows();
+//        ui->Playing_radioButton->setChecked(Playing);
+//    }  catch (std::string error) {
+//        UtilitesClass::WriteTextErrorToLogFile(error);
+//    }
 }
 
 void MainClass::on_QUIT_btn_clicked()
