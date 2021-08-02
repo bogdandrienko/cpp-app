@@ -35,12 +35,13 @@ private slots:
     void on_ExportSettings_pushButton_clicked();
     void on_ImportSettings_pushButton_clicked();
 
-    std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> GetMapsFromSettings();
+    void LoginWidget();
     void AutoImport();
     void AutoPlay();
     void startAnalyse(std::map<std::string, std::string> AllSettingsMap,
                       std::vector<std::map<std::string,std::string>> AllSettingsVector,
                       Ui::MainClass *ui);
+    std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> GetMapsFromSettings();
 
 private:
     Ui::MainClass *ui;
