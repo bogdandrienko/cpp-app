@@ -39,7 +39,7 @@ MainClass::MainClass(QWidget *parent)
 
 //    QVector<QTabWidget*> wids;
 
-    QVector<MainClass *> wids;
+//    QVector<MainClass *> wids;
 
 //    wids.append(ui->tab_2);
 //    = {
@@ -56,10 +56,10 @@ MainClass::MainClass(QWidget *parent)
 //        {ui->tab_3},
 //        {ui->tab_4}
 //    };
-    for (auto& Vector : wids)
-    {
-        Vector->setDisabled(true);
-    }
+//    for (auto& Vector : wids)
+//    {
+//        Vector->setDisabled(true);
+//    }
 
 
 //    ui->tabWidget->findChildren(tabwidget)
@@ -88,36 +88,37 @@ void MainClass::on_START_btn_clicked()
 {
     UtilitesClass::PrintValueToConsole("MainClass on_START_btn_clicked");
 
-//    try {
-//        on_STOP_btn_clicked();
-//        Playing = true;
-//        ui->Playing_radioButton->setChecked(Playing);
-//        QCoreApplication::processEvents();
-//        std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> SettingsPair = GetMapsFromSettings();
-//        QCoreApplication::processEvents();
-//        startAnalyse(SettingsPair.first, SettingsPair.second, ui);
-//    }  catch (std::string error) {
-//        UtilitesClass::WriteTextErrorToLogFile(error);
-//    }
+//    ui->tab_2->setDisabled(false);
+//    ui->tab_3->setDisabled(false);
+//    ui->tab_4->setDisabled(false);
+    try {
+        on_STOP_btn_clicked();
+        Playing = true;
+        ui->Playing_radioButton->setChecked(Playing);
+        QCoreApplication::processEvents();
+        std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> SettingsPair = GetMapsFromSettings();
+        QCoreApplication::processEvents();
+        startAnalyse(SettingsPair.first, SettingsPair.second, ui);
+    }  catch (std::string error) {
+        UtilitesClass::WriteTextErrorToLogFile(error);
+    }
 }
 
 void MainClass::on_STOP_btn_clicked()
 {
     UtilitesClass::PrintValueToConsole("MainClass on_STOP_btn_clicked");
 
-    ui->tabWidget->setDisabled(true);
-
-    ui->tab_2->setVisible(false);
 //    ui->tab_2->setDisabled(true);
-//    ui->tab_2->hide();
+//    ui->tab_3->setDisabled(true);
+//    ui->tab_4->setDisabled(true);
 
-//    try {
-//        Playing = false;
-//        cv::destroyAllWindows();
-//        ui->Playing_radioButton->setChecked(Playing);
-//    }  catch (std::string error) {
-//        UtilitesClass::WriteTextErrorToLogFile(error);
-//    }
+    try {
+        Playing = false;
+        cv::destroyAllWindows();
+        ui->Playing_radioButton->setChecked(Playing);
+    }  catch (std::string error) {
+        UtilitesClass::WriteTextErrorToLogFile(error);
+    }
 }
 
 void MainClass::on_QUIT_btn_clicked()
