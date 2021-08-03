@@ -36,34 +36,6 @@ MainClass::MainClass(QWidget *parent)
 {
     UtilitesClass::PrintValueToConsole("MainClass constructor");
 
-
-//    QVector<QTabWidget*> wids;
-
-//    QVector<MainClass *> wids;
-
-//    wids.append(ui->tab_2);
-//    = {
-//        {ui->tab_2},
-//        {ui->tab_3},
-//        {ui->tab_4}
-//    };
-//    wids.push_back(ui->tab_2);
-//    wids.append(ui->tab_2);
-//    wids.append(ui->tab_3);
-//    wids.append(ui->tab_4);
-//    std::vector<QWidget*> TabVector = {
-//        {ui->tab_2},
-//        {ui->tab_3},
-//        {ui->tab_4}
-//    };
-//    for (auto& Vector : wids)
-//    {
-//        Vector->setDisabled(true);
-//    }
-
-
-//    ui->tabWidget->findChildren(tabwidget)
-
     try {
         ui->setupUi(this);
         AutoImport();
@@ -84,13 +56,87 @@ MainClass::~MainClass()
     }
 }
 
+void MainClass::on_Login_pushButton_clicked()
+{
+    UtilitesClass::PrintValueToConsole("MainClass on_Login_pushButton_clicked");
+
+    auto login = ui->Login_lineEdit->text().toStdString();
+    auto password = ui->Password_lineEdit->text().toStdString();
+    if (login == "admin" and password == "admin") {
+        UtilitesClass::PrintValueToConsole("admin access denied");
+        ui->Computer_Vision_tab->setDisabled(false);
+        ui->Settings_tab->setDisabled(false);
+        ui->Description_label->setText("admin access denied");
+    } else if (login == "user" and password == "user") {
+        UtilitesClass::PrintValueToConsole("user access denied");
+        ui->Settings_tab->setDisabled(false);
+        ui->Computer_Vision_tab->setDisabled(true);
+        ui->Description_label->setText("user access denied");
+    } else {
+        UtilitesClass::PrintValueToConsole("access not denied");
+        ui->Computer_Vision_tab->setDisabled(true);
+        ui->Settings_tab->setDisabled(true);
+        ui->Description_label->setText("access not denied");
+    };
+}
+
+void MainClass::on_Logout_pushButton_clicked()
+{
+    UtilitesClass::PrintValueToConsole("MainClass on_Logout_pushButton_clicked");
+
+    UtilitesClass::PrintValueToConsole("logout");
+    ui->Login_lineEdit->setText("");
+    ui->Password_lineEdit->setText("");
+    ui->Description_label->setText("...");
+    ui->Settings_tab->setDisabled(true);
+    ui->Computer_Vision_tab->setDisabled(true);
+}
+
+void MainClass::Dialog()
+{
+    //    QDialog Dialog;
+    //    Dialog.setWindowTitle("Доступ к системе машинного зрения");
+    //    Dialog.setWindowIcon(QIcon("://icon.png"));
+    //    QGridLayout *mainLayout = new QGridLayout;
+    //    Dialog.setLayout(mainLayout);
+    //    mainLayout->setRowStretch(2, 1);
+
+    //    QLabel *LabelLogin = new QLabel("логин");
+    //    mainLayout->addWidget(LabelLogin, 0, 0);
+    //    QLineEdit *LoginLineEdit = new QLineEdit();
+    //    mainLayout->addWidget(LoginLineEdit, 0, 1);
+    //    QLabel *LabelPassword = new QLabel("пароль");
+    //    mainLayout->addWidget(LabelPassword, 1, 0);
+    //    QLineEdit *PasswordLineEdit = new QLineEdit();
+    //    mainLayout->addWidget(PasswordLineEdit, 1, 1);
+    //    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    //    mainLayout->addWidget(buttonBox, 2, 0);
+    //    QPushButton* okButton = new QPushButton("&Ok");
+    //    okButton->setDefault(true);
+    //    okButton = buttonBox->button(QDialogButtonBox::Ok);
+    //    connect(buttonBox, &QDialogButtonBox::accepted, this, &MainClass::LoginWidget);
+    //    QLabel *LabelDescription = new QLabel("...");
+    //    mainLayout->addWidget(LabelDescription, 2, 1);
+
+    //    if (Dialog.exec() == QDialog::Accepted) {
+    //        UtilitesClass::PrintValueToConsole("access");
+    //        if (LoginLineEdit->text() == "admin" and PasswordLineEdit->text() == "admin") {
+    //            UtilitesClass::PrintValueToConsole("admin access denied");
+    //        } if (LoginLineEdit->text() == "user" and PasswordLineEdit->text() == "user") {
+    //            UtilitesClass::PrintValueToConsole("user access denied");
+    //        } else {
+    //            UtilitesClass::PrintValueToConsole("access not denied");
+    //        };
+    //    } else {
+    //        Dialog.deleteLater();
+    //        on_QUIT_btn_clicked();
+    //    }
+}
+
 void MainClass::on_START_btn_clicked()
 {
     UtilitesClass::PrintValueToConsole("MainClass on_START_btn_clicked");
 
-//    ui->tab_2->setDisabled(false);
-//    ui->tab_3->setDisabled(false);
-//    ui->tab_4->setDisabled(false);
     try {
         on_STOP_btn_clicked();
         Playing = true;
@@ -107,10 +153,6 @@ void MainClass::on_START_btn_clicked()
 void MainClass::on_STOP_btn_clicked()
 {
     UtilitesClass::PrintValueToConsole("MainClass on_STOP_btn_clicked");
-
-//    ui->tab_2->setDisabled(true);
-//    ui->tab_3->setDisabled(true);
-//    ui->tab_4->setDisabled(true);
 
     try {
         Playing = false;
@@ -453,60 +495,6 @@ void MainClass::on_ImportSettings_pushButton_clicked()
     }
 }
 
-void MainClass::LoginWidget()
-{
-    QDialog Dialog;
-    Dialog.setWindowTitle("Доступ к системе машинного зрения");
-    Dialog.setWindowIcon(QIcon("://icon.png"));
-
-    QGridLayout *mainLayout = new QGridLayout;
-//    mainLayout->setSizeConstraint(QLayout::SetFixedSize);
-
-    QLabel *LabelLogin = new QLabel("логин");
-    mainLayout->addWidget(LabelLogin, 0, 0);
-
-    QTextEdit *TextEditLogin = new QTextEdit();
-    mainLayout->addWidget(TextEditLogin, 0, 1);
-
-    QLabel *LabelPassword = new QLabel("пароль");
-    mainLayout->addWidget(LabelPassword, 1, 0);
-
-    QTextEdit *TextEditPassword = new QTextEdit();
-    mainLayout->addWidget(TextEditPassword, 1, 1);
-
-    QPushButton* okButton = new QPushButton("&Ok");
-    okButton->setDefault(true);
-//    QDialogButtonBox* buttonBox = new QDialogButtonBox(this);
-//    buttonBox->addButton(okButton, QDialogButtonBox::AcceptRole);
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
-    mainLayout->addWidget(buttonBox, 2, 0);
-    okButton = buttonBox->button(QDialogButtonBox::Ok);
-    connect(buttonBox, &QDialogButtonBox::accepted, this, &MainClass::LoginWidget);
-
-//    QDialogButtonBox *DialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok, &Dialog);
-//    mainLayout->addWidget(DialogButtonBox, 2, 0);
-//    connect(DialogButtonBox, &QDialogButtonBox::accepted, this, Dialog.close());
-
-    QCheckBox *wholeWordsCheckBox = new QCheckBox(tr("автоаутентификация"));
-    mainLayout->addWidget(wholeWordsCheckBox, 2, 1);
-
-    Dialog.setLayout(mainLayout);
-    mainLayout->setRowStretch(2, 1);
-    if (Dialog.exec() == QDialog::Accepted) {
-        UtilitesClass::PrintValueToConsole("access");
-        if (TextEditLogin->toPlainText() == "admin" and TextEditPassword->toPlainText() == "admin") {
-            UtilitesClass::PrintValueToConsole("admin access denied");
-        } if (TextEditLogin->toPlainText() == "user" and TextEditPassword->toPlainText() == "user") {
-            UtilitesClass::PrintValueToConsole("user access denied");
-        } else {
-            UtilitesClass::PrintValueToConsole("access not denied");
-        };
-    } else {
-        Dialog.deleteLater();
-        on_QUIT_btn_clicked();
-    }
-}
-
 std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> MainClass::GetMapsFromSettings() {
     std::map <std::string,std::string> AllSettingsMap = {
         { "AutoPlay", UtilitesClass::GetConvertedQt_obj(ui->AutoPlay_checkBox) },
@@ -798,6 +786,7 @@ void MainClass::startAnalyse(std::map<std::string, std::string> AllSettingsMap,
                         QCoreApplication::processEvents();
                         if (UtilitesClass::GetValueFromMap(AllSettingsMap, "ComputeType") == "async") {
                             AsyncThreadClass* obj = new AsyncThreadClass(AllSettingsMap, OneSettingsMap, ui);
+                            obj->deleteLater();
                         }
                         QCoreApplication::processEvents();
                     }
@@ -1543,3 +1532,5 @@ void UtilitesClass::SetConvertedQt_obj(QSlider *value, QString text)
         UtilitesClass::WriteTextErrorToLogFile(error);
     }
 };
+
+

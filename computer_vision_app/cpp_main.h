@@ -28,6 +28,9 @@ public:
     ~MainClass();
 
 private slots:
+    void on_Login_pushButton_clicked();
+    void on_Logout_pushButton_clicked();
+
     void on_START_btn_clicked();
     void on_STOP_btn_clicked();
     void on_QUIT_btn_clicked();
@@ -35,13 +38,14 @@ private slots:
     void on_ExportSettings_pushButton_clicked();
     void on_ImportSettings_pushButton_clicked();
 
-    void LoginWidget();
+    void Dialog();
     void AutoImport();
     void AutoPlay();
     void startAnalyse(std::map<std::string, std::string> AllSettingsMap,
                       std::vector<std::map<std::string,std::string>> AllSettingsVector,
                       Ui::MainClass *ui);
     std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> GetMapsFromSettings();
+
 
 private:
     Ui::MainClass *ui;
