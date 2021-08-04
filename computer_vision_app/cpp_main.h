@@ -19,17 +19,21 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainClass; }
 QT_END_NAMESPACE
 
-class MainClass : public QMainWindow
+class UiWidgetClass : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainClass(QWidget *parent = nullptr);
-    ~MainClass();
+    UiWidgetClass(QWidget *parent = nullptr);
+    ~UiWidgetClass();
 
 private slots:
     void on_Login_pushButton_clicked();
     void on_Logout_pushButton_clicked();
+
+    void on_Save_pushButton_clicked();
+    void on_Delete_pushButton_clicked();
+    void on_Unlock_pushButton_clicked();
 
     void on_START_btn_clicked();
     void on_STOP_btn_clicked();
@@ -39,18 +43,22 @@ private slots:
     void on_ImportSettings_pushButton_clicked();
 
     void Dialog();
+    void Tray();
+    void iconActivated(QSystemTrayIcon::ActivationReason reason);
+    void AutoLogin();
+    void SaveOrDeleteAutoLogin(bool save);
     void AutoImport();
     void AutoPlay();
     void startAnalyse(std::map<std::string, std::string> AllSettingsMap,
                       std::vector<std::map<std::string,std::string>> AllSettingsVector,
                       Ui::MainClass *ui);
     std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> GetMapsFromSettings();
-
-
 private:
     Ui::MainClass *ui;
     bool Playing;
-
+    QSystemTrayIcon *trayIcon;
+protected:
+    void closeEvent(QCloseEvent *event);
 };
 
 class SyncThreadClass : public QObject
@@ -94,16 +102,30 @@ private:
     QScopedPointer<QNetworkReply, QScopedPointerDeleteLater> reply;
 };
 
-class UtilitesClass{
+class CVClass{
 public:
 
     static void RenderCvImage(cv::Mat Image, double renderSize, std::string name);
+
+private:
+};
+
+class SQLClass{
+public:
 
     static std::vector<std::vector<std::string>> GetValuesFromSQL(std::string sqlQuery = "SELECT * FROM grohot16_now_table;", std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:192.168.15.87\\DESKTOP-SM7K050\\COMPUTER_VISION,1433;DATABASE=analiz_16grohot;UID=computer_vision;PWD=vision12345678", QString connectionDriver = "QODBC");
 
     static void UpdateValuesToSQL(std::string device_row, double value_row, bool alarm_row, std::map<std::string, std::string> AllSettingsMap, QString connectionDriver = "QODBC");
 
     static void InsertValuesToSQL(std::string device_row, double value_row, bool alarm_row, std::map<std::string, std::string> AllSettingsMap, QString connectionDriver = "QODBC");
+
+    static std::string GetValueFromMap(std::map <std::string, std::string> Map, std::string Key);
+
+private:
+};
+
+class UtilitesClass{
+public:
 
     static std::string GetValueFromMap(std::map <std::string, std::string> Map, std::string Key);
 
@@ -120,6 +142,7 @@ public:
     static std::string GetConvertedQt_obj(QCheckBox *value);
     static std::string GetConvertedQt_obj(QSpinBox *value);
     static std::string GetConvertedQt_obj(QDoubleSpinBox *value);
+    static std::string GetConvertedQt_obj(QLineEdit *value);
     static std::string GetConvertedQt_obj(QTextEdit *value);
     static std::string GetConvertedQt_obj(QComboBox *value);
     static std::string GetConvertedQt_obj(QSlider *value);
@@ -127,6 +150,7 @@ public:
     static void SetConvertedQt_obj(QCheckBox *value, QString text);
     static void SetConvertedQt_obj(QSpinBox *value, QString text);
     static void SetConvertedQt_obj(QDoubleSpinBox *value, QString text);
+    static void SetConvertedQt_obj(QLineEdit *value, QString text);
     static void SetConvertedQt_obj(QTextEdit *value, QString text);
     static void SetConvertedQt_obj(QComboBox *value, QString text);
     static void SetConvertedQt_obj(QSlider *value, QString text);

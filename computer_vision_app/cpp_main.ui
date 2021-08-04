@@ -29,7 +29,17 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Video Analitic</string>
+   <string>SMART</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icon.png</normaloff>icon.png</iconset>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>48</width>
+    <height>48</height>
+   </size>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
@@ -92,7 +102,7 @@
       <property name="tabBarAutoHide">
        <bool>false</bool>
       </property>
-      <widget class="QWidget" name="tab_12">
+      <widget class="QWidget" name="Login_tab">
        <attribute name="title">
         <string>LOGIN</string>
        </attribute>
@@ -102,39 +112,22 @@
           <x>10</x>
           <y>10</y>
           <width>1241</width>
-          <height>621</height>
+          <height>661</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_6">
          <item>
           <layout class="QGridLayout" name="gridLayout">
-           <item row="2" column="1">
-            <widget class="QLineEdit" name="Password_lineEdit"/>
-           </item>
            <item row="1" column="1">
             <widget class="QLineEdit" name="Login_lineEdit"/>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="Password_lineEdit"/>
            </item>
            <item row="2" column="0">
             <widget class="QLabel" name="label_3">
              <property name="text">
               <string>Password</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QPushButton" name="Login_pushButton">
-             <property name="text">
-              <string>Login</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>Login</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -151,10 +144,38 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="QPushButton" name="Logout_pushButton">
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_2">
              <property name="text">
-              <string>Logout</string>
+              <string>Login</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <widget class="QPushButton" name="Login_pushButton">
+               <property name="text">
+                <string>Login</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="Logout_pushButton">
+               <property name="text">
+                <string>Logout</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="3" column="0">
+            <widget class="QCheckBox" name="AutoLogin_checkBox">
+             <property name="text">
+              <string>AutoLogin</string>
              </property>
             </widget>
            </item>
@@ -165,7 +186,7 @@
       </widget>
       <widget class="QWidget" name="Settings_tab">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <attribute name="title">
         <string>SETTINGS</string>
@@ -173,6 +194,9 @@
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
          <widget class="QTabWidget" name="tabWidget">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="currentIndex">
            <number>0</number>
           </property>
@@ -180,15 +204,60 @@
            <attribute name="title">
             <string>16/1-10</string>
            </attribute>
-           <widget class="QTextEdit" name="textEdit">
+           <widget class="QWidget" name="gridLayoutWidget">
             <property name="geometry">
              <rect>
               <x>10</x>
               <y>10</y>
               <width>1221</width>
-              <height>571</height>
+              <height>611</height>
              </rect>
             </property>
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="0" column="0">
+              <widget class="QLineEdit" name="Path_lineEdit">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="inputMask">
+                <string/>
+               </property>
+               <property name="text">
+                <string>\\ds\BOGDAN\Settings</string>
+               </property>
+               <property name="dragEnabled">
+                <bool>false</bool>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+               <property name="placeholderText">
+                <string>\\ds\BOGDAN\Settings</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="Unlock_pushButton">
+               <property name="text">
+                <string>Unlock</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QPushButton" name="Save_pushButton">
+               <property name="text">
+                <string>Save</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QPushButton" name="Delete_pushButton">
+               <property name="text">
+                <string>Delete</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
           <widget class="QWidget" name="tab_4">
@@ -201,7 +270,7 @@
               <x>10</x>
               <y>10</y>
               <width>1221</width>
-              <height>571</height>
+              <height>611</height>
              </rect>
             </property>
            </widget>
@@ -212,7 +281,7 @@
       </widget>
       <widget class="QWidget" name="Computer_Vision_tab">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <attribute name="title">
         <string>Computer Vision</string>
@@ -243,7 +312,7 @@
                   <x>10</x>
                   <y>10</y>
                   <width>1191</width>
-                  <height>521</height>
+                  <height>571</height>
                  </rect>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_1">
@@ -441,8 +510,8 @@
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="1" colspan="3">
-                    <widget class="Line" name="line_1_1">
+                   <item row="3" column="1" colspan="3">
+                    <widget class="Line" name="line_1_2">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
                        <horstretch>0</horstretch>
@@ -466,8 +535,8 @@
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="1" colspan="3">
-                    <widget class="Line" name="line_1_2">
+                   <item row="0" column="1" colspan="3">
+                    <widget class="Line" name="line_1_1">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
                        <horstretch>0</horstretch>
@@ -506,7 +575,7 @@
                   <x>10</x>
                   <y>10</y>
                   <width>1191</width>
-                  <height>531</height>
+                  <height>712</height>
                  </rect>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -6296,7 +6365,7 @@ p, li { white-space: pre-wrap; }
                   <x>10</x>
                   <y>10</y>
                   <width>1191</width>
-                  <height>531</height>
+                  <height>594</height>
                  </rect>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -7066,7 +7135,7 @@ p, li { white-space: pre-wrap; }
                   <x>10</x>
                   <y>10</y>
                   <width>1191</width>
-                  <height>531</height>
+                  <height>544</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="horizontalLayout_4">
@@ -7995,39 +8064,6 @@ p, li { white-space: pre-wrap; }
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1280</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuVision">
-    <property name="geometry">
-     <rect>
-      <x>265</x>
-      <y>99</y>
-      <width>136</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="title">
-     <string>Cpp App</string>
-    </property>
-    <addaction name="separator"/>
-    <addaction name="separator"/>
-   </widget>
-   <addaction name="menuVision"/>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

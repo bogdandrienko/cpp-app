@@ -16,21 +16,28 @@
 #include <map>
 
 
+
+/* main */
 int main(int argc, char *argv[])
 {
     UtilitesClass::PrintValueToConsole("main");
 
     try {
         QApplication a(argc, argv);
-        MainClass w;
+        a.setStyle("fushion");
+        UiWidgetClass w;
         w.show();
         return a.exec();
     }  catch (std::string error) {
         UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
+/* main */
 
-MainClass::MainClass(QWidget *parent)
+
+
+/* MainClass */
+UiWidgetClass::UiWidgetClass(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainClass)
 {
@@ -38,6 +45,8 @@ MainClass::MainClass(QWidget *parent)
 
     try {
         ui->setupUi(this);
+        Tray();
+        AutoLogin();
         AutoImport();
         AutoPlay();
     }  catch (std::string error) {
@@ -45,7 +54,7 @@ MainClass::MainClass(QWidget *parent)
     }
 }
 
-MainClass::~MainClass()
+UiWidgetClass::~UiWidgetClass()
 {
     UtilitesClass::PrintValueToConsole("MainClass destructor");
 
@@ -56,7 +65,7 @@ MainClass::~MainClass()
     }
 }
 
-void MainClass::on_Login_pushButton_clicked()
+void UiWidgetClass::on_Login_pushButton_clicked()
 {
     UtilitesClass::PrintValueToConsole("MainClass on_Login_pushButton_clicked");
 
@@ -64,76 +73,249 @@ void MainClass::on_Login_pushButton_clicked()
     auto password = ui->Password_lineEdit->text().toStdString();
     if (login == "admin" and password == "admin") {
         UtilitesClass::PrintValueToConsole("admin access denied");
+        if (ui->AutoLogin_checkBox->isChecked()) {
+            SaveOrDeleteAutoLogin(true);
+        }
         ui->Computer_Vision_tab->setDisabled(false);
         ui->Settings_tab->setDisabled(false);
+        ui->Login_lineEdit->setText("");
+        ui->Password_lineEdit->setText("");
         ui->Description_label->setText("admin access denied");
     } else if (login == "user" and password == "user") {
         UtilitesClass::PrintValueToConsole("user access denied");
+        if (ui->AutoLogin_checkBox->isChecked()) {
+            SaveOrDeleteAutoLogin(true);
+        }
         ui->Settings_tab->setDisabled(false);
         ui->Computer_Vision_tab->setDisabled(true);
+        ui->Login_lineEdit->setText("");
+        ui->Password_lineEdit->setText("");
         ui->Description_label->setText("user access denied");
     } else {
         UtilitesClass::PrintValueToConsole("access not denied");
         ui->Computer_Vision_tab->setDisabled(true);
         ui->Settings_tab->setDisabled(true);
+        ui->Login_lineEdit->setText("");
+        ui->Password_lineEdit->setText("");
         ui->Description_label->setText("access not denied");
     };
 }
 
-void MainClass::on_Logout_pushButton_clicked()
+void UiWidgetClass::on_Logout_pushButton_clicked()
 {
     UtilitesClass::PrintValueToConsole("MainClass on_Logout_pushButton_clicked");
 
+    SaveOrDeleteAutoLogin(false);
     UtilitesClass::PrintValueToConsole("logout");
     ui->Login_lineEdit->setText("");
     ui->Password_lineEdit->setText("");
     ui->Description_label->setText("...");
     ui->Settings_tab->setDisabled(true);
     ui->Computer_Vision_tab->setDisabled(true);
+    ui->AutoLogin_checkBox->setChecked(false);
 }
 
-void MainClass::Dialog()
+void UiWidgetClass::AutoLogin()
 {
-    //    QDialog Dialog;
-    //    Dialog.setWindowTitle("Доступ к системе машинного зрения");
-    //    Dialog.setWindowIcon(QIcon("://icon.png"));
-    //    QGridLayout *mainLayout = new QGridLayout;
-    //    Dialog.setLayout(mainLayout);
-    //    mainLayout->setRowStretch(2, 1);
+    UtilitesClass::PrintValueToConsole("MainClass AutoLogin");
 
-    //    QLabel *LabelLogin = new QLabel("логин");
-    //    mainLayout->addWidget(LabelLogin, 0, 0);
-    //    QLineEdit *LoginLineEdit = new QLineEdit();
-    //    mainLayout->addWidget(LoginLineEdit, 0, 1);
-    //    QLabel *LabelPassword = new QLabel("пароль");
-    //    mainLayout->addWidget(LabelPassword, 1, 0);
-    //    QLineEdit *PasswordLineEdit = new QLineEdit();
-    //    mainLayout->addWidget(PasswordLineEdit, 1, 1);
-    //    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
-    //    mainLayout->addWidget(buttonBox, 2, 0);
-    //    QPushButton* okButton = new QPushButton("&Ok");
-    //    okButton->setDefault(true);
-    //    okButton = buttonBox->button(QDialogButtonBox::Ok);
-    //    connect(buttonBox, &QDialogButtonBox::accepted, this, &MainClass::LoginWidget);
-    //    QLabel *LabelDescription = new QLabel("...");
-    //    mainLayout->addWidget(LabelDescription, 2, 1);
+    QFile file("login.json");
+    if (!file.open( QIODevice::ReadOnly)) {
+        std::cerr << "Error: unable to open a file" << std::endl;
+        on_Logout_pushButton_clicked();
+    } else {
+        ui->AutoLogin_checkBox->setChecked(true);
+        QByteArray data = file.readAll();
+        QJsonDocument document;
+        document = document.fromJson(data);
 
-    //    if (Dialog.exec() == QDialog::Accepted) {
-    //        UtilitesClass::PrintValueToConsole("access");
-    //        if (LoginLineEdit->text() == "admin" and PasswordLineEdit->text() == "admin") {
-    //            UtilitesClass::PrintValueToConsole("admin access denied");
-    //        } if (LoginLineEdit->text() == "user" and PasswordLineEdit->text() == "user") {
-    //            UtilitesClass::PrintValueToConsole("user access denied");
-    //        } else {
-    //            UtilitesClass::PrintValueToConsole("access not denied");
-    //        };
-    //    } else {
-    //        Dialog.deleteLater();
-    //        on_QUIT_btn_clicked();
-    //    }
+        std::map<std::string, QLineEdit*> QLineEditMap = {
+            { "Login", ui->Login_lineEdit },
+            { "Password", ui->Password_lineEdit },
+        };
+        for (auto& elem : QLineEditMap){
+            UtilitesClass::SetConvertedQt_obj(elem.second, document.object()[QString::fromStdString(elem.first)].toString());
+        }
+        on_Login_pushButton_clicked();
+    }
 }
 
-void MainClass::on_START_btn_clicked()
+void UiWidgetClass::SaveOrDeleteAutoLogin(bool save)
+{
+    UtilitesClass::PrintValueToConsole("MainClass SaveOrDeleteAutoLogin");
+
+    if (save) {
+        UtilitesClass::PrintValueToConsole("save");
+        try {
+            QJsonObject json;
+            std::map<std::string, std::string> QLineEditMap = {
+                { "Login", ui->Login_lineEdit->text().toStdString() },
+                { "Password", ui->Password_lineEdit->text().toStdString() },
+            };
+            for (auto& elem : QLineEditMap)
+                json[QString::fromStdString(elem.first)] = QString::fromStdString(elem.second);
+            QJsonDocument document;
+            document.setObject(json);
+            QFile file("login.json");
+            if (!file.open(QIODevice::WriteOnly)) {
+                std::cerr << "Error: unable to open a file" << std::endl;
+            } else {
+                if (!file.write(document.toJson())) {
+                    std::cerr << "Error: unable to write a file" << std::endl;
+                }
+            }
+        }  catch (std::string error) {
+            UtilitesClass::WriteTextErrorToLogFile(error);
+        }
+    } else {
+        UtilitesClass::PrintValueToConsole("delete");
+        try {
+            remove("login.json");
+        }  catch (std::string error) {
+            UtilitesClass::WriteTextErrorToLogFile(error);
+        }
+    }
+}
+
+void UiWidgetClass::Dialog()
+{
+//        QDialog Dialog;
+//        Dialog.setWindowTitle("Доступ к системе машинного зрения");
+//        Dialog.setWindowIcon(QIcon("://icon.png"));
+//        QGridLayout *mainLayout = new QGridLayout;
+//        Dialog.setLayout(mainLayout);
+//        mainLayout->setRowStretch(2, 1);
+
+//        QLabel *LabelLogin = new QLabel("логин");
+//        mainLayout->addWidget(LabelLogin, 0, 0);
+//        QLineEdit *LoginLineEdit = new QLineEdit();
+//        mainLayout->addWidget(LoginLineEdit, 0, 1);
+//        QLabel *LabelPassword = new QLabel("пароль");
+//        mainLayout->addWidget(LabelPassword, 1, 0);
+//        QLineEdit *PasswordLineEdit = new QLineEdit();
+//        mainLayout->addWidget(PasswordLineEdit, 1, 1);
+//        QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+//        mainLayout->addWidget(buttonBox, 2, 0);
+//        QPushButton* okButton = new QPushButton("&Ok");
+//        okButton->setDefault(true);
+//        okButton = buttonBox->button(QDialogButtonBox::Ok);
+//        connect(buttonBox, &QDialogButtonBox::accepted, this, &MainClass::LoginWidget);
+//        QLabel *LabelDescription = new QLabel("...");
+//        mainLayout->addWidget(LabelDescription, 2, 1);
+
+//        if (Dialog.exec() == QDialog::Accepted) {
+//            UtilitesClass::PrintValueToConsole("access");
+//            if (LoginLineEdit->text() == "admin" and PasswordLineEdit->text() == "admin") {
+//                UtilitesClass::PrintValueToConsole("admin access denied");
+//            } if (LoginLineEdit->text() == "user" and PasswordLineEdit->text() == "user") {
+//                UtilitesClass::PrintValueToConsole("user access denied");
+//            } else {
+//                UtilitesClass::PrintValueToConsole("access not denied");
+//            };
+//        } else {
+//            Dialog.deleteLater();
+//            on_QUIT_btn_clicked();
+    //        }
+}
+
+void UiWidgetClass::Tray()
+{
+    trayIcon = new QSystemTrayIcon(this);
+    trayIcon->setIcon(this->style()->standardIcon(QStyle::SP_ComputerIcon));
+    trayIcon->setToolTip("SMART" "\n" "Приложение с определённым функционалом.");
+    QMenu * menu = new QMenu(this);
+    QAction * viewWindow = new QAction("Развернуть окно", this);
+    QAction * quitAction = new QAction("Выход", this);
+    connect(viewWindow, SIGNAL(triggered()), this, SLOT(show()));
+    connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
+    menu->addAction(viewWindow);
+    menu->addAction(quitAction);
+    trayIcon->setContextMenu(menu);
+    trayIcon->show();
+    connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+            this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
+}
+
+void UiWidgetClass::closeEvent(QCloseEvent *event)
+{
+    if(this->isVisible()){
+        event->ignore();
+        this->hide();
+        QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Information);
+
+        trayIcon->showMessage("SMART", "Приложение свернуто в трей. Развернуть приложение - левая кнопка мыши. Для закрытия нажмите правой клавишей мыши.",
+                              icon, 3000);
+    }
+}
+
+void UiWidgetClass::iconActivated(QSystemTrayIcon::ActivationReason reason)
+{
+    switch (reason){
+    case QSystemTrayIcon::Trigger:
+        if(!this->isVisible()){
+            this->show();
+        } else {
+            this->hide();
+        }
+        break;
+    default:
+        break;
+    }
+}
+
+void UiWidgetClass::on_Save_pushButton_clicked()
+{
+    UtilitesClass::PrintValueToConsole("MainClass on_Save_pushButton_clicked");
+
+    QString Path = QString::fromStdString(ui->Path_lineEdit->text().toStdString() + "\\login.json");
+
+    try {
+        QJsonObject json;
+        std::map<std::string, std::string> QLineEditMap = {
+            { "Login", ui->Login_lineEdit->text().toStdString() },
+            { "Password", ui->Password_lineEdit->text().toStdString() },
+        };
+        for (auto& elem : QLineEditMap)
+            json[QString::fromStdString(elem.first)] = QString::fromStdString(elem.second);
+        QJsonDocument document;
+        document.setObject(json);
+        QFile file(Path);
+        if (!file.open(QIODevice::WriteOnly)) {
+            std::cerr << "Error: unable to open a file" << std::endl;
+        } else {
+            if (!file.write(document.toJson())) {
+                std::cerr << "Error: unable to write a file" << std::endl;
+            }
+        }
+    }  catch (std::string error) {
+        UtilitesClass::WriteTextErrorToLogFile(error);
+    }
+}
+
+void UiWidgetClass::on_Delete_pushButton_clicked()
+{
+    UtilitesClass::PrintValueToConsole("MainClass on_Delete_pushButton_clicked");
+
+    auto Path = ui->Path_lineEdit->text().toStdString() + "\\login.json";
+    try {
+        remove(Path.c_str());
+    }  catch (std::string error) {
+        UtilitesClass::WriteTextErrorToLogFile(error);
+    }
+}
+
+void UiWidgetClass::on_Unlock_pushButton_clicked()
+{
+    UtilitesClass::PrintValueToConsole("MainClass on_Unlock_pushButton_clicked");
+    if (ui->Path_lineEdit->isReadOnly()) {
+        ui->Path_lineEdit->setReadOnly(false);
+    } else {
+        ui->Path_lineEdit->setReadOnly(true);
+    }
+    std::cout << ui->Path_lineEdit->isReadOnly() << std::endl;
+}
+
+void UiWidgetClass::on_START_btn_clicked()
 {
     UtilitesClass::PrintValueToConsole("MainClass on_START_btn_clicked");
 
@@ -150,7 +332,7 @@ void MainClass::on_START_btn_clicked()
     }
 }
 
-void MainClass::on_STOP_btn_clicked()
+void UiWidgetClass::on_STOP_btn_clicked()
 {
     UtilitesClass::PrintValueToConsole("MainClass on_STOP_btn_clicked");
 
@@ -163,7 +345,7 @@ void MainClass::on_STOP_btn_clicked()
     }
 }
 
-void MainClass::on_QUIT_btn_clicked()
+void UiWidgetClass::on_QUIT_btn_clicked()
 {
     UtilitesClass::PrintValueToConsole("MainClass on_QUIT_btn_clicked");
 
@@ -175,7 +357,7 @@ void MainClass::on_QUIT_btn_clicked()
     }
 }
 
-void MainClass::on_CamShot_pushButton_clicked()
+void UiWidgetClass::on_CamShot_pushButton_clicked()
 {
     UtilitesClass::PrintValueToConsole("MainClass on_CamShot_pushButton_clicked");
 
@@ -213,7 +395,7 @@ void MainClass::on_CamShot_pushButton_clicked()
     }
 }
 
-void MainClass::on_ExportSettings_pushButton_clicked()
+void UiWidgetClass::on_ExportSettings_pushButton_clicked()
 {
     UtilitesClass::PrintValueToConsole("MainClass on_ExportSettings_pushButton_clicked");
 
@@ -248,7 +430,7 @@ void MainClass::on_ExportSettings_pushButton_clicked()
     }
 }
 
-void MainClass::on_ImportSettings_pushButton_clicked()
+void UiWidgetClass::on_ImportSettings_pushButton_clicked()
 {
     UtilitesClass::PrintValueToConsole("MainClass on_ImportSettings_pushButton_clicked");
 
@@ -495,7 +677,7 @@ void MainClass::on_ImportSettings_pushButton_clicked()
     }
 }
 
-std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> MainClass::GetMapsFromSettings() {
+std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> UiWidgetClass::GetMapsFromSettings() {
     std::map <std::string,std::string> AllSettingsMap = {
         { "AutoPlay", UtilitesClass::GetConvertedQt_obj(ui->AutoPlay_checkBox) },
         { "AutoImport", UtilitesClass::GetConvertedQt_obj(ui->AutoImport_checkBox) },
@@ -720,7 +902,7 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
     return std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>>(AllSettingsMap, AllSettingsVector);
 }
 
-void MainClass::AutoImport()
+void UiWidgetClass::AutoImport()
 {
     UtilitesClass::PrintValueToConsole("MainClass AutoImport");
 
@@ -742,7 +924,7 @@ void MainClass::AutoImport()
     }
 }
 
-void MainClass::AutoPlay()
+void UiWidgetClass::AutoPlay()
 {
     UtilitesClass::PrintValueToConsole("MainClass AutoPlay");
 
@@ -756,7 +938,7 @@ void MainClass::AutoPlay()
     }
 }
 
-void MainClass::startAnalyse(std::map<std::string, std::string> AllSettingsMap,
+void UiWidgetClass::startAnalyse(std::map<std::string, std::string> AllSettingsMap,
                              std::vector<std::map<std::string,std::string>> AllSettingsVector,
                              Ui::MainClass *ui)
 {
@@ -809,11 +991,11 @@ void MainClass::startAnalyse(std::map<std::string, std::string> AllSettingsMap,
         UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
+/* MainClass */
 
 
 
-
-
+/* SyncThreadClass */
 SyncThreadClass::SyncThreadClass(std::map<std::string, std::string> AllSettingsMap,
                                  std::map<std::string,std::string> OneSettingsMap,
                                  Ui::MainClass *ui,
@@ -872,22 +1054,22 @@ SyncThreadClass::SyncThreadClass(std::map<std::string, std::string> AllSettingsM
             }
             if (result > std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel"))){
                 if (UtilitesClass::GetValueFromMap(AllSettings, "WriteNowSql") == "true"){
-                    UtilitesClass::UpdateValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 1, AllSettings);
+                    SQLClass::UpdateValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 1, AllSettings);
                 }
                 if (UtilitesClass::GetValueFromMap(AllSettings, "WriteDataSql") == "true"){
-                    UtilitesClass::InsertValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
+                    SQLClass::InsertValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
                 }
             } else {
                 if (UtilitesClass::GetValueFromMap(AllSettings, "WriteNowSql") == "true"){
-                    UtilitesClass::UpdateValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
+                    SQLClass::UpdateValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
                 }
                 if (UtilitesClass::GetValueFromMap(AllSettings, "WriteDataSql") == "true"){
-                    UtilitesClass::InsertValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
+                    SQLClass::InsertValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
                 }
             }
             if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "none") {
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") ==  "source") {
-                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                CVClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "final") {
                 cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
@@ -897,9 +1079,9 @@ SyncThreadClass::SyncThreadClass(std::map<std::string, std::string> AllSettingsM
                 else {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
                 }
-                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                CVClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "extended") {
-                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                CVClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
                 cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
@@ -908,10 +1090,10 @@ SyncThreadClass::SyncThreadClass(std::map<std::string, std::string> AllSettingsM
                 else {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
                 }
-                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                CVClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "all") {
-                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
-                UtilitesClass::RenderCvImage(mask, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "mask " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                CVClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                CVClass::RenderCvImage(mask, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "mask " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
                 cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
@@ -920,7 +1102,7 @@ SyncThreadClass::SyncThreadClass(std::map<std::string, std::string> AllSettingsM
                 else {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
                 }
-                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                CVClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             }
             if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToConsole") == "true") {
                 UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam") + " IS : " + std::to_string(result) + "%");
@@ -954,11 +1136,11 @@ SyncThreadClass::~SyncThreadClass()
 {
         UtilitesClass::PrintValueToConsole("SyncThreadClass destructor");
 }
+/* SyncThreadClass */
 
 
 
-
-
+/* AsyncThreadClass */
 AsyncThreadClass::AsyncThreadClass(std::map<std::string,std::string> AllSettingsMap,
                                    std::map<std::string,std::string> OneSettingsMap,
                                    Ui::MainClass *ui, QWidget *parent) : QObject(parent)
@@ -1035,22 +1217,22 @@ void AsyncThreadClass::finishDownload()
             }
             if (result > std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel"))){
                 if (UtilitesClass::GetValueFromMap(AllSettings, "WriteNowSql") == "true"){
-                    UtilitesClass::UpdateValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 1, AllSettings);
+                    SQLClass::UpdateValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 1, AllSettings);
                 }
                 if (UtilitesClass::GetValueFromMap(AllSettings, "WriteDataSql") == "true"){
-                    UtilitesClass::InsertValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
+                    SQLClass::InsertValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
                 }
             } else {
                 if (UtilitesClass::GetValueFromMap(AllSettings, "WriteNowSql") == "true"){
-                    UtilitesClass::UpdateValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
+                    SQLClass::UpdateValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
                 }
                 if (UtilitesClass::GetValueFromMap(AllSettings, "WriteDataSql") == "true"){
-                    UtilitesClass::InsertValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
+                    SQLClass::InsertValuesToSQL(UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(0,2) + "/" + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam").substr(3), result, 0, AllSettings);
                 }
             }
             if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "none") {
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") ==  "source") {
-                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                CVClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "final") {
                 cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
@@ -1060,9 +1242,9 @@ void AsyncThreadClass::finishDownload()
                 else {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
                 }
-                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                CVClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "extended") {
-                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                CVClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
                 cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
@@ -1071,10 +1253,10 @@ void AsyncThreadClass::finishDownload()
                 else {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
                 }
-                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                CVClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "all") {
-                UtilitesClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
-                UtilitesClass::RenderCvImage(mask, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "mask " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                CVClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                CVClass::RenderCvImage(mask, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "mask " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
                 cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
@@ -1083,7 +1265,7 @@ void AsyncThreadClass::finishDownload()
                 else {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
                 }
-                UtilitesClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                CVClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             }
             if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToConsole") == "true") {
                 UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam") + " IS : " + std::to_string(result) + "%");
@@ -1111,12 +1293,12 @@ void AsyncThreadClass::finishDownload()
     }
     delete this;
 }
+/* AsyncThreadClass */
 
 
 
-
-
-void UtilitesClass::RenderCvImage(cv::Mat Image, double RenderSize, std::string name)
+/* CVClass */
+void CVClass::RenderCvImage(cv::Mat Image, double RenderSize, std::string name)
 {
     UtilitesClass::PrintValueToConsole("UtilitesClass RenderCvImage");
 
@@ -1130,8 +1312,12 @@ void UtilitesClass::RenderCvImage(cv::Mat Image, double RenderSize, std::string 
         UtilitesClass::WriteTextErrorToLogFile(error);
     }
 };
+/* CVClass */
 
-std::vector<std::vector<std::string>> UtilitesClass::GetValuesFromSQL(std::string sqlQuery, std::string connectionString, QString connectionDriver)
+
+
+/* SQLClass */
+std::vector<std::vector<std::string>> SQLClass::GetValuesFromSQL(std::string sqlQuery, std::string connectionString, QString connectionDriver)
 {
     UtilitesClass::PrintValueToConsole("UtilitesClass GetValuesFromSQL");
 
@@ -1181,7 +1367,7 @@ std::vector<std::vector<std::string>> UtilitesClass::GetValuesFromSQL(std::strin
     }
 }
 
-void UtilitesClass::UpdateValuesToSQL(std::string device_row, double value_row, bool alarm_row, std::map<std::string, std::string> AllSettingsMap, QString connectionDriver)
+void SQLClass::UpdateValuesToSQL(std::string device_row, double value_row, bool alarm_row, std::map<std::string, std::string> AllSettingsMap, QString connectionDriver)
 {
     UtilitesClass::PrintValueToConsole("UtilitesClass UpdateValuesToSQL");
 
@@ -1235,7 +1421,7 @@ void UtilitesClass::UpdateValuesToSQL(std::string device_row, double value_row, 
     }
 }
 
-void UtilitesClass::InsertValuesToSQL(std::string device_row, double value_row, bool alarm_row, std::map<std::string, std::string> AllSettingsMap, QString connectionDriver)
+void SQLClass::InsertValuesToSQL(std::string device_row, double value_row, bool alarm_row, std::map<std::string, std::string> AllSettingsMap, QString connectionDriver)
 {
     UtilitesClass::PrintValueToConsole("UtilitesClass InsertValuesToSQL");
 
@@ -1287,7 +1473,11 @@ void UtilitesClass::InsertValuesToSQL(std::string device_row, double value_row, 
         UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
+/* SQLClass */
 
+
+
+/* UtilitesClass */
 std::string UtilitesClass::GetValueFromMap(std::map <std::string, std::string> Map, std::string Key)
 {
 //    UtilitesClass::PrintValueToConsole("UtilitesClass GetValueFromMap");
@@ -1344,7 +1534,7 @@ void UtilitesClass::PrintValueToConsole(std::string Value)
         QDateTime time;
         std::cout << time.currentDateTime().toString().toStdString() + error << std::endl;
     }
-};
+}
 
 void UtilitesClass::WriteResultToTextFile(std::string Result) {
     UtilitesClass::PrintValueToConsole("UtilitesClass PrintResultToTextFile");
@@ -1382,8 +1572,6 @@ void UtilitesClass::WriteTextErrorToLogFile(std::string Text)
         UtilitesClass::PrintValueToConsole(error);
     }
 };
-
-
 
 std::string UtilitesClass::GetLocalTime()
 {
@@ -1429,6 +1617,18 @@ std::string UtilitesClass::GetConvertedQt_obj(QDoubleSpinBox *value)
 
     try {
         return std::to_string(value->value());
+    }  catch (std::string error) {
+        UtilitesClass::WriteTextErrorToLogFile(error);
+        return "";
+    }
+}
+
+std::string UtilitesClass::GetConvertedQt_obj(QLineEdit *value)
+{
+//    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
+
+    try {
+        return value->text().trimmed().toStdString();
     }  catch (std::string error) {
         UtilitesClass::WriteTextErrorToLogFile(error);
         return "";
@@ -1502,6 +1702,17 @@ void UtilitesClass::SetConvertedQt_obj(QDoubleSpinBox *value, QString text)
         UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
+
+void UtilitesClass::SetConvertedQt_obj(QLineEdit *value, QString text)
+{
+//    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
+
+    try {
+        value->setText(text);
+    }  catch (std::string error) {
+        UtilitesClass::WriteTextErrorToLogFile(error);
+    }
+}
 void UtilitesClass::SetConvertedQt_obj(QTextEdit *value, QString text)
 {
 //    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
@@ -1532,5 +1743,4 @@ void UtilitesClass::SetConvertedQt_obj(QSlider *value, QString text)
         UtilitesClass::WriteTextErrorToLogFile(error);
     }
 };
-
-
+/* UtilitesClass */
