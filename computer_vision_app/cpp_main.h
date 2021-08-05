@@ -53,6 +53,8 @@ private slots:
                       std::vector<std::map<std::string,std::string>> AllSettingsVector,
                       Ui::MainClass *ui);
     std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> GetMapsFromSettings();
+    void on_CV_16_1_Resources_Path_Unlock_pushButton_clicked();
+
 private:
     Ui::MainClass *ui;
     bool Playing;

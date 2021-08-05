@@ -695,6 +695,8 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
         { "PortCam", UtilitesClass::GetConvertedQt_obj(ui->PortCam_spinBox) },
         { "LoginCam", UtilitesClass::GetConvertedQt_obj(ui->LoginCam_textEdit) },
         { "PasswordCam", UtilitesClass::GetConvertedQt_obj(ui->PasswordCam_textEdit) },
+        { "ResourcesCam", UtilitesClass::GetConvertedQt_obj(ui->CV_16_1_Resources_Path_lineEdit) },
+
 
         { "IpSqlServer", UtilitesClass::GetConvertedQt_obj(ui->IpSqlServer_textEdit) },
         { "ServerNameSql", UtilitesClass::GetConvertedQt_obj(ui->ServerNameSql_textEdit) },
@@ -1744,3 +1746,9 @@ void UtilitesClass::SetConvertedQt_obj(QSlider *value, QString text)
     }
 };
 /* UtilitesClass */
+
+void UiWidgetClass::on_CV_16_1_Resources_Path_Unlock_pushButton_clicked()
+{
+    ui->CV_16_1_Resources_Path_lineEdit->setReadOnly(!ui->CV_16_1_Resources_Path_lineEdit->isReadOnly());
+}
+
