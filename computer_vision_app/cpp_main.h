@@ -3,13 +3,16 @@
 
 #include <QtCore>
 #include <QtWidgets>
+#include <QtGui>
 #include <QtNetwork>
 #include <QtSql>
 #include <QtConcurrent>
 
 #include <opencv2/opencv.hpp>
+
 #include <memory>
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <map>
 
@@ -37,7 +40,7 @@ private slots:
 
     void on_START_btn_clicked();
     void on_STOP_btn_clicked();
-    void on_QUIT_btn_clicked();
+    void on_TRAY_btn_clicked();
     void on_CamShot_pushButton_clicked();
     void on_ExportSettings_pushButton_clicked();
     void on_ImportSettings_pushButton_clicked();
@@ -54,6 +57,8 @@ private slots:
                       Ui::MainClass *ui);
     std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> GetMapsFromSettings();
     void on_CV_16_1_Resources_Path_Unlock_pushButton_clicked();
+
+    void on_START_btn_2_clicked();
 
 private:
     Ui::MainClass *ui;
@@ -104,7 +109,7 @@ private:
     QScopedPointer<QNetworkReply, QScopedPointerDeleteLater> reply;
 };
 
-class CVClass{
+class ComputerVisionClass{
 public:
 
     static void RenderCvImage(cv::Mat Image, double renderSize, std::string name);

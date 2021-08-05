@@ -1,23 +1,9 @@
 #include "cpp_main.h"
 #include "ui_cpp_main.h"
 
-#include <QtCore>
-#include <QtWidgets>
-#include <QtNetwork>
-#include <QtSql>
-#include <QtConcurrent>
-
-#include <opencv2/opencv.hpp>
-
-#include <memory>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <map>
 
 
-
-/* main */
+/********** main **********/
 int main(int argc, char *argv[])
 {
     UtilitesClass::PrintValueToConsole("main");
@@ -32,11 +18,11 @@ int main(int argc, char *argv[])
         UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
-/* main */
+/********** main **********/
 
 
 
-/* MainClass */
+/********** UiWidgetClass **********/
 UiWidgetClass::UiWidgetClass(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainClass)
@@ -345,7 +331,7 @@ void UiWidgetClass::on_STOP_btn_clicked()
     }
 }
 
-void UiWidgetClass::on_QUIT_btn_clicked()
+void UiWidgetClass::on_TRAY_btn_clicked()
 {
     UtilitesClass::PrintValueToConsole("MainClass on_QUIT_btn_clicked");
 
@@ -363,11 +349,11 @@ void UiWidgetClass::on_CamShot_pushButton_clicked()
 
     try {
         std::map <std::string,std::string> CamShotSettingsMap = {
-            { "IpCamShot", UtilitesClass::GetConvertedQt_obj(ui->IpCamShot_textEdit) },
-            { "PortCamShot", UtilitesClass::GetConvertedQt_obj(ui->PortCamShot_textEdit) },
-            { "LoginCamShot", UtilitesClass::GetConvertedQt_obj(ui->LoginCamShot_textEdit) },
-            { "PasswordCamShot", UtilitesClass::GetConvertedQt_obj(ui->PasswordCamShot_textEdit) },
-            { "ImageNameShot", UtilitesClass::GetConvertedQt_obj(ui->ImageNameShot_textEdit) },
+            { "IpCamShot", UtilitesClass::GetConvertedQt_obj(ui->IpCamShot_lineEdit) },
+            { "PortCamShot", UtilitesClass::GetConvertedQt_obj(ui->PortCamShot_spinBox) },
+            { "LoginCamShot", UtilitesClass::GetConvertedQt_obj(ui->LoginCamShot_lineEdit) },
+            { "PasswordCamShot", UtilitesClass::GetConvertedQt_obj(ui->PasswordCamShot_lineEdit) },
+            { "ImageNameShot", UtilitesClass::GetConvertedQt_obj(ui->ImageNameShot_lineEdit) },
         };
         QUrl url = QString::fromStdString("http://192.168." +
                                           UtilitesClass::GetValueFromMap(CamShotSettingsMap, "IpCamShot") + ":" +
@@ -604,59 +590,60 @@ void UiWidgetClass::on_ImportSettings_pushButton_clicked()
         for (auto& elem : QDoubleSpinBoxMap){
             UtilitesClass::SetConvertedQt_obj(elem.second, document.object()[QString::fromStdString(elem.first)].toString());
         }
-        std::map<std::string, QTextEdit*> QTextEditMap = {
-            { "ProtocolCam", ui->ProtocolCam_textEdit },
-            { "LoginCam", ui->LoginCam_textEdit },
-            { "PasswordCam", ui->PasswordCam_textEdit },
+        std::map<std::string, QLineEdit*> QLineEditMap = {
+            { "ProtocolCam", ui->ProtocolCam_lineEdit },
+            { "LoginCam", ui->LoginCam_lineEdit },
+            { "PasswordCam", ui->PasswordCam_lineEdit },
+            { "ResourcesCam", ui->CV_16_1_Resources_Path_lineEdit },
 
-            { "IpSqlServer", ui->IpSqlServer_textEdit },
-            { "ServerNameSql", ui->ServerNameSql_textEdit },
-            { "DatabaseSql", ui->DatabaseSql_textEdit },
-            { "UserSql", ui->UserSql_textEdit },
-            { "PasswordSql", ui->PasswordSql_textEdit },
-            { "TableNowSql", ui->TableNowSql_textEdit },
-            { "RowsNowSql_1", ui->RowsNowSql_textEdit_1 },
-            { "RowsNowSql_2", ui->RowsNowSql_textEdit_2 },
-            { "RowsNowSql_3", ui->RowsNowSql_textEdit_3 },
-            { "RowsNowSql_4", ui->RowsNowSql_textEdit_4 },
-            { "TableDataSql", ui->TableDataSql_textEdit },
-            { "RowsDataSql_1", ui->RowsDataSql_textEdit_1 },
-            { "RowsDataSql_2", ui->RowsDataSql_textEdit_2 },
-            { "RowsDataSql_3", ui->RowsDataSql_textEdit_3 },
-            { "RowsDataSql_4", ui->RowsDataSql_textEdit_4 },
+            { "IpSqlServer", ui->IpSqlServer_lineEdit },
+            { "ServerNameSql", ui->ServerNameSql_lineEdit },
+            { "DatabaseSql", ui->DatabaseSql_lineEdit },
+            { "UserSql", ui->UserSql_lineEdit },
+            { "PasswordSql", ui->PasswordSql_lineEdit },
+            { "TableNowSql", ui->TableNowSql_lineEdit },
+            { "RowsNowSql_1", ui->RowsNowSql_lineEdit_1 },
+            { "RowsNowSql_2", ui->RowsNowSql_lineEdit_2 },
+            { "RowsNowSql_3", ui->RowsNowSql_lineEdit_3 },
+            { "RowsNowSql_4", ui->RowsNowSql_lineEdit_4 },
+            { "TableDataSql", ui->TableDataSql_lineEdit },
+            { "RowsDataSql_1", ui->RowsDataSql_lineEdit_1 },
+            { "RowsDataSql_2", ui->RowsDataSql_lineEdit_2 },
+            { "RowsDataSql_3", ui->RowsDataSql_lineEdit_3 },
+            { "RowsDataSql_4", ui->RowsDataSql_lineEdit_4 },
 
-            { "AliasCam_1", ui->AliasCam_textEdit_1 },
-            { "AliasCam_2", ui->AliasCam_textEdit_2 },
-            { "AliasCam_3", ui->AliasCam_textEdit_3 },
-            { "AliasCam_4", ui->AliasCam_textEdit_4 },
-            { "AliasCam_5", ui->AliasCam_textEdit_5 },
-            { "AliasCam_6", ui->AliasCam_textEdit_6 },
-            { "AliasCam_7", ui->AliasCam_textEdit_7 },
-            { "AliasCam_8", ui->AliasCam_textEdit_8 },
-            { "AliasCam_9", ui->AliasCam_textEdit_9 },
-            { "AliasCam_10", ui->AliasCam_textEdit_10 },
-            { "IpCam_1", ui->IpCam_textEdit_1 },
-            { "IpCam_2", ui->IpCam_textEdit_2 },
-            { "IpCam_3", ui->IpCam_textEdit_3 },
-            { "IpCam_4", ui->IpCam_textEdit_4 },
-            { "IpCam_5", ui->IpCam_textEdit_5 },
-            { "IpCam_6", ui->IpCam_textEdit_6 },
-            { "IpCam_7", ui->IpCam_textEdit_7 },
-            { "IpCam_8", ui->IpCam_textEdit_8 },
-            { "IpCam_9", ui->IpCam_textEdit_9 },
-            { "IpCam_10", ui->IpCam_textEdit_10 },
-            { "MaskCam_1", ui->MaskCam_textEdit_1 },
-            { "MaskCam_2", ui->MaskCam_textEdit_2 },
-            { "MaskCam_3", ui->MaskCam_textEdit_3 },
-            { "MaskCam_4", ui->MaskCam_textEdit_4 },
-            { "MaskCam_5", ui->MaskCam_textEdit_5 },
-            { "MaskCam_6", ui->MaskCam_textEdit_6 },
-            { "MaskCam_7", ui->MaskCam_textEdit_7 },
-            { "MaskCam_8", ui->MaskCam_textEdit_8 },
-            { "MaskCam_9", ui->MaskCam_textEdit_9 },
-            { "MaskCam_10", ui->MaskCam_textEdit_10 },
+            { "AliasCam_1", ui->AliasCam_lineEdit_1 },
+            { "AliasCam_2", ui->AliasCam_lineEdit_2 },
+            { "AliasCam_3", ui->AliasCam_lineEdit_3 },
+            { "AliasCam_4", ui->AliasCam_lineEdit_4 },
+            { "AliasCam_5", ui->AliasCam_lineEdit_5 },
+            { "AliasCam_6", ui->AliasCam_lineEdit_6 },
+            { "AliasCam_7", ui->AliasCam_lineEdit_7 },
+            { "AliasCam_8", ui->AliasCam_lineEdit_8 },
+            { "AliasCam_9", ui->AliasCam_lineEdit_9 },
+            { "AliasCam_10", ui->AliasCam_lineEdit_10 },
+            { "IpCam_1", ui->IpCam_lineEdit_1 },
+            { "IpCam_2", ui->IpCam_lineEdit_2 },
+            { "IpCam_3", ui->IpCam_lineEdit_3 },
+            { "IpCam_4", ui->IpCam_lineEdit_4 },
+            { "IpCam_5", ui->IpCam_lineEdit_5 },
+            { "IpCam_6", ui->IpCam_lineEdit_6 },
+            { "IpCam_7", ui->IpCam_lineEdit_7 },
+            { "IpCam_8", ui->IpCam_lineEdit_8 },
+            { "IpCam_9", ui->IpCam_lineEdit_9 },
+            { "IpCam_10", ui->IpCam_lineEdit_10 },
+            { "MaskCam_1", ui->MaskCam_lineEdit_1 },
+            { "MaskCam_2", ui->MaskCam_lineEdit_2 },
+            { "MaskCam_3", ui->MaskCam_lineEdit_3 },
+            { "MaskCam_4", ui->MaskCam_lineEdit_4 },
+            { "MaskCam_5", ui->MaskCam_lineEdit_5 },
+            { "MaskCam_6", ui->MaskCam_lineEdit_6 },
+            { "MaskCam_7", ui->MaskCam_lineEdit_7 },
+            { "MaskCam_8", ui->MaskCam_lineEdit_8 },
+            { "MaskCam_9", ui->MaskCam_lineEdit_9 },
+            { "MaskCam_10", ui->MaskCam_lineEdit_10 },
         };
-        for (auto& elem : QTextEditMap){
+        for (auto& elem : QLineEditMap){
             UtilitesClass::SetConvertedQt_obj(elem.second, document.object()[QString::fromStdString(elem.first)].toString());
         }
         std::map<std::string, QComboBox*> QComboBoxMap = {
@@ -677,6 +664,11 @@ void UiWidgetClass::on_ImportSettings_pushButton_clicked()
     }
 }
 
+void UiWidgetClass::on_CV_16_1_Resources_Path_Unlock_pushButton_clicked()
+{
+    ui->CV_16_1_Resources_Path_lineEdit->setReadOnly(!ui->CV_16_1_Resources_Path_lineEdit->isReadOnly());
+}
+
 std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> UiWidgetClass::GetMapsFromSettings() {
     std::map <std::string,std::string> AllSettingsMap = {
         { "AutoPlay", UtilitesClass::GetConvertedQt_obj(ui->AutoPlay_checkBox) },
@@ -691,39 +683,38 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
         { "RuntimeUpdateParams", UtilitesClass::GetConvertedQt_obj(ui->RuntimeUpdateParams_checkBox) },
         { "UseSQLPort", UtilitesClass::GetConvertedQt_obj(ui->UseSQLPort_checkBox) },
 
-        { "ProtocolCam", UtilitesClass::GetConvertedQt_obj(ui->ProtocolCam_textEdit) },
+        { "ProtocolCam", UtilitesClass::GetConvertedQt_obj(ui->ProtocolCam_lineEdit) },
         { "PortCam", UtilitesClass::GetConvertedQt_obj(ui->PortCam_spinBox) },
-        { "LoginCam", UtilitesClass::GetConvertedQt_obj(ui->LoginCam_textEdit) },
-        { "PasswordCam", UtilitesClass::GetConvertedQt_obj(ui->PasswordCam_textEdit) },
+        { "LoginCam", UtilitesClass::GetConvertedQt_obj(ui->LoginCam_lineEdit) },
+        { "PasswordCam", UtilitesClass::GetConvertedQt_obj(ui->PasswordCam_lineEdit) },
         { "ResourcesCam", UtilitesClass::GetConvertedQt_obj(ui->CV_16_1_Resources_Path_lineEdit) },
 
-
-        { "IpSqlServer", UtilitesClass::GetConvertedQt_obj(ui->IpSqlServer_textEdit) },
-        { "ServerNameSql", UtilitesClass::GetConvertedQt_obj(ui->ServerNameSql_textEdit) },
+        { "IpSqlServer", UtilitesClass::GetConvertedQt_obj(ui->IpSqlServer_lineEdit) },
+        { "ServerNameSql", UtilitesClass::GetConvertedQt_obj(ui->ServerNameSql_lineEdit) },
         { "PortSqlServer", UtilitesClass::GetConvertedQt_obj(ui->PortSqlServer_spinBox) },
-        { "DatabaseSql", UtilitesClass::GetConvertedQt_obj(ui->DatabaseSql_textEdit) },
-        { "UserSql", UtilitesClass::GetConvertedQt_obj(ui->UserSql_textEdit) },
-        { "PasswordSql", UtilitesClass::GetConvertedQt_obj(ui->PasswordSql_textEdit) },
+        { "DatabaseSql", UtilitesClass::GetConvertedQt_obj(ui->DatabaseSql_lineEdit) },
+        { "UserSql", UtilitesClass::GetConvertedQt_obj(ui->UserSql_lineEdit) },
+        { "PasswordSql", UtilitesClass::GetConvertedQt_obj(ui->PasswordSql_lineEdit) },
         { "WriteNowSql", UtilitesClass::GetConvertedQt_obj(ui->WriteNowSql_checkBox) },
-        { "TableNowSql", UtilitesClass::GetConvertedQt_obj(ui->TableNowSql_textEdit) },
-        { "RowsNowSql_1", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_1) },
-        { "RowsNowSql_2", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_2) },
-        { "RowsNowSql_3", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_3) },
-        { "RowsNowSql_4", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_textEdit_4) },
+        { "TableNowSql", UtilitesClass::GetConvertedQt_obj(ui->TableNowSql_lineEdit) },
+        { "RowsNowSql_1", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_lineEdit_1) },
+        { "RowsNowSql_2", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_lineEdit_2) },
+        { "RowsNowSql_3", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_lineEdit_3) },
+        { "RowsNowSql_4", UtilitesClass::GetConvertedQt_obj(ui->RowsNowSql_lineEdit_4) },
         { "WriteDataSql", UtilitesClass::GetConvertedQt_obj(ui->WriteDataSql_checkBox) },
-        { "TableDataSql", UtilitesClass::GetConvertedQt_obj(ui->TableDataSql_textEdit) },
-        { "RowsDataSql_1", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_1) },
-        { "RowsDataSql_2", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_2) },
-        { "RowsDataSql_3", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_3) },
-        { "RowsDataSql_4", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_textEdit_4) },
+        { "TableDataSql", UtilitesClass::GetConvertedQt_obj(ui->TableDataSql_lineEdit) },
+        { "RowsDataSql_1", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_lineEdit_1) },
+        { "RowsDataSql_2", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_lineEdit_2) },
+        { "RowsDataSql_3", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_lineEdit_3) },
+        { "RowsDataSql_4", UtilitesClass::GetConvertedQt_obj(ui->RowsDataSql_lineEdit_4) },
     };
     std::vector<std::map<std::string,std::string>> AllSettingsVector =
     {
         {
             { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_1) },
-            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_1) },
-            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_1) },
-            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_1) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_lineEdit_1) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_lineEdit_1) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_lineEdit_1) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_1) },
             { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_1) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_1) },
@@ -739,9 +730,9 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
         },
         {
             { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_2) },
-            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_2) },
-            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_2) },
-            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_2) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_lineEdit_2) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_lineEdit_2) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_lineEdit_2) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_2) },
             { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_2) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_2) },
@@ -757,9 +748,9 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
         },
         {
             { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_3) },
-            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_3) },
-            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_3) },
-            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_3) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_lineEdit_3) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_lineEdit_3) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_lineEdit_3) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_3) },
             { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_3) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_3) },
@@ -775,9 +766,9 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
         },
         {
             { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_4) },
-            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_4) },
-            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_4) },
-            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_4) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_lineEdit_4) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_lineEdit_4) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_lineEdit_4) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_4) },
             { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_4) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_4) },
@@ -793,9 +784,9 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
         },
         {
             { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_5) },
-            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_5) },
-            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_5) },
-            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_5) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_lineEdit_5) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_lineEdit_5) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_lineEdit_5) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_5) },
             { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_5) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_5) },
@@ -811,9 +802,9 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
         },
         {
             { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_6) },
-            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_6) },
-            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_6) },
-            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_6) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_lineEdit_6) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_lineEdit_6) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_lineEdit_6) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_6) },
             { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_6) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_6) },
@@ -829,9 +820,9 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
         },
         {
             { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_7) },
-            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_7) },
-            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_7) },
-            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_7) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_lineEdit_7) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_lineEdit_7) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_lineEdit_7) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_7) },
             { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_7) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_7) },
@@ -847,9 +838,9 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
         },
         {
             { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_8) },
-            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_8) },
-            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_8) },
-            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_8) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_lineEdit_8) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_lineEdit_8) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_lineEdit_8) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_8) },
             { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_8) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_8) },
@@ -865,9 +856,9 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
         },
         {
             { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_9) },
-            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_9) },
-            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_9) },
-            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_9) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_lineEdit_9) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_lineEdit_9) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_lineEdit_9) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_9) },
             { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_9) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_9) },
@@ -883,9 +874,9 @@ std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,st
         },
         {
             { "ActiveCam", UtilitesClass::GetConvertedQt_obj(ui->ActiveCam_checkBox_10) },
-            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_textEdit_10) },
-            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_textEdit_10) },
-            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_textEdit_10) },
+            { "AliasCam", UtilitesClass::GetConvertedQt_obj(ui->AliasCam_lineEdit_10) },
+            { "IpCam", UtilitesClass::GetConvertedQt_obj(ui->IpCam_lineEdit_10) },
+            { "MaskCam", UtilitesClass::GetConvertedQt_obj(ui->MaskCam_lineEdit_10) },
             { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_spinBox_10) },
             { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_spinBox_10) },
             { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_doubleSpinBox_10) },
@@ -993,11 +984,11 @@ void UiWidgetClass::startAnalyse(std::map<std::string, std::string> AllSettingsM
         UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
-/* MainClass */
+/********** UiWidgetClass ***********/
 
 
 
-/* SyncThreadClass */
+/********** SyncThreadClass **********/
 SyncThreadClass::SyncThreadClass(std::map<std::string, std::string> AllSettingsMap,
                                  std::map<std::string,std::string> OneSettingsMap,
                                  Ui::MainClass *ui,
@@ -1024,7 +1015,8 @@ SyncThreadClass::SyncThreadClass(std::map<std::string, std::string> AllSettingsM
         if (qPixmap.loadFromData(data, "JPG")) {
             QImage qImage = qPixmap.toImage();
             image_source = cv::Mat(qImage.height(), qImage.width(), CV_8UC4, const_cast<uchar*>(qImage.bits()), static_cast<size_t>(qImage.bytesPerLine()));
-            cv::Mat mask = cv::imread(UtilitesClass::GetValueFromMap(OneSettings, "MaskCam"), 0);
+            std::string ResourcesCam = UtilitesClass::GetValueFromMap(AllSettings, "ResourcesCam") + UtilitesClass::GetValueFromMap(OneSettings, "MaskCam");
+            cv::Mat mask = cv::imread(ResourcesCam, 0);
             cv::Mat bitwise_and;
             cv::bitwise_and(image_source, image_source, bitwise_and, mask);
             cv::Mat cvtcolor;
@@ -1071,7 +1063,7 @@ SyncThreadClass::SyncThreadClass(std::map<std::string, std::string> AllSettingsM
             }
             if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "none") {
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") ==  "source") {
-                CVClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                ComputerVisionClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "final") {
                 cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
@@ -1081,9 +1073,9 @@ SyncThreadClass::SyncThreadClass(std::map<std::string, std::string> AllSettingsM
                 else {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
                 }
-                CVClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                ComputerVisionClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "extended") {
-                CVClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                ComputerVisionClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
                 cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
@@ -1092,10 +1084,10 @@ SyncThreadClass::SyncThreadClass(std::map<std::string, std::string> AllSettingsM
                 else {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
                 }
-                CVClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                ComputerVisionClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "all") {
-                CVClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
-                CVClass::RenderCvImage(mask, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "mask " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                ComputerVisionClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                ComputerVisionClass::RenderCvImage(mask, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "mask " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
                 cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
@@ -1104,7 +1096,7 @@ SyncThreadClass::SyncThreadClass(std::map<std::string, std::string> AllSettingsM
                 else {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
                 }
-                CVClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                ComputerVisionClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             }
             if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToConsole") == "true") {
                 UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam") + " IS : " + std::to_string(result) + "%");
@@ -1138,11 +1130,11 @@ SyncThreadClass::~SyncThreadClass()
 {
         UtilitesClass::PrintValueToConsole("SyncThreadClass destructor");
 }
-/* SyncThreadClass */
+/********** SyncThreadClass **********/
 
 
 
-/* AsyncThreadClass */
+/********** AsyncThreadClass **********/
 AsyncThreadClass::AsyncThreadClass(std::map<std::string,std::string> AllSettingsMap,
                                    std::map<std::string,std::string> OneSettingsMap,
                                    Ui::MainClass *ui, QWidget *parent) : QObject(parent)
@@ -1186,7 +1178,8 @@ void AsyncThreadClass::finishDownload()
         if (qPixmap.loadFromData(data, "JPG")) {
             QImage qImage = qPixmap.toImage();
             image_source = cv::Mat(qImage.height(), qImage.width(), CV_8UC4, const_cast<uchar*>(qImage.bits()), static_cast<size_t>(qImage.bytesPerLine()));
-            cv::Mat mask = cv::imread(UtilitesClass::GetValueFromMap(OneSettings, "MaskCam"), 0);
+            std::string ResourcesCam = UtilitesClass::GetValueFromMap(AllSettings, "ResourcesCam") + UtilitesClass::GetValueFromMap(OneSettings, "MaskCam");
+            cv::Mat mask = cv::imread(ResourcesCam, 0);
             cv::Mat bitwise_and;
             cv::bitwise_and(image_source, image_source, bitwise_and, mask);
             cv::Mat cvtcolor;
@@ -1212,7 +1205,6 @@ void AsyncThreadClass::finishDownload()
             {
                 float pow_10 = pow(10.0f, (float)2);
                 result = round(result * pow_10) / pow_10;
-                UtilitesClass::PrintValueToConsole(std::to_string(std::stoi(UtilitesClass::GetValueFromMap(OneSettings, "NullLevel"))));
                 if (result < std::stod(UtilitesClass::GetValueFromMap(OneSettings, "NullLevel"))) {
                     result = 0.0;
                 }
@@ -1234,7 +1226,7 @@ void AsyncThreadClass::finishDownload()
             }
             if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "none") {
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") ==  "source") {
-                CVClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                ComputerVisionClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "final") {
                 cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
@@ -1244,9 +1236,9 @@ void AsyncThreadClass::finishDownload()
                 else {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
                 }
-                CVClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                ComputerVisionClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "extended") {
-                CVClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                ComputerVisionClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
                 cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
@@ -1255,10 +1247,10 @@ void AsyncThreadClass::finishDownload()
                 else {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
                 }
-                CVClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                ComputerVisionClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             } else if (UtilitesClass::GetValueFromMap(AllSettings, "RenderType") == "all") {
-                CVClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
-                CVClass::RenderCvImage(mask, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "mask " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                ComputerVisionClass::RenderCvImage(image_source, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "source " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                ComputerVisionClass::RenderCvImage(mask, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "mask " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
                 cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 cv::putText(final, UtilitesClass::GetValueFromMap(OneSettings, "IpCam") + " | " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"), cv::Point(150, 100), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
                 if (result > std::stoi((UtilitesClass::GetValueFromMap(OneSettings, "AlarmLevel")))) {
@@ -1267,7 +1259,7 @@ void AsyncThreadClass::finishDownload()
                 else {
                     cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
                 }
-                CVClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
+                ComputerVisionClass::RenderCvImage(final, std::stoi(UtilitesClass::GetValueFromMap(AllSettings, "RenderSize")) / 80.0, "final " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam"));
             }
             if (UtilitesClass::GetValueFromMap(AllSettings, "WriteToConsole") == "true") {
                 UtilitesClass::PrintValueToConsole("RESULT " + UtilitesClass::GetValueFromMap(OneSettings, "AliasCam") + " IS : " + std::to_string(result) + "%");
@@ -1295,14 +1287,14 @@ void AsyncThreadClass::finishDownload()
     }
     delete this;
 }
-/* AsyncThreadClass */
+/********** AsyncThreadClass **********/
 
 
 
-/* CVClass */
-void CVClass::RenderCvImage(cv::Mat Image, double RenderSize, std::string name)
+/********** CVClass **********/
+void ComputerVisionClass::RenderCvImage(cv::Mat Image, double RenderSize, std::string name)
 {
-    UtilitesClass::PrintValueToConsole("UtilitesClass RenderCvImage");
+//    UtilitesClass::PrintValueToConsole("UtilitesClass RenderCvImage");
 
     try {
         cv::Mat source = Image.clone();
@@ -1314,11 +1306,11 @@ void CVClass::RenderCvImage(cv::Mat Image, double RenderSize, std::string name)
         UtilitesClass::WriteTextErrorToLogFile(error);
     }
 };
-/* CVClass */
+/********** CVClass **********/
 
 
 
-/* SQLClass */
+/*********** SQLClass **********/
 std::vector<std::vector<std::string>> SQLClass::GetValuesFromSQL(std::string sqlQuery, std::string connectionString, QString connectionDriver)
 {
     UtilitesClass::PrintValueToConsole("UtilitesClass GetValuesFromSQL");
@@ -1332,7 +1324,6 @@ std::vector<std::vector<std::string>> SQLClass::GetValuesFromSQL(std::string sql
         }
         qdb.setDatabaseName(QString::fromStdString(connectionString));
         if (qdb.open()) {
-            UtilitesClass::PrintValueToConsole("good to open sql");
             QSqlQuery query(qdb);
             query.exec(QString::fromStdString(sqlQuery));
             std::vector<std::vector<std::string>> global_vector;
@@ -1388,7 +1379,6 @@ void SQLClass::UpdateValuesToSQL(std::string device_row, double value_row, bool 
                     ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
                     ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
                     ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
-            UtilitesClass::PrintValueToConsole(connectionString);
             qdb.setDatabaseName(QString::fromStdString(connectionString));
         } else {
             std::string connectionString = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=tcp:" +
@@ -1397,11 +1387,9 @@ void SQLClass::UpdateValuesToSQL(std::string device_row, double value_row, bool 
                     ";DATABASE=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "DatabaseSql") +
                     ";UID=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "UserSql") +
                     ";PWD=" + UtilitesClass::GetValueFromMap(AllSettingsMap, "PasswordSql");
-            UtilitesClass::PrintValueToConsole(connectionString);
             qdb.setDatabaseName(QString::fromStdString(connectionString));
         }
         if (qdb.open()) {
-            //        UtilitesClass::PrintValueToConsole("good to open sql");
             QSqlQuery query(qdb);
             query.prepare("UPDATE " + QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "TableNowSql")) + " SET " +
                           QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsNowSql_2")) + " = :value, " +
@@ -1453,7 +1441,6 @@ void SQLClass::InsertValuesToSQL(std::string device_row, double value_row, bool 
             qdb.setDatabaseName(QString::fromStdString(connectionString));
         }
         if (qdb.open()) {
-            //        UtilitesClass::PrintValueToConsole("good to open sql");
             QSqlQuery query(qdb);
             query.prepare("INSERT INTO " + QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "TableDataSql")) + " (" +
                           QString::fromStdString(UtilitesClass::GetValueFromMap(AllSettingsMap, "RowsDataSql_1")) + ", " +
@@ -1475,11 +1462,11 @@ void SQLClass::InsertValuesToSQL(std::string device_row, double value_row, bool 
         UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
-/* SQLClass */
+/********** SQLClass **********/
 
 
 
-/* UtilitesClass */
+/********** UtilitesClass **********/
 std::string UtilitesClass::GetValueFromMap(std::map <std::string, std::string> Map, std::string Key)
 {
 //    UtilitesClass::PrintValueToConsole("UtilitesClass GetValueFromMap");
@@ -1539,8 +1526,6 @@ void UtilitesClass::PrintValueToConsole(std::string Value)
 }
 
 void UtilitesClass::WriteResultToTextFile(std::string Result) {
-    UtilitesClass::PrintValueToConsole("UtilitesClass PrintResultToTextFile");
-
     try {
         QFile logFile("./result.txt");
         if  (logFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
@@ -1558,8 +1543,6 @@ void UtilitesClass::WriteResultToTextFile(std::string Result) {
 
 void UtilitesClass::WriteTextErrorToLogFile(std::string Text)
 {
-    UtilitesClass::PrintValueToConsole("UtilitesClass PrintTextErrorToLogFile");
-
     try {
         QFile logFile("./log.txt");
         if  (logFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
@@ -1577,8 +1560,6 @@ void UtilitesClass::WriteTextErrorToLogFile(std::string Text)
 
 std::string UtilitesClass::GetLocalTime()
 {
-//    std::cout << "UtilitesClass GetLocalTime" << std::endl;
-
     try {
         QDateTime time;
         return time.currentDateTime().toString().toStdString();
@@ -1590,8 +1571,6 @@ std::string UtilitesClass::GetLocalTime()
 
 std::string UtilitesClass::GetConvertedQt_obj(QCheckBox *value)
 {
-//    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
-
     try {
         if (value->isChecked() == 1) {
             return "true";
@@ -1604,8 +1583,6 @@ std::string UtilitesClass::GetConvertedQt_obj(QCheckBox *value)
 };
 std::string UtilitesClass::GetConvertedQt_obj(QSpinBox *value)
 {
-//    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
-
     try {
         return std::to_string(value->value());
     }  catch (std::string error) {
@@ -1615,8 +1592,6 @@ std::string UtilitesClass::GetConvertedQt_obj(QSpinBox *value)
 };
 std::string UtilitesClass::GetConvertedQt_obj(QDoubleSpinBox *value)
 {
-//    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
-
     try {
         return std::to_string(value->value());
     }  catch (std::string error) {
@@ -1624,11 +1599,8 @@ std::string UtilitesClass::GetConvertedQt_obj(QDoubleSpinBox *value)
         return "";
     }
 }
-
 std::string UtilitesClass::GetConvertedQt_obj(QLineEdit *value)
 {
-//    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
-
     try {
         return value->text().trimmed().toStdString();
     }  catch (std::string error) {
@@ -1638,8 +1610,6 @@ std::string UtilitesClass::GetConvertedQt_obj(QLineEdit *value)
 };
 std::string UtilitesClass::GetConvertedQt_obj(QTextEdit *value)
 {
-//    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
-
     try {
         return value->toPlainText().trimmed().toStdString();
     }  catch (std::string error) {
@@ -1649,8 +1619,6 @@ std::string UtilitesClass::GetConvertedQt_obj(QTextEdit *value)
 };
 std::string UtilitesClass::GetConvertedQt_obj(QComboBox *value)
 {
-//    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
-
     try {
         return value->currentText().toStdString();
     }  catch (std::string error) {
@@ -1660,8 +1628,6 @@ std::string UtilitesClass::GetConvertedQt_obj(QComboBox *value)
 };
 std::string UtilitesClass::GetConvertedQt_obj(QSlider *value)
 {
-//    UtilitesClass::PrintValueToConsole("UtilitesClass GetConvertedQt_obj");
-
     try {
         return std::to_string(value->value());
     }  catch (std::string error) {
@@ -1672,8 +1638,6 @@ std::string UtilitesClass::GetConvertedQt_obj(QSlider *value)
 
 void UtilitesClass::SetConvertedQt_obj(QCheckBox *value, QString text)
 {
-//    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
-
     try {
         if (text == "true") {
             value->setChecked(true);
@@ -1686,8 +1650,6 @@ void UtilitesClass::SetConvertedQt_obj(QCheckBox *value, QString text)
 }
 void UtilitesClass::SetConvertedQt_obj(QSpinBox *value, QString text)
 {
-//    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
-
     try {
         value->setValue(std::stoi(text.toStdString()));
     }  catch (std::string error) {
@@ -1696,19 +1658,14 @@ void UtilitesClass::SetConvertedQt_obj(QSpinBox *value, QString text)
 }
 void UtilitesClass::SetConvertedQt_obj(QDoubleSpinBox *value, QString text)
 {
-//    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
-
     try {
         value->setValue(std::stod(text.toStdString()));
     }  catch (std::string error) {
         UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
-
 void UtilitesClass::SetConvertedQt_obj(QLineEdit *value, QString text)
 {
-//    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
-
     try {
         value->setText(text);
     }  catch (std::string error) {
@@ -1717,8 +1674,6 @@ void UtilitesClass::SetConvertedQt_obj(QLineEdit *value, QString text)
 }
 void UtilitesClass::SetConvertedQt_obj(QTextEdit *value, QString text)
 {
-//    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
-
     try {
         value->setText(text);
     }  catch (std::string error) {
@@ -1727,8 +1682,6 @@ void UtilitesClass::SetConvertedQt_obj(QTextEdit *value, QString text)
 }
 void UtilitesClass::SetConvertedQt_obj(QComboBox *value, QString text)
 {
-//    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
-
     try {
         value->setCurrentText(text);
     }  catch (std::string error) {
@@ -1737,18 +1690,133 @@ void UtilitesClass::SetConvertedQt_obj(QComboBox *value, QString text)
 }
 void UtilitesClass::SetConvertedQt_obj(QSlider *value, QString text)
 {
-//    UtilitesClass::PrintValueToConsole("UtilitesClass SetConvertedQt_obj");
-
     try {
         value->setValue(std::stoi(text.toStdString()));
     }  catch (std::string error) {
         UtilitesClass::WriteTextErrorToLogFile(error);
     }
 };
-/* UtilitesClass */
+/********** UtilitesClass **********/
 
-void UiWidgetClass::on_CV_16_1_Resources_Path_Unlock_pushButton_clicked()
+
+
+void UiWidgetClass::on_START_btn_2_clicked()
 {
-    ui->CV_16_1_Resources_Path_lineEdit->setReadOnly(!ui->CV_16_1_Resources_Path_lineEdit->isReadOnly());
+    UtilitesClass::PrintValueToConsole("UiWidgetClass on_START_btn_2_clicked");
+
+    if (ui->ActiveThread_checkBox_1->isChecked()) {
+        UtilitesClass::PrintValueToConsole("analiz");
+
+        std::map <std::string,std::string> AllThreadsMap = {
+            { "ActiveThread", UtilitesClass::GetConvertedQt_obj(ui->ActiveThread_checkBox_1) },
+            { "AliasThread", UtilitesClass::GetConvertedQt_obj(ui->AliasThread_lineEdit) },
+            { "VideoName", UtilitesClass::GetConvertedQt_obj(ui->VideoName_lineEdit) },
+            { "MaskCamThread", UtilitesClass::GetConvertedQt_obj(ui->MaskCamThread_lineEdit) },
+            { "CorrectCoefficientThread", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficientThread_doubleSpinBox) },
+            { "AlarmLevelThread", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevelThread_spinBox) },
+            { "NullLevelThread", UtilitesClass::GetConvertedQt_obj(ui->NullLevelThread_spinBox) },
+            { "InRangeSetFromThread", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFromThread_spinBox) },
+            { "InRangeSetToThread", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetToThread_spinBox) },
+            { "CountNotZeroThread", UtilitesClass::GetConvertedQt_obj(ui->CountNotZeroThread_spinBox) },
+            { "InRangeSetFromThread", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFromThread_spinBox) },
+            { "Point_1_1_Thread", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_Thread_spinBox) },
+            { "Point_1_2_Thread", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_Thread_spinBox) },
+            { "Point_1_3_Thread", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_Thread_spinBox) },
+            { "Point_2_1_Thread", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_Thread_spinBox) },
+            { "Point_2_2_Thread", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_Thread_spinBox) },
+            { "Point_2_3_Thread", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_Thread_spinBox) },
+            { "Resources", UtilitesClass::GetConvertedQt_obj(ui->CV_26_3_Resources_Path_lineEdit) },
+        };
+
+        cv::Mat frame;
+        cv::Mat bitwise_and;
+        cv::Mat cvtcolor;
+        cv::Mat final;
+        cv::VideoCapture cap(UtilitesClass::GetValueFromMap(AllThreadsMap, "Resources") + "\\" + UtilitesClass::GetValueFromMap(AllThreadsMap, "VideoName"));
+        cv::Mat mask = cv::imread(UtilitesClass::GetValueFromMap(AllThreadsMap, "Resources") + "\\" + UtilitesClass::GetValueFromMap(AllThreadsMap, "MaskCamThread"), 0);
+        while(true) {
+            std::map <std::string,std::string> AllThreadsMap = {
+                { "ActiveThread", UtilitesClass::GetConvertedQt_obj(ui->ActiveThread_checkBox_1) },
+                { "AliasThread", UtilitesClass::GetConvertedQt_obj(ui->AliasThread_lineEdit) },
+                { "VideoName", UtilitesClass::GetConvertedQt_obj(ui->VideoName_lineEdit) },
+                { "MaskCamThread", UtilitesClass::GetConvertedQt_obj(ui->MaskCamThread_lineEdit) },
+                { "CorrectCoefficientThread", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficientThread_doubleSpinBox) },
+                { "AlarmLevelThread", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevelThread_spinBox) },
+                { "NullLevelThread", UtilitesClass::GetConvertedQt_obj(ui->NullLevelThread_spinBox) },
+                { "InRangeSetFromThread", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFromThread_spinBox) },
+                { "InRangeSetToThread", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetToThread_spinBox) },
+                { "CountNotZeroThread", UtilitesClass::GetConvertedQt_obj(ui->CountNotZeroThread_spinBox) },
+                { "InRangeSetFromThread", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFromThread_spinBox) },
+                { "Point_1_1_Thread", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_Thread_spinBox) },
+                { "Point_1_2_Thread", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_Thread_spinBox) },
+                { "Point_1_3_Thread", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_Thread_spinBox) },
+                { "Point_2_1_Thread", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_Thread_spinBox) },
+                { "Point_2_2_Thread", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_Thread_spinBox) },
+                { "Point_2_3_Thread", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_Thread_spinBox) },
+                { "Resources", UtilitesClass::GetConvertedQt_obj(ui->CV_26_3_Resources_Path_lineEdit) },
+            };
+            cap >> frame;
+            if (frame.empty())
+                break;
+            cv::bitwise_and(frame, frame, bitwise_and, mask);
+            cv::cvtColor(bitwise_and, cvtcolor, cv::COLOR_BGR2HSV);
+            cv::inRange(cvtcolor, cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(AllThreadsMap, "Point_1_1_Thread")),
+                                             std::stoi(UtilitesClass::GetValueFromMap(AllThreadsMap, "Point_1_2_Thread")),
+                                             std::stoi(UtilitesClass::GetValueFromMap(AllThreadsMap, "Point_1_3_Thread"))),
+                        cv::Scalar(std::stoi(UtilitesClass::GetValueFromMap(AllThreadsMap, "Point_2_1_Thread")),
+                                   std::stoi(UtilitesClass::GetValueFromMap(AllThreadsMap, "Point_2_2_Thread")),
+                                   std::stoi(UtilitesClass::GetValueFromMap(AllThreadsMap, "Point_2_3_Thread"))), final);
+            final.setTo(255, final >= 1);
+            double result = double(cv::countNonZero(final > std::stoi(UtilitesClass::GetValueFromMap(AllThreadsMap, "CountNotZeroThread"))) /
+                                   double(cv::countNonZero(mask)) * 100 * std::stod(UtilitesClass::GetValueFromMap(AllThreadsMap, "CorrectCoefficientThread")));
+            if (result > 100)
+            {
+                result = 100.0;
+            }
+            else if(result < 0)
+            {
+                result = 0.0;
+            }
+            else
+            {
+                float pow_10 = pow(10.0f, (float)2);
+                result = round(result * pow_10) / pow_10;
+                if (result < std::stod(UtilitesClass::GetValueFromMap(AllThreadsMap, "NullLevelThread"))) {
+                    result = 0.0;
+                }
+            }
+            cv::putText(final, UtilitesClass::GetLocalTime(), cv::Point(150, 50), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255), 1);
+            if (result > std::stoi((UtilitesClass::GetValueFromMap(AllThreadsMap, "AlarmLevelThread")))) {
+                cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(255, 255, 255), 2);
+            }
+            else {
+                cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(128, 128, 128), 1);
+            }
+            ComputerVisionClass::RenderCvImage(mask, 0.4, "mask");
+            ComputerVisionClass::RenderCvImage(frame, 0.4, "source");
+            ComputerVisionClass::RenderCvImage(final, 0.4, "final");
+            ui->Time_label_2->setText(QString::fromStdString(UtilitesClass::GetLocalTime()));
+            ui->Result_progressBar_2->setValue(result);
+            ui->LcdNumber_2->display(result);
+            if (result > std::stoi((UtilitesClass::GetValueFromMap(AllThreadsMap, "AlarmLevelThread")))) {
+                QString danger = "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #FF0350,stop: 0.4999 #FF0020,stop: 0.5 #FF0019,stop: 1 #FF0000 );border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;border: .px solid black;}";
+                ui->Result_progressBar_2->setStyleSheet(danger);
+            }
+            else {
+                QString safe= "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #78d,stop: 0.4999 #46a,stop: 0.5 #45a,stop: 1 #238 );border-bottom-right-radius: 7px;border-bottom-left-radius: 7px;border: 1px solid black;}";
+                ui->Result_progressBar_2->setStyleSheet(safe);
+            }
+            char c=(char)cv::waitKey(60);
+            if(c==27)
+                break;
+        }
+        cap.release();
+        cv::destroyAllWindows();
+    } else {
+        UtilitesClass::PrintValueToConsole("pass");
+    }
+
+
+
 }
 
