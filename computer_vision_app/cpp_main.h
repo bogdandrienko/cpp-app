@@ -59,6 +59,9 @@ private slots:
     void on_CV_16_1_Resources_Path_Unlock_pushButton_clicked();
 
     void on_START_btn_2_clicked();
+    void on_STOP_btn_2_clicked();
+    void on_TRAY_btn_2_clicked();
+
     void start_video_analiz(std::map<std::string, std::string> AllSettingsMap, std::vector<std::map<std::string,std::string>> AllSettingsVector);
     void filter_video(std::map<std::string, std::string> AllSettingsMap, std::map<std::string, std::string> OneSettingsMap, cv::VideoCapture cap);
 
@@ -66,6 +69,7 @@ private:
     Ui::MainClass *ui;
     bool Playing;
     QSystemTrayIcon *trayIcon;
+
 protected:
     void closeEvent(QCloseEvent *event);
 };

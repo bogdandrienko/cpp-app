@@ -387,7 +387,7 @@
            <bool>true</bool>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -8852,7 +8852,7 @@
               <item row="0" column="0">
                <widget class="QTabWidget" name="tabWidget_4">
                 <property name="currentIndex">
-                 <number>1</number>
+                 <number>0</number>
                 </property>
                 <widget class="QWidget" name="tab_11">
                  <attribute name="title">
@@ -9263,10 +9263,10 @@
                        </size>
                       </property>
                       <property name="text">
-                       <string>15.208</string>
+                       <string/>
                       </property>
                       <property name="placeholderText">
-                       <string>15.208</string>
+                       <string/>
                       </property>
                      </widget>
                     </item>
@@ -9656,10 +9656,10 @@
                        </size>
                       </property>
                       <property name="text">
-                       <string>15.209</string>
+                       <string/>
                       </property>
                       <property name="placeholderText">
-                       <string>15.209</string>
+                       <string/>
                       </property>
                      </widget>
                     </item>
@@ -10761,10 +10761,10 @@
                        </size>
                       </property>
                       <property name="text">
-                       <string>15.204</string>
+                       <string/>
                       </property>
                       <property name="placeholderText">
-                       <string>15.204</string>
+                       <string/>
                       </property>
                      </widget>
                     </item>
@@ -11850,7 +11850,7 @@
                        <string>Activated</string>
                       </property>
                       <property name="checked">
-                       <bool>true</bool>
+                       <bool>false</bool>
                       </property>
                      </widget>
                     </item>
@@ -11927,6 +11927,9 @@
                     </item>
                     <item row="4" column="2">
                      <widget class="QCheckBox" name="ActiveVideo_Video_CV_checkBox_2">
+                      <property name="enabled">
+                       <bool>true</bool>
+                      </property>
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
                         <horstretch>0</horstretch>
@@ -11949,7 +11952,7 @@
                        <string>Activated</string>
                       </property>
                       <property name="checked">
-                       <bool>true</bool>
+                       <bool>false</bool>
                       </property>
                      </widget>
                     </item>
@@ -11977,7 +11980,7 @@
                        <string>Activated</string>
                       </property>
                       <property name="checked">
-                       <bool>true</bool>
+                       <bool>false</bool>
                       </property>
                      </widget>
                     </item>
@@ -12483,10 +12486,10 @@
                        </size>
                       </property>
                       <property name="text">
-                       <string>15.202</string>
+                       <string/>
                       </property>
                       <property name="placeholderText">
-                       <string>15.202</string>
+                       <string/>
                       </property>
                      </widget>
                     </item>
@@ -12725,7 +12728,7 @@
                        <string>Activated</string>
                       </property>
                       <property name="checked">
-                       <bool>true</bool>
+                       <bool>false</bool>
                       </property>
                      </widget>
                     </item>
@@ -12976,7 +12979,7 @@
                        <string>Activated</string>
                       </property>
                       <property name="checked">
-                       <bool>true</bool>
+                       <bool>false</bool>
                       </property>
                      </widget>
                     </item>
@@ -13440,7 +13443,7 @@
                        <string>Activated</string>
                       </property>
                       <property name="checked">
-                       <bool>true</bool>
+                       <bool>false</bool>
                       </property>
                      </widget>
                     </item>
@@ -13648,10 +13651,10 @@
                        </size>
                       </property>
                       <property name="text">
-                       <string>15.210</string>
+                       <string/>
                       </property>
                       <property name="placeholderText">
-                       <string>15.210</string>
+                       <string/>
                       </property>
                      </widget>
                     </item>
@@ -13880,7 +13883,7 @@
                        <string>Activated</string>
                       </property>
                       <property name="checked">
-                       <bool>true</bool>
+                       <bool>false</bool>
                       </property>
                      </widget>
                     </item>
@@ -14558,7 +14561,7 @@
                        <string>Activated</string>
                       </property>
                       <property name="checked">
-                       <bool>true</bool>
+                       <bool>false</bool>
                       </property>
                      </widget>
                     </item>
@@ -14586,7 +14589,7 @@
                        <string>Activated</string>
                       </property>
                       <property name="checked">
-                       <bool>true</bool>
+                       <bool>false</bool>
                       </property>
                      </widget>
                     </item>
@@ -14685,10 +14688,10 @@
                        </size>
                       </property>
                       <property name="text">
-                       <string>15.203</string>
+                       <string/>
                       </property>
                       <property name="placeholderText">
-                       <string>15.203</string>
+                       <string/>
                       </property>
                      </widget>
                     </item>
@@ -14964,10 +14967,10 @@
                        </size>
                       </property>
                       <property name="text">
-                       <string>15.205</string>
+                       <string/>
                       </property>
                       <property name="placeholderText">
-                       <string>15.205</string>
+                       <string/>
                       </property>
                      </widget>
                     </item>
@@ -15380,938 +15383,73 @@
                       </property>
                      </widget>
                     </item>
-                   </layout>
-                  </item>
-                 </layout>
-                </widget>
-                <widget class="QWidget" name="tab_12">
-                 <attribute name="title">
-                  <string>DEBUG</string>
-                 </attribute>
-                 <layout class="QHBoxLayout" name="horizontalLayout_9">
-                  <item>
-                   <layout class="QGridLayout" name="grid_4_2">
-                    <property name="spacing">
-                     <number>6</number>
-                    </property>
-                    <item row="4" column="1" colspan="4">
-                     <widget class="Line" name="line_4_6">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
+                    <item row="1" column="10">
+                     <widget class="QCheckBox" name="RenderFinal_checkBox">
+                      <property name="text">
+                       <string>RenderFinal</string>
                       </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
+                      <property name="checked">
+                       <bool>true</bool>
                       </property>
                      </widget>
                     </item>
-                    <item row="8" column="2" colspan="2">
-                     <widget class="QSlider" name="RenderSize_horizontalSlider_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
+                    <item row="1" column="9">
+                     <widget class="QCheckBox" name="RenderMask_checkBox">
+                      <property name="text">
+                       <string>RenderMask</string>
                       </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
+                     </widget>
+                    </item>
+                    <item row="1" column="8">
+                     <widget class="QCheckBox" name="RenderSource_checkBox">
+                      <property name="text">
+                       <string>RenderSource</string>
                       </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
+                      <property name="checked">
+                       <bool>true</bool>
                       </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="7">
+                     <widget class="QDoubleSpinBox" name="RenderSize_doubleSpinBox">
                       <property name="minimum">
-                       <number>1</number>
+                       <double>0.010000000000000</double>
                       </property>
                       <property name="maximum">
-                       <number>100</number>
+                       <double>1.000000000000000</double>
                       </property>
                       <property name="singleStep">
-                       <number>1</number>
-                      </property>
-                      <property name="pageStep">
-                       <number>1</number>
+                       <double>0.100000000000000</double>
                       </property>
                       <property name="value">
-                       <number>28</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
+                       <double>0.330000000000000</double>
                       </property>
                      </widget>
                     </item>
-                    <item row="7" column="1">
-                     <widget class="QLabel" name="RenderType_label_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>RenderType</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="3" column="1">
-                     <widget class="QCheckBox" name="WriteToConsole_checkBox_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>WRITE TO CONSOLE</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="3" column="3">
-                     <widget class="QCheckBox" name="WriteToText_checkBox_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>WRITE TO TEXT</string>
-                      </property>
-                      <property name="checked">
-                       <bool>false</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="11" column="1" colspan="4">
-                     <widget class="Line" name="line_4_7">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="10" column="2">
-                     <widget class="QPushButton" name="ExportSettings_pushButton_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>export settings</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="12" column="2">
-                     <widget class="QPushButton" name="CamShot_pushButton_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>make a cam shot</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="10" column="3">
-                     <widget class="QPushButton" name="ImportSettings_pushButton_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>import settings</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="12" column="1">
-                     <widget class="QLabel" name="CamShot_label_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>CamShot</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="1" colspan="4">
-                     <widget class="Line" name="line_4_8">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="14" column="3">
-                     <widget class="QLabel" name="PortCamShot_label_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>PortCamShot</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="14" column="1">
-                     <widget class="QLabel" name="IpCamShot_label_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>IpCamShot</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="6" column="2" colspan="2">
-                     <widget class="QComboBox" name="ComputeType_comboBox_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="currentText">
-                       <string>async</string>
-                      </property>
-                      <item>
-                       <property name="text">
-                        <string>async</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
-                        <string>sync</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
-                        <string>multithread</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
-                        <string>multiprocess</string>
-                       </property>
-                      </item>
-                     </widget>
-                    </item>
-                    <item row="3" column="2">
-                     <widget class="QCheckBox" name="WriteToWidget_checkBox_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>WRITE TO WIDGET</string>
-                      </property>
-                      <property name="checked">
-                       <bool>false</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="17" column="1">
-                     <widget class="QLabel" name="LoginCamShot_label_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>LoginCamShot</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="19" column="1" colspan="4">
-                     <widget class="Line" name="line_4_9">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="10" column="1">
-                     <widget class="QLabel" name="Settings_label_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>Settings</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="5" column="1">
-                     <widget class="QLabel" name="TimeDelay_label_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>TimeDelay</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="6" column="1">
-                     <widget class="QLabel" name="ComputeType_label_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>ComputeType</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="17" column="3">
-                     <widget class="QLabel" name="PasswordCamShot_label_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>PasswordCamShot</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="7" column="2" colspan="2">
-                     <widget class="QComboBox" name="RenderType_comboBox_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="currentText">
-                       <string>extended</string>
-                      </property>
-                      <item>
-                       <property name="text">
-                        <string>extended</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
-                        <string>none</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
-                        <string>source</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
-                        <string>final</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
-                        <string>all</string>
-                       </property>
-                      </item>
-                     </widget>
-                    </item>
-                    <item row="8" column="1">
-                     <widget class="QLabel" name="RenderSize_label_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
+                    <item row="1" column="6">
+                     <widget class="QLabel" name="label_4">
                       <property name="text">
                        <string>RenderSize</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="12" column="3">
-                     <widget class="QLabel" name="ImageNameShot_label_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
+                    <item row="1" column="4">
+                     <widget class="QLabel" name="label_5">
                       <property name="text">
-                       <string>ImageNameShot</string>
+                       <string>TimeDelay</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="5" column="2" colspan="2">
-                     <widget class="QDoubleSpinBox" name="TimeDelay_doubleSpinBox_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
+                    <item row="1" column="5">
+                     <widget class="QSpinBox" name="TimeDelay_spinBox">
                       <property name="minimum">
-                       <double>0.100000000000000</double>
+                       <number>0</number>
                       </property>
                       <property name="maximum">
-                       <double>100.000000000000000</double>
+                       <number>1000</number>
                       </property>
                       <property name="value">
-                       <double>2.000000000000000</double>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="14" column="4">
-                     <widget class="QSpinBox" name="PortCamShot_spinBox_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="maximum">
-                       <number>9999</number>
-                      </property>
-                      <property name="value">
-                       <number>80</number>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="12" column="4">
-                     <widget class="QLineEdit" name="ImageNameShot_lineEdit_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>16_8.jpg</string>
-                      </property>
-                      <property name="placeholderText">
-                       <string>15_8.jpg</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="14" column="2">
-                     <widget class="QLineEdit" name="IpCamShot_lineEdit_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>15.203</string>
-                      </property>
-                      <property name="placeholderText">
-                       <string>15.203</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="17" column="2">
-                     <widget class="QLineEdit" name="LoginCamShot_lineEdit_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>admin</string>
-                      </property>
-                      <property name="placeholderText">
-                       <string>admin</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="17" column="4">
-                     <widget class="QLineEdit" name="PasswordCamShot_lineEdit_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>q1234567</string>
-                      </property>
-                      <property name="placeholderText">
-                       <string>q1234567</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="9" column="1" colspan="4">
-                     <widget class="Line" name="line_4_10">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="2" column="1">
-                     <widget class="QCheckBox" name="AutoImport_checkBox_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>AUTO IMPORT</string>
-                      </property>
-                      <property name="checked">
-                       <bool>true</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="2" column="2">
-                     <widget class="QCheckBox" name="RuntimeUpdateParams_checkBox_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>3840</width>
-                        <height>2160</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>RUNTIME UPDATE PARAMS</string>
-                      </property>
-                      <property name="checked">
-                       <bool>true</bool>
+                       <number>60</number>
                       </property>
                      </widget>
                     </item>

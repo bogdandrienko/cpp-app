@@ -1705,70 +1705,92 @@ void UiWidgetClass::on_START_btn_2_clicked()
 {
     UtilitesClass::PrintValueToConsole("UiWidgetClass on_START_btn_2_clicked");
 
-    std::map <std::string,std::string> AllThreadsMap = {
-        { "Resources", UtilitesClass::GetConvertedQt_obj(ui->Resources_Video_CV_lineEdit) },
-    };
-    std::vector<std::map<std::string,std::string>> AllSettingsVector =
-    {
+    try {
+        on_STOP_btn_2_clicked();
+        Playing = true;
+        ui->Playing_radioButton->setChecked(Playing);
+        QCoreApplication::processEvents();
+        std::map <std::string,std::string> AllThreadsMap = {
+            { "Resources", UtilitesClass::GetConvertedQt_obj(ui->Resources_Video_CV_lineEdit) },
+        };
+        std::vector<std::map<std::string,std::string>> AllSettingsVector =
         {
-            { "ActiveVideo", UtilitesClass::GetConvertedQt_obj(ui->ActiveVideo_Video_CV_checkBox_1) },
-            { "AliasVideo", UtilitesClass::GetConvertedQt_obj(ui->AliasVideo_Video_CV_lineEdit_1) },
-            { "FileVideo", UtilitesClass::GetConvertedQt_obj(ui->FileVideo_Video_CV_lineEdit_1) },
-            { "MaskVideo", UtilitesClass::GetConvertedQt_obj(ui->MaskVideo_Video_CV_lineEdit_1) },
-            { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_Video_CV_doubleSpinBox_1) },
-            { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_Video_CV_spinBox_1) },
-            { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_Video_CV_spinBox_1) },
-            { "BrightLevel", UtilitesClass::GetConvertedQt_obj(ui->BrightLevel_Video_CV_spinBox_1) },
-            { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_Video_CV_spinBox_1) },
-            { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_Video_CV_spinBox_1) },
-            { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_Video_CV_spinBox_1) },
-            { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_Video_CV_spinBox_1) },
-            { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_Video_CV_spinBox_1) },
-            { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_Video_CV_spinBox_1) },
-            { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_Video_CV_spinBox_1) },
-            { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_Video_CV_spinBox_1) },
-            { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_Video_CV_spinBox_1) },
-        },
-        {
-            { "ActiveVideo", UtilitesClass::GetConvertedQt_obj(ui->ActiveVideo_Video_CV_checkBox_2) },
-            { "AliasVideo", UtilitesClass::GetConvertedQt_obj(ui->AliasVideo_Video_CV_lineEdit_2) },
-            { "FileVideo", UtilitesClass::GetConvertedQt_obj(ui->FileVideo_Video_CV_lineEdit_2) },
-            { "MaskVideo", UtilitesClass::GetConvertedQt_obj(ui->MaskVideo_Video_CV_lineEdit_2) },
-            { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_Video_CV_doubleSpinBox_2) },
-            { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_Video_CV_spinBox_2) },
-            { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_Video_CV_spinBox_2) },
-            { "BrightLevel", UtilitesClass::GetConvertedQt_obj(ui->BrightLevel_Video_CV_spinBox_2) },
-            { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_Video_CV_spinBox_2) },
-            { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_Video_CV_spinBox_2) },
-            { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_Video_CV_spinBox_2) },
-            { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_Video_CV_spinBox_2) },
-            { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_Video_CV_spinBox_2) },
-            { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_Video_CV_spinBox_2) },
-            { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_Video_CV_spinBox_2) },
-            { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_Video_CV_spinBox_2) },
-            { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_Video_CV_spinBox_2) },
-        },
-//        {
-//            { "ActiveVideo", UtilitesClass::GetConvertedQt_obj(ui->ActiveVideo_Video_CV_checkBox_3) },
-//            { "AliasVideo", UtilitesClass::GetConvertedQt_obj(ui->AliasVideo_Video_CV_lineEdit_3) },
-//            { "FileVideo", UtilitesClass::GetConvertedQt_obj(ui->FileVideo_Video_CV_lineEdit_3) },
-//            { "MaskVideo", UtilitesClass::GetConvertedQt_obj(ui->MaskVideo_Video_CV_lineEdit_3) },
-//            { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_Video_CV_doubleSpinBox_3) },
-//            { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_Video_CV_spinBox_3) },
-//            { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_Video_CV_spinBox_3) },
-//            { "BrightLevel", UtilitesClass::GetConvertedQt_obj(ui->BrightLevel_Video_CV_spinBox_3) },
-//            { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_Video_CV_spinBox_3) },
-//            { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_Video_CV_spinBox_3) },
-//            { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_Video_CV_spinBox_3) },
-//            { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_Video_CV_spinBox_3) },
-//            { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_Video_CV_spinBox_3) },
-//            { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_Video_CV_spinBox_3) },
-//            { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_Video_CV_spinBox_3) },
-//            { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_Video_CV_spinBox_3) },
-//            { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_Video_CV_spinBox_3) },
-//        },
-    };
-    start_video_analiz(AllThreadsMap, AllSettingsVector);
+            {
+                { "ActiveVideo", UtilitesClass::GetConvertedQt_obj(ui->ActiveVideo_Video_CV_checkBox_1) },
+                { "AliasVideo", UtilitesClass::GetConvertedQt_obj(ui->AliasVideo_Video_CV_lineEdit_1) },
+                { "FileVideo", UtilitesClass::GetConvertedQt_obj(ui->FileVideo_Video_CV_lineEdit_1) },
+                { "MaskVideo", UtilitesClass::GetConvertedQt_obj(ui->MaskVideo_Video_CV_lineEdit_1) },
+                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_Video_CV_doubleSpinBox_1) },
+                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_Video_CV_spinBox_1) },
+                { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_Video_CV_spinBox_1) },
+                { "BrightLevel", UtilitesClass::GetConvertedQt_obj(ui->BrightLevel_Video_CV_spinBox_1) },
+                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_Video_CV_spinBox_1) },
+                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_Video_CV_spinBox_1) },
+                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_Video_CV_spinBox_1) },
+                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_Video_CV_spinBox_1) },
+                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_Video_CV_spinBox_1) },
+                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_Video_CV_spinBox_1) },
+                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_Video_CV_spinBox_1) },
+                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_Video_CV_spinBox_1) },
+                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_Video_CV_spinBox_1) },
+            },
+            {
+                { "ActiveVideo", UtilitesClass::GetConvertedQt_obj(ui->ActiveVideo_Video_CV_checkBox_2) },
+                { "AliasVideo", UtilitesClass::GetConvertedQt_obj(ui->AliasVideo_Video_CV_lineEdit_2) },
+                { "FileVideo", UtilitesClass::GetConvertedQt_obj(ui->FileVideo_Video_CV_lineEdit_2) },
+                { "MaskVideo", UtilitesClass::GetConvertedQt_obj(ui->MaskVideo_Video_CV_lineEdit_2) },
+                { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_Video_CV_doubleSpinBox_2) },
+                { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_Video_CV_spinBox_2) },
+                { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_Video_CV_spinBox_2) },
+                { "BrightLevel", UtilitesClass::GetConvertedQt_obj(ui->BrightLevel_Video_CV_spinBox_2) },
+                { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_Video_CV_spinBox_2) },
+                { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_Video_CV_spinBox_2) },
+                { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_Video_CV_spinBox_2) },
+                { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_Video_CV_spinBox_2) },
+                { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_Video_CV_spinBox_2) },
+                { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_Video_CV_spinBox_2) },
+                { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_Video_CV_spinBox_2) },
+                { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_Video_CV_spinBox_2) },
+                { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_Video_CV_spinBox_2) },
+            },
+    //        {
+    //            { "ActiveVideo", UtilitesClass::GetConvertedQt_obj(ui->ActiveVideo_Video_CV_checkBox_3) },
+    //            { "AliasVideo", UtilitesClass::GetConvertedQt_obj(ui->AliasVideo_Video_CV_lineEdit_3) },
+    //            { "FileVideo", UtilitesClass::GetConvertedQt_obj(ui->FileVideo_Video_CV_lineEdit_3) },
+    //            { "MaskVideo", UtilitesClass::GetConvertedQt_obj(ui->MaskVideo_Video_CV_lineEdit_3) },
+    //            { "CorrectCoefficient", UtilitesClass::GetConvertedQt_obj(ui->CorrectCoefficient_Video_CV_doubleSpinBox_3) },
+    //            { "AlarmLevel", UtilitesClass::GetConvertedQt_obj(ui->AlarmLevel_Video_CV_spinBox_3) },
+    //            { "NullLevel", UtilitesClass::GetConvertedQt_obj(ui->NullLevel_Video_CV_spinBox_3) },
+    //            { "BrightLevel", UtilitesClass::GetConvertedQt_obj(ui->BrightLevel_Video_CV_spinBox_3) },
+    //            { "InRangeSetFrom", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetFrom_Video_CV_spinBox_3) },
+    //            { "InRangeSetTo", UtilitesClass::GetConvertedQt_obj(ui->InRangeSetTo_Video_CV_spinBox_3) },
+    //            { "CountNotZero", UtilitesClass::GetConvertedQt_obj(ui->CountNotZero_Video_CV_spinBox_3) },
+    //            { "Point_1_1", UtilitesClass::GetConvertedQt_obj(ui->Point_1_1_Video_CV_spinBox_3) },
+    //            { "Point_1_2", UtilitesClass::GetConvertedQt_obj(ui->Point_1_2_Video_CV_spinBox_3) },
+    //            { "Point_1_3", UtilitesClass::GetConvertedQt_obj(ui->Point_1_3_Video_CV_spinBox_3) },
+    //            { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_Video_CV_spinBox_3) },
+    //            { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_Video_CV_spinBox_3) },
+    //            { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_Video_CV_spinBox_3) },
+    //        },
+        };
+        start_video_analiz(AllThreadsMap, AllSettingsVector);
+    }  catch (std::string error) {
+        UtilitesClass::WriteTextErrorToLogFile(error);
+    }
+}
+
+void UiWidgetClass::on_STOP_btn_2_clicked()
+{    try {
+        Playing = false;
+        ui->Playing_radioButton_2->setChecked(Playing);
+    }  catch (std::string error) {
+        UtilitesClass::WriteTextErrorToLogFile(error);
+    }
+}
+
+void UiWidgetClass::on_TRAY_btn_2_clicked()
+{
+    on_TRAY_btn_clicked();
 }
 
 void UiWidgetClass::start_video_analiz(std::map<std::string, std::string> AllSettingsMap, std::vector<std::map<std::string, std::string> > AllSettingsVector)
@@ -1851,7 +1873,10 @@ void UiWidgetClass::start_video_analiz(std::map<std::string, std::string> AllSet
             }
             i++;
         }
-        char c=(char)cv::waitKey(60);
+        if (not Playing) {
+            break;
+        }
+        char c=(char)cv::waitKey(ui->TimeDelay_spinBox->value());
         if(c==27)
             break;
     }
@@ -1913,9 +1938,15 @@ void UiWidgetClass::filter_video(std::map<std::string, std::string> AllSettingsM
             else {
                 cv::putText(final, std::to_string(result) + "%", cv::Point(150, 150), cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar(128, 128, 128), 1);
             }
-    //        ComputerVisionClass::RenderCvImage(mask, 0.33, UtilitesClass::GetValueFromMap(OneSettingsMap, "AliasVideo") + " mask");
-            ComputerVisionClass::RenderCvImage(frame, 0.33, UtilitesClass::GetValueFromMap(OneSettingsMap, "AliasVideo") + " source");
-            ComputerVisionClass::RenderCvImage(final, 0.33, UtilitesClass::GetValueFromMap(OneSettingsMap, "AliasVideo") + " final");
+            if (ui->RenderSource_checkBox->isChecked()) {
+                ComputerVisionClass::RenderCvImage(frame, ui->RenderSize_doubleSpinBox->value(), UtilitesClass::GetValueFromMap(OneSettingsMap, "AliasVideo") + " source");
+            }
+            if (ui->RenderMask_checkBox->isChecked()) {
+                ComputerVisionClass::RenderCvImage(mask, ui->RenderSize_doubleSpinBox->value(), UtilitesClass::GetValueFromMap(OneSettingsMap, "AliasVideo") + " mask");
+            }
+            if (ui->RenderFinal_checkBox->isChecked()) {
+                ComputerVisionClass::RenderCvImage(final, ui->RenderSize_doubleSpinBox->value(), UtilitesClass::GetValueFromMap(OneSettingsMap, "AliasVideo") + " final");
+            }
             ui->Time_label_2->setText(QString::fromStdString(UtilitesClass::GetLocalTime()));
             ui->Result_progressBar_2->setValue(result);
             ui->LcdNumber_2->display(result);
@@ -1933,4 +1964,5 @@ void UiWidgetClass::filter_video(std::map<std::string, std::string> AllSettingsM
         UtilitesClass::WriteTextErrorToLogFile(error);
     }
 }
+
 
