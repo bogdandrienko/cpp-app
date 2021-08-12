@@ -8,6 +8,8 @@
 #include <QtSql>
 #include <QtConcurrent>
 
+#include "ui_cpp_main.h"
+
 #include <opencv2/opencv.hpp>
 
 #include <memory>
@@ -31,41 +33,40 @@ public:
     ~UiWidgetClass();
 
 private slots:
-    void on_Login_pushButton_clicked();
-    void on_Logout_pushButton_clicked();
+    void on_Login_Login_pushButton_clicked();
+    void on_Logout_Login_pushButton_clicked();
 
-    void on_Save_pushButton_clicked();
-    void on_Delete_pushButton_clicked();
-    void on_Unlock_pushButton_clicked();
+    void on_START_CV_16_btn_clicked();
+    void on_STOP_CV_16_btn_clicked();
+    void on_TRAY_CV_16_btn_clicked();
+    void on_CamShot_CV_16_DEBUG_pushButton_clicked();
+    void on_ExportSettings_CV_16_DEBUG_pushButton_clicked();
+    void on_ImportSettings_CV_16_DEBUG_pushButton_clicked();
 
-    void on_START_btn_clicked();
-    void on_STOP_btn_clicked();
-    void on_TRAY_btn_clicked();
-    void on_CamShot_pushButton_clicked();
-    void on_ExportSettings_pushButton_clicked();
-    void on_ImportSettings_pushButton_clicked();
+    void on_CV_16_1_Resources_Path_Unlock_pushButton_clicked();
 
-    void Dialog();
+    void on_START_Video_CV_btn_clicked();
+    void on_STOP_Video_CV_btn_clicked();
+    void on_TRAY_Video_CV_btn_clicked();
+    void on_UnlockResourcesPath_CV_Video_pushButton_clicked();
+
     void Tray();
     void iconActivated(QSystemTrayIcon::ActivationReason reason);
     void AutoLogin();
     void SaveOrDeleteAutoLogin(bool save);
     void AutoImport();
     void AutoPlay();
+
     void startAnalyse(std::map<std::string, std::string> AllSettingsMap,
                       std::vector<std::map<std::string,std::string>> AllSettingsVector,
                       Ui::MainClass *ui);
     std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> GetMapsFromSettings();
-    void on_CV_16_1_Resources_Path_Unlock_pushButton_clicked();
 
-    void on_START_btn_2_clicked();
-    void on_STOP_btn_2_clicked();
-    void on_TRAY_btn_2_clicked();
-
-    void start_video_analiz(std::map<std::string, std::string> AllSettingsMap, std::vector<std::map<std::string,std::string>> AllSettingsVector);
+    void start_video_analiz();
     void filter_video(std::map<std::string, std::string> AllSettingsMap, std::map<std::string, std::string> OneSettingsMap, cv::VideoCapture cap);
+    std::pair<std::map<std::string,std::string>, std::vector<std::map<std::string,std::string>>> GetMapsFrom_CV_Video_Settings();
 
-    void on_CV_16_1_Resources_Path_Unlock_pushButton_2_clicked();
+
 
 private:
     Ui::MainClass *ui;
