@@ -1055,6 +1055,20 @@ void UiWidgetClass::filter_video(std::map<std::string, std::string> AllSettingsM
             if (UtilitesClass::GetValueFromMap(AllSettingsMap, "RenderFinal") == "true") {
                 ComputerVisionClass::RenderCvImage(final, std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "RenderSize")), UtilitesClass::GetValueFromMap(OneSettingsMap, "AliasVideo") + " final");
             }
+            if (UtilitesClass::GetValueFromMap(AllSettingsMap, "RenderContours") == "true") {
+                cv::Mat canny_output;
+                Canny( frame, canny_output, std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "ThreshMinLevel")), std::stoi(UtilitesClass::GetValueFromMap(OneSettingsMap, "ThreshMaxLevel")));
+                std::vector<std::vector<cv::Point>> contours;
+                std::vector<cv::Vec4i> hierarchy;
+                findContours( canny_output, contours, hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE);
+                cv::Mat drawing = cv::Mat::zeros( canny_output.size(), CV_8UC3 );
+                for( size_t i = 0; i< contours.size(); i++ )
+                {
+                    cv::Scalar color = cv::Scalar(255, 255, 255);
+                    drawContours( drawing, contours, (int)i, color, 1, cv::LINE_4, hierarchy, 0);
+                }
+                ComputerVisionClass::RenderCvImage(drawing, std::stod(UtilitesClass::GetValueFromMap(AllSettingsMap, "RenderSize")), UtilitesClass::GetValueFromMap(OneSettingsMap, "AliasVideo") + " countours");
+            }
             ui->Time_Video_CV_label->setText(QString::fromStdString(UtilitesClass::GetLocalTime()));
             ui->Result_Video_CV_progressBar->setValue(result);
             ui->Result_Video_CV_LcdNumber->display(result);
@@ -1082,6 +1096,7 @@ std::pair<std::map<std::string, std::string>, std::vector<std::map<std::string, 
             { "RenderSource", UtilitesClass::GetConvertedQt_obj(ui->RenderSource_Video_CV_checkBox) },
             { "RenderMask", UtilitesClass::GetConvertedQt_obj(ui->RenderMask_Video_CV_checkBox) },
             { "RenderFinal", UtilitesClass::GetConvertedQt_obj(ui->RenderFinal_Video_CV_checkBox) },
+            { "RenderContours", UtilitesClass::GetConvertedQt_obj(ui->RenderContours_Video_CV_checkBox) },
         };
         std::vector <std::map<std::string, std::string>> AllSettingsVector =
         {
@@ -1103,6 +1118,9 @@ std::pair<std::map<std::string, std::string>, std::vector<std::map<std::string, 
                 { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_Video_CV_spinBox_1) },
                 { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_Video_CV_spinBox_1) },
                 { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_Video_CV_spinBox_1) },
+                { "ThreshMinLevel", UtilitesClass::GetConvertedQt_obj(ui->ThreshMinLevel_Video_CV_spinBox_1) },
+                { "ThreshMaxLevel", UtilitesClass::GetConvertedQt_obj(ui->ThreshMaxLevel_Video_CV_spinBox_1) },
+
             },
             {
                 { "ActiveVideo", UtilitesClass::GetConvertedQt_obj(ui->ActiveVideo_Video_CV_checkBox_2) },
@@ -1122,6 +1140,8 @@ std::pair<std::map<std::string, std::string>, std::vector<std::map<std::string, 
                 { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_Video_CV_spinBox_2) },
                 { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_Video_CV_spinBox_2) },
                 { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_Video_CV_spinBox_2) },
+                { "ThreshMinLevel", UtilitesClass::GetConvertedQt_obj(ui->ThreshMinLevel_Video_CV_spinBox_2) },
+                { "ThreshMaxLevel", UtilitesClass::GetConvertedQt_obj(ui->ThreshMaxLevel_Video_CV_spinBox_2) },
             },
             {
                 { "ActiveVideo", UtilitesClass::GetConvertedQt_obj(ui->ActiveVideo_Video_CV_checkBox_3) },
@@ -1141,6 +1161,8 @@ std::pair<std::map<std::string, std::string>, std::vector<std::map<std::string, 
                 { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_Video_CV_spinBox_3) },
                 { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_Video_CV_spinBox_3) },
                 { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_Video_CV_spinBox_3) },
+                { "ThreshMinLevel", UtilitesClass::GetConvertedQt_obj(ui->ThreshMinLevel_Video_CV_spinBox_3) },
+                { "ThreshMaxLevel", UtilitesClass::GetConvertedQt_obj(ui->ThreshMaxLevel_Video_CV_spinBox_3) },
             },
             {
                 { "ActiveVideo", UtilitesClass::GetConvertedQt_obj(ui->ActiveVideo_Video_CV_checkBox_4) },
@@ -1160,6 +1182,8 @@ std::pair<std::map<std::string, std::string>, std::vector<std::map<std::string, 
                 { "Point_2_1", UtilitesClass::GetConvertedQt_obj(ui->Point_2_1_Video_CV_spinBox_4) },
                 { "Point_2_2", UtilitesClass::GetConvertedQt_obj(ui->Point_2_2_Video_CV_spinBox_4) },
                 { "Point_2_3", UtilitesClass::GetConvertedQt_obj(ui->Point_2_3_Video_CV_spinBox_4) },
+                { "ThreshMinLevel", UtilitesClass::GetConvertedQt_obj(ui->ThreshMinLevel_Video_CV_spinBox_4) },
+                { "ThreshMaxLevel", UtilitesClass::GetConvertedQt_obj(ui->ThreshMaxLevel_Video_CV_spinBox_4) },
             },
             {
                 { "ActiveVideo", UtilitesClass::GetConvertedQt_obj(ui->ActiveVideo_Video_CV_checkBox_5) },
