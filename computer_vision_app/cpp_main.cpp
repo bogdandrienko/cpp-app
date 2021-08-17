@@ -1619,7 +1619,7 @@ void ComputerVisionClass::RenderCvImage(cv::Mat Image, double RenderSize, std::s
     }  catch (std::string error) {
         UtilitesClass::WriteTextErrorToLogFile(error);
     }
-};
+}
 /********** CVClass **********/
 
 
@@ -1759,8 +1759,6 @@ void SQLClass::InsertValuesToSQL(std::string device_row, double value_row, bool 
             query.bindValue(":alarm", alarm_row);
             query.exec();
             qdb.close();
-//            qdb.removeDatabase(qdb.databaseName());
-//            QSqlDatabase::removeDatabase(qdb.databaseName());
         } else {
             UtilitesClass::PrintValueToConsole("error to open sql");
         }
@@ -1786,7 +1784,7 @@ std::string UtilitesClass::GetValueFromMap(std::map <std::string, std::string> M
         UtilitesClass::WriteTextErrorToLogFile(error);
         return "";
     }
-};
+}
 
 std::string UtilitesClass::GetUrlFromIp(std::map <std::string, std::string> Map, std::string Ip)
 {
@@ -1810,7 +1808,6 @@ std::string UtilitesClass::GetUrlFromIp(std::map <std::string, std::string> Map,
         UtilitesClass::WriteTextErrorToLogFile(error);
         return "";
     }
-
 }
 
 void UtilitesClass::PrintValueToConsole(std::string Value)
@@ -1857,7 +1854,7 @@ void UtilitesClass::WriteTextErrorToLogFile(std::string Text)
     }  catch (std::string error) {
         UtilitesClass::PrintValueToConsole(error);
     }
-};
+}
 
 std::string UtilitesClass::GetLocalTime()
 {
@@ -1868,7 +1865,7 @@ std::string UtilitesClass::GetLocalTime()
         UtilitesClass::WriteTextErrorToLogFile(error);
         return "";
     }
-};
+}
 
 std::string UtilitesClass::GetConvertedQt_obj(QCheckBox *value)
 {
@@ -1881,7 +1878,7 @@ std::string UtilitesClass::GetConvertedQt_obj(QCheckBox *value)
         UtilitesClass::WriteTextErrorToLogFile(error);
         return "";
     }
-};
+}
 std::string UtilitesClass::GetConvertedQt_obj(QSpinBox *value)
 {
     try {
@@ -1890,7 +1887,7 @@ std::string UtilitesClass::GetConvertedQt_obj(QSpinBox *value)
         UtilitesClass::WriteTextErrorToLogFile(error);
         return "";
     }
-};
+}
 std::string UtilitesClass::GetConvertedQt_obj(QDoubleSpinBox *value)
 {
     try {
@@ -1908,7 +1905,7 @@ std::string UtilitesClass::GetConvertedQt_obj(QLineEdit *value)
         UtilitesClass::WriteTextErrorToLogFile(error);
         return "";
     }
-};
+}
 std::string UtilitesClass::GetConvertedQt_obj(QTextEdit *value)
 {
     try {
@@ -1917,7 +1914,7 @@ std::string UtilitesClass::GetConvertedQt_obj(QTextEdit *value)
         UtilitesClass::WriteTextErrorToLogFile(error);
         return "";
     }
-};
+}
 std::string UtilitesClass::GetConvertedQt_obj(QComboBox *value)
 {
     try {
@@ -1926,7 +1923,7 @@ std::string UtilitesClass::GetConvertedQt_obj(QComboBox *value)
         UtilitesClass::WriteTextErrorToLogFile(error);
         return "";
     }
-};
+}
 std::string UtilitesClass::GetConvertedQt_obj(QSlider *value)
 {
     try {
@@ -1996,5 +1993,5 @@ void UtilitesClass::SetConvertedQt_obj(QSlider *value, QString text)
     }  catch (std::string error) {
         UtilitesClass::WriteTextErrorToLogFile(error);
     }
-};
+}
 /********** UtilitesClass **********/
