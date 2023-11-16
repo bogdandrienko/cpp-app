@@ -1,4 +1,18 @@
 #include "cpp_main.h"
+#include "ui_cpp_main.h"
+
+#include <QtCore>
+#include <QtWidgets>
+#include <QtNetwork>
+#include <QtSql>
+#include <QtConcurrent>
+
+#include <opencv2/opencv.hpp>
+
+#include <memory>
+#include <iostream>
+#include <string>
+#include <map>
 
 
 

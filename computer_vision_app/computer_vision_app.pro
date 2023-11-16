@@ -30,9 +30,17 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-win32:CONFIG(release, debug|release): LIBS += -LC:/Project/Envire/opencv-4.5.2/build/x64/vc15/lib/ -lopencv_world452
-else:win32:CONFIG(debug, debug|release): LIBS += -LC:/Project/Envire/opencv-4.5.2/build/x64/vc15/lib/ -lopencv_world452d
-else:unix: LIBS += -LC:/Project/Envire/opencv-4.5.2/build/x64/vc15/lib/ -lopencv_world452
+# old
+#win32:CONFIG(release, debug|release): LIBS += -LC:/Project/Envire/opencv-4.5.2/build/x64/vc15/lib/ -lopencv_world452
+#else:win32:CONFIG(debug, debug|release): LIBS += -LC:/Project/Envire/opencv-4.5.2/build/x64/vc15/lib/ -lopencv_world452d
+#else:unix: LIBS += -LC:/Project/Envire/opencv-4.5.2/build/x64/vc15/lib/ -lopencv_world452
+#
+#INCLUDEPATH += C:/Project/Envire/opencv-4.5.2/build/include
+#DEPENDPATH += C:/Project/Envire/opencv-4.5.2/build/include
 
-INCLUDEPATH += C:/Project/Envire/opencv-4.5.2/build/include
-DEPENDPATH += C:/Project/Envire/opencv-4.5.2/build/include
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/opencv-src/opencv_4_5_2/openvc_4_5_2_build/build/x64/vc15/lib/ -lopencv_world452
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/opencv-src/opencv_4_5_2/openvc_4_5_2_build/build/x64/vc15/lib/ -lopencv_world452d
+else:unix: LIBS += -L$$PWD/opencv-src/opencv_4_5_2/openvc_4_5_2_build/build/x64/vc15/lib/ -lopencv_world452
+
+INCLUDEPATH += $$PWD/opencv-src/opencv_4_5_2/openvc_4_5_2_build/build/include
+DEPENDPATH += $$PWD/opencv-src/opencv_4_5_2/openvc_4_5_2_build/build/include

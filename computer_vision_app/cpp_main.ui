@@ -450,7 +450,7 @@
         <item>
          <widget class="QTabWidget" name="CV_tabWidget">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="CV_16_tab">
            <attribute name="title">
